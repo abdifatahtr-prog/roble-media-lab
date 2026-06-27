@@ -1,0 +1,7 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Roble Media Lab Simple Icon</title>
+  <desc id="desc">A simple square icon for Roble Media Lab using an R stem and play button.</desc>
+  <rect width="512" height="512" rx="108" fill="#0B1020"/>
+  <path d="M155 132V380" stroke="#F8FAFC" stroke-width="58" stroke-linecap="round"/>
+  <path d="M218 156V356C218 386.3 250.9 405.1 276.8 389.4L421.6 301.4C446.6 286.2 446.6 249.8 421.6 234.6L276.8 146.6C250.9 130.9 218 149.7 218 180Z" fill="#14B8A6"/>
+</svg>

@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Roble Media Lab | Content Creation and AI Solutions</title>
+    <meta name="description" content="Roble Media Lab helps growing businesses create better content systems, use practical AI tools, and automate repeat workflows.">
+    <meta property="og:title" content="Roble Media Lab">
+    <meta property="og:description" content="Smarter content systems and practical AI solutions for growing businesses.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="roble-media-lab-simple-icon.svg" type="image/svg+xml">
+    <style>
+      :root {
+        --ink: #0b1020;
+        --teal: #14b8a6;
+        --blue: #2563eb;
+        --lime: #a3e635;
+        --cloud: #f8fafc;
+        --gray: #cbd5e1;
+        --slate: #475569;
+        --white: #ffffff;
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Manrope, Arial, sans-serif;
+        color: var(--ink);
+        background: var(--cloud);
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: rgba(248, 250, 252, 0.94);
+        border-bottom: 1px solid var(--gray);
+        backdrop-filter: blur(14px);
+      }
+
+      nav {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 850;
+        font-size: 21px;
+      }
+
+      .brand img {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+      }
+
+      .links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        color: var(--slate);
+        font-size: 15px;
+        font-weight: 650;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 18px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        background: var(--teal);
+        color: var(--ink);
+        font-weight: 850;
+      }
+
+      .btn:hover {
+        filter: brightness(0.96);
+      }
+
+      .hero {
+        padding: 92px 0 72px;
+        background:
+          radial-gradient(circle at 86% 16%, rgba(20, 184, 166, 0.18), transparent 26%),
+          linear-gradient(180deg, var(--white), var(--cloud));
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+        align-items: center;
+        gap: 48px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        color: var(--blue);
+        font-size: 14px;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--teal);
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        font-size: clamp(42px, 5vw, 68px);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        margin: 24px 0 0;
+        max-width: 660px;
+        color: var(--slate);
+        font-size: 21px;
+        line-height: 1.55;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .secondary {
+        background: var(--white);
+        border-color: var(--gray);
+        color: var(--ink);
+      }
+
+      .hero-card {
+        border-radius: 8px;
+        background: var(--ink);
+        padding: 30px;
+        color: var(--white);
+        box-shadow: 0 26px 70px rgba(11, 16, 32, 0.16);
+      }
+
+      .hero-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .metric {
+        border: 1px solid rgba(203, 213, 225, 0.24);
+        border-radius: 8px;
+        padding: 16px;
+      }
+
+      .metric strong {
+        display: block;
+        color: var(--teal);
+        font-size: 28px;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 4px;
+        color: var(--gray);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      section {
+        padding: 72px 0;
+        scroll-margin-top: 96px;
+      }
+
+      .section-head {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(32px, 4vw, 48px);
+        line-height: 1.05;
+      }
+
+      .section-head p {
+        max-width: 690px;
+        margin: 0;
+        color: var(--slate);
+        font-size: 18px;
+        line-height: 1.55;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .proof {
+        padding: 34px 0;
+        background: var(--white);
+        border-top: 1px solid var(--gray);
+        border-bottom: 1px solid var(--gray);
+      }
+
+      .proof-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .proof-item {
+        display: grid;
+        gap: 8px;
+      }
+
+      .proof-item strong {
+        font-size: 18px;
+      }
+
+      .proof-item span {
+        color: var(--slate);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .offer-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .card {
+        border: 1px solid var(--gray);
+        border-radius: 8px;
+        background: var(--white);
+        padding: 24px;
+      }
+
+      .card h3 {
+        margin: 0 0 12px;
+        font-size: 22px;
+      }
+
+      .card p, .card li {
+        color: var(--slate);
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      ul {
+        margin: 14px 0 0;
+        padding-left: 20px;
+      }
+
+      .offer-card {
+        border-radius: 8px;
+        background: var(--ink);
+        color: var(--white);
+        padding: 32px;
+      }
+
+      .offer-card p, .offer-card li {
+        color: var(--gray);
+      }
+
+      .price {
+        margin: 18px 0;
+        font-size: 44px;
+        font-weight: 850;
+        color: var(--teal);
+      }
+
+      .note {
+        display: inline-flex;
+        margin-top: 16px;
+        border-radius: 999px;
+        background: rgba(20, 184, 166, 0.14);
+        color: var(--teal);
+        padding: 8px 12px;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .process {
+        background: var(--ink);
+        color: var(--white);
+      }
+
+      .process .section-head p, .process .card p {
+        color: var(--gray);
+      }
+
+      .process .card {
+        background: rgba(248, 250, 252, 0.06);
+        border-color: rgba(203, 213, 225, 0.24);
+      }
+
+      .step {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 16px;
+        border-radius: 999px;
+        background: var(--teal);
+        color: var(--ink);
+        font-weight: 850;
+      }
+
+      .cta {
+        border-radius: 8px;
+        background: var(--blue);
+        color: var(--white);
+        padding: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .cta p {
+        max-width: 640px;
+        margin: 12px 0 0;
+        color: rgba(255,255,255,0.82);
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      footer {
+        padding: 34px 0;
+        color: var(--slate);
+        border-top: 1px solid var(--gray);
+      }
+
+      footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 860px) {
+        .hero-grid, .cards, .offer-grid, .proof-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .links {
+          gap: 0;
+        }
+
+        .links a:not(.btn) {
+          display: none;
+        }
+
+        .cta {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .wrap {
+          padding: 0 16px;
+        }
+
+        nav {
+          min-height: 68px;
+        }
+
+        .brand {
+          gap: 10px;
+          font-size: 18px;
+        }
+
+        .brand img {
+          width: 38px;
+          height: 38px;
+        }
+
+        .btn {
+          min-height: 42px;
+          padding: 0 14px;
+        }
+
+        .hero {
+          padding: 56px 0;
+        }
+
+        h1 {
+          font-size: 42px;
+        }
+
+        .lead {
+          font-size: 18px;
+        }
+
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-card {
+          padding: 20px;
+        }
+
+        .cta {
+          padding: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="wrap" aria-label="Main navigation">
+        <a class="brand" href="#">
+          <img src="roble-media-lab-simple-icon.svg" alt="">
+          <span>Roble Media Lab</span>
+        </a>
+        <div class="links">
+          <a href="#services">Services</a>
+          <a href="#offer">Starter offer</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+          <a class="btn" href="mailto:info@roblemedialab.co.ke">Book a call</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <div class="eyebrow"><span class="dot"></span> Content creation and AI solutions</div>
+            <h1>Smarter content systems for growing businesses.</h1>
+            <p class="lead">Roble Media Lab helps businesses plan better content, create consistently, and use practical AI tools to save time and support growth.</p>
+            <div class="actions">
+              <a class="btn" href="mailto:info@roblemedialab.co.ke">Book a strategy call</a>
+              <a class="btn secondary" href="#offer">See starter offer</a>
+            </div>
+          </div>
+
+          <div class="hero-card" aria-label="Brand preview">
+            <img src="roble-media-lab-simple-logo-reverse.svg" alt="Roble Media Lab logo">
+            <div class="metrics">
+              <div class="metric"><strong>01</strong><span>Content strategy</span></div>
+              <div class="metric"><strong>02</strong><span>AI workflow setup</span></div>
+              <div class="metric"><strong>03</strong><span>Automation support</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof" aria-label="Business outcomes">
+        <div class="wrap proof-grid">
+          <div class="proof-item">
+            <strong>Show up consistently</strong>
+            <span>Plan content around your offers, audience, and business goals.</span>
+          </div>
+          <div class="proof-item">
+            <strong>Save time with AI</strong>
+            <span>Use practical AI workflows for ideas, drafts, follow-up, and internal tasks.</span>
+          </div>
+          <div class="proof-item">
+            <strong>Build repeatable systems</strong>
+            <span>Turn scattered content and manual work into a simpler operating rhythm.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>What we help with</h2>
+            <p>Simple, useful services for businesses that want a better online presence and smarter internal systems.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <h3>Content Creation</h3>
+              <p>Short-form video ideas, captions, social graphics, content calendars, and campaign planning.</p>
+            </article>
+            <article class="card">
+              <h3>AI Solutions</h3>
+              <p>Custom prompts, AI assistants, tool setup, and practical training built around your real workflow.</p>
+            </article>
+            <article class="card">
+              <h3>Automation</h3>
+              <p>Lead follow-up, onboarding, reporting, document workflows, and repeatable systems that save time.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="offer">
+        <div class="wrap offer-grid">
+          <div class="section-head">
+            <div class="eyebrow"><span class="dot"></span> Best first step</div>
+            <h2>Starter Content + AI Audit</h2>
+            <p>A focused starting package for businesses that want better content and practical AI ideas, but need a clear plan before committing to a full monthly service.</p>
+            <div class="actions">
+              <a class="btn" href="mailto:info@roblemedialab.co.ke?subject=Starter%20Content%20%2B%20AI%20Audit">Book your audit</a>
+            </div>
+          </div>
+          <article class="offer-card">
+            <h3>What is included</h3>
+            <ul>
+              <li>60-minute business and workflow audit call</li>
+              <li>Review of current content, offers, and social presence</li>
+              <li>30-day content direction with post and video ideas</li>
+              <li>AI opportunities for saving time in daily work</li>
+              <li>Simple automation recommendations for leads, follow-up, or reporting</li>
+              <li>Written action plan you can use immediately</li>
+            </ul>
+            <div class="price">Start with clarity</div>
+            <p>Walk away with a practical content and AI action plan for your next 30 days, built around your business, your audience, and the work you already do.</p>
+            <span class="note">Ideal for growing businesses</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="process" id="process">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>A clear way to start</h2>
+            <p>We keep the process practical: understand the business, build the system, then improve it with real use.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <div class="step">1</div>
+              <h3>Audit</h3>
+              <p>We review your content, tools, workflow, goals, and biggest time drains.</p>
+            </article>
+            <article class="card">
+              <div class="step">2</div>
+              <h3>Build</h3>
+              <p>We create the content system, AI workflow, templates, or automation your business needs.</p>
+            </article>
+            <article class="card">
+              <div class="step">3</div>
+              <h3>Improve</h3>
+              <p>We test, refine, and make the system easier for your team to keep using.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="wrap">
+          <div class="cta">
+            <div>
+              <h2>Ready to create smarter?</h2>
+              <p>Start with a strategy call and we will map the best content or AI solution for your business.</p>
+            </div>
+            <a class="btn" href="mailto:info@roblemedialab.co.ke">Book a call</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 Roble Media Lab. Content creation and AI solutions.</span>
+        <a href="mailto:info@roblemedialab.co.ke">info@roblemedialab.co.ke</a>
+      </div>
+    </footer>
+  </body>
+</html>
