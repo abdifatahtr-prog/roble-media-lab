@@ -1,0 +1,6 @@
+import type { Metadata } from "next";
+import { CTA } from "@/components/cta";
+import { PageHero } from "@/components/page-hero";
+
+export const metadata: Metadata = { title: "Resources", description: "Practical Roble Media Lab tools and guides for content, workflows, and AI." };
+export default function ResourcesPage(){return <><PageHero eyebrow="Resources" title="Practical tools, without the theatre."><p>This library will grow with useful checklists, templates, and field guides. We are starting small and only publishing resources worth using.</p></PageHero><section className="content-section"><div className="shell plain-grid"><article className="plain-card"><span className="eyebrow">Coming soon</span><h2>AI opportunity checklist</h2><p>A clear way to assess whether a workflow is a good candidate for AI.</p></article><article className="plain-card"><span className="eyebrow">Coming soon</span><h2>Content system canvas</h2><p>Map the audience, pillars, formats, ownership, and review rhythm behind consistent content.</p></article><article className="plain-card"><span className="eyebrow">Coming soon</span><h2>Automation discovery guide</h2><p>Document a repetitive process before choosing how—or whether—to automate it.</p></article></div></section><CTA/></>}

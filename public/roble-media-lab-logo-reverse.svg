@@ -1,0 +1,15 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Roble Media Lab logo</title>
+  <desc id="desc">Roble Media Lab reverse logo and wordmark.</desc>
+  <rect width="1200" height="360" fill="#0B1020"/>
+  <g transform="translate(96 80)">
+    <rect width="200" height="200" rx="44" fill="#F8FAFC"/>
+    <path d="M82 60V140C82 151.8 94.8 159.1 104.9 153L170.9 113C180.6 107.1 180.6 92.9 170.9 87L104.9 47C94.8 40.9 82 48.2 82 60Z" fill="#14B8A6"/>
+    <path d="M57 52V148" stroke="#0B1020" stroke-width="24" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(348 104)">
+    <text x="0" y="68" font-family="Inter, Manrope, Arial, sans-serif" font-size="68" font-weight="800" fill="#F8FAFC">Roble</text>
+    <text x="0" y="132" font-family="Inter, Manrope, Arial, sans-serif" font-size="54" font-weight="650" fill="#14B8A6">Media Lab</text>
+    <text x="0" y="184" font-family="Inter, Manrope, Arial, sans-serif" font-size="24" font-weight="500" fill="#CBD5E1">Content creation and AI solutions</text>
+  </g>
+</svg>
