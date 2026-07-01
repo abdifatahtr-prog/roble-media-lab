@@ -3,6 +3,11 @@
 node_modules
 npm-debug.log*
 
+# Cloudflare / OpenNext build output
+.open-next
+.wrangler
+cloudflare-env.d.ts
+
 # Environment files
 .env*
 !.env.example
