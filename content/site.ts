@@ -3,7 +3,7 @@ export const site = {
   tagline: "Smarter content. Practical AI.",
   description:
     "Roble Media Lab helps growing businesses create better content systems, use practical AI tools, and automate repeat workflows.",
-  email: "info@roblemedialab.co.ke",
+  email: "hello@roblemedialab.co.ke",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://roblemedialab.co.ke",
   bookingUrl: "https://calendly.com/abdifatahtr/30min?month=2026-07",
   tallyFormId: process.env.NEXT_PUBLIC_TALLY_FORM_ID ?? "yPGxE4"
