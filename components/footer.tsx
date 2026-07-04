@@ -26,7 +26,7 @@ export function Footer() {
         <div>
           <h2>Start a conversation</h2>
           <p>Tell us what is slowing your team down or making growth harder.</p>
-          <a className="footer-cta" href={site.bookingUrl} target="_blank" rel="noreferrer">Book a discovery call <ArrowUpRight /></a>
+          <Link className="footer-cta" href={site.bookingPath}>Book a discovery call <ArrowUpRight /></Link>
         </div>
       </div>
       <div className="shell footer-bottom">

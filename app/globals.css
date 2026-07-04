@@ -161,6 +161,12 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .plain-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
 .plain-card h2, .plain-card h3 { margin: 14px 0; font-size: 22px; }
 .plain-card p { color: var(--slate); line-height: 1.65; }
+.booking-embed { padding: 0; overflow: hidden; }
+.booking-embed iframe { display: block; width: 100%; height: min(1180px, max(720px, 78vh)); border: 0; }
+.booking-fallback { text-align: center; color: var(--slate); font-size: 15px; margin: 26px 0 0; }
+.booking-fallback a { display: inline-flex; align-items: center; gap: 6px; color: var(--teal-dark); font-weight: 700; }
+.booking-fallback a svg { width: 15px; height: 15px; transition: transform .2s; }
+.booking-fallback a:hover svg { transform: translate(2px,-2px); }
 
 @media (max-width: 960px) {
   .desktop-nav { display: none; }
@@ -218,6 +224,7 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
   .page-hero { padding: 140px 0 75px; }
   .page-hero-inner { margin-left: 16px; }
   .page-lead { font-size: 17px; }
+  .booking-embed iframe { height: max(760px, 88vh); }
 }
 
 @media (prefers-reduced-motion: reduce) {

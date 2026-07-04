@@ -26,3 +26,6 @@ cloudflare-env.d.ts
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# TypeScript build info
+*.tsbuildinfo

@@ -38,6 +38,6 @@ The project can be deployed on a Next.js-compatible host. For Cloudflare, use it
 
 - Confirm the production domain.
 - Review the privacy policy and terms with qualified local counsel.
-- Confirm Tally and Calendly privacy settings.
+- Confirm Tally and Zoho Bookings privacy settings.
 - Add a real social-sharing image before launch.
 - Configure analytics only after choosing a consent and privacy approach.
