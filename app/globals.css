@@ -161,12 +161,13 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .plain-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
 .plain-card h2, .plain-card h3 { margin: 14px 0; font-size: 22px; }
 .plain-card p { color: var(--slate); line-height: 1.65; }
-.booking-embed { padding: 0; overflow: hidden; }
-.booking-embed iframe { display: block; width: 100%; height: min(1180px, max(720px, 78vh)); border: 0; }
-.booking-fallback { text-align: center; color: var(--slate); font-size: 15px; margin: 26px 0 0; }
-.booking-fallback a { display: inline-flex; align-items: center; gap: 6px; color: var(--teal-dark); font-weight: 700; }
-.booking-fallback a svg { width: 15px; height: 15px; transition: transform .2s; }
-.booking-fallback a:hover svg { transform: translate(2px,-2px); }
+.booking-launch { max-width: 640px; }
+.booking-launch h2 { margin: 12px 0 22px; font-size: clamp(28px,3.5vw,40px); }
+.booking-points { list-style: none; margin: 0 0 30px; padding: 0; display: grid; gap: 14px; }
+.booking-points li { display: flex; gap: 12px; align-items: flex-start; color: var(--ink); line-height: 1.5; font-size: 16px; }
+.booking-points svg { width: 22px; flex: 0 0 auto; color: var(--teal-dark); margin-top: 1px; }
+.booking-note { margin: 26px 0 0; color: var(--slate); font-size: 14px; line-height: 1.65; }
+.booking-note a { color: var(--teal-dark); font-weight: 600; }
 
 /* WhatsApp floating CTA */
 .whatsapp-fab { position: fixed; z-index: 60; right: 22px; bottom: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 13px 18px 13px 15px; border-radius: 999px; background: #25D366; color: #073b23; font-weight: 750; font-size: 14px; box-shadow: 0 14px 34px rgba(7,59,35,.28); transition: transform .2s, box-shadow .2s; }
@@ -253,7 +254,6 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
   .page-hero { padding: 140px 0 75px; }
   .page-hero-inner { margin-left: 16px; }
   .page-lead { font-size: 17px; }
-  .booking-embed iframe { height: max(760px, 88vh); }
   .whatsapp-fab { right: 16px; bottom: 16px; padding: 13px; }
   .whatsapp-fab span { display: none; }
 }
