@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FrameBreakout } from "@/components/frame-breakout";
 import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { site } from "@/content/site";
@@ -47,6 +48,7 @@ export default async function ThankYouPage({ searchParams }: { searchParams: Pro
 
   return (
     <>
+      <FrameBreakout />
       <PageHero eyebrow={v.eyebrow} title={v.title}>
         <p>{v.lead}</p>
       </PageHero>
