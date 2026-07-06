@@ -29,8 +29,9 @@ Set:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://roblemedialab.co.ke
-NEXT_PUBLIC_TALLY_FORM_ID=yPGxE4
 ```
+
+The contact form is a Jotform embed; its form id lives in `content/site.ts` (`jotformId`).
 
 The project can be deployed on a Next.js-compatible host. For Cloudflare, use its current Next.js deployment adapter and configure WAF, rate limits, caching, and bot protection at the account level.
 
@@ -38,6 +39,6 @@ The project can be deployed on a Next.js-compatible host. For Cloudflare, use it
 
 - Confirm the production domain.
 - Review the privacy policy and terms with qualified local counsel.
-- Confirm Tally and Zoho Bookings privacy settings.
+- Confirm Jotform and Zoho Bookings privacy settings.
 - Add a real social-sharing image before launch.
 - Configure analytics only after choosing a consent and privacy approach.

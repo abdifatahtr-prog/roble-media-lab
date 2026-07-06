@@ -7,7 +7,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://roblemedialab.co.ke",
   bookingUrl: "https://roblemedialab.zohobookings.com/#/4939818000000045045",
   bookingPath: "/book",
-  tallyFormId: process.env.NEXT_PUBLIC_TALLY_FORM_ID ?? "yPGxE4",
+  jotformId: "261812591563056",
   // WhatsApp number in international format, digits only (no +, spaces, or dashes).
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "254707773916",
   whatsappMessage: "Hi Roble Media Lab, I'd like to talk about",
