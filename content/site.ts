@@ -5,7 +5,7 @@ export const site = {
     "Roble Media Lab helps growing businesses create better content systems, use practical AI tools, and automate repeat workflows.",
   email: "hello@roblemedialab.co.ke",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://roblemedialab.co.ke",
-  bookingUrl: "https://calendar.zoho.com/zc/view/slot-booking/zz080112201249c2b13ca6730d88a480d251f416d38c2d8530dbef0a1dd11435f7bc5b11ae",
+  bookingUrl: "https://roblemedialab.zohobookings.com/#/4939818000000045045",
   bookingPath: "/book",
   tallyFormId: process.env.NEXT_PUBLIC_TALLY_FORM_ID ?? "yPGxE4",
   // WhatsApp number in international format, digits only (no +, spaces, or dashes).
