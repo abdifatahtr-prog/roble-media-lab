@@ -3,6 +3,7 @@ import { CTA } from "@/components/cta";
 import { FAQList } from "@/components/faq-list";
 import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
+import { Testimonials } from "@/components/testimonials";
 import { faqs, principles, services, site } from "@/content/site";
 
 export default function Home() {
@@ -86,6 +87,7 @@ export default function Home() {
           <Reveal><FAQList items={faqs.slice(0, 4)} /></Reveal>
         </div>
       </section>
+      <Testimonials />
       <CTA />
     </>
   );

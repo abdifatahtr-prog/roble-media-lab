@@ -168,7 +168,36 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .booking-fallback a svg { width: 15px; height: 15px; transition: transform .2s; }
 .booking-fallback a:hover svg { transform: translate(2px,-2px); }
 
+/* WhatsApp floating CTA */
+.whatsapp-fab { position: fixed; z-index: 60; right: 22px; bottom: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 13px 18px 13px 15px; border-radius: 999px; background: #25D366; color: #073b23; font-weight: 750; font-size: 14px; box-shadow: 0 14px 34px rgba(7,59,35,.28); transition: transform .2s, box-shadow .2s; }
+.whatsapp-fab:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(7,59,35,.34); }
+.whatsapp-fab svg { flex: 0 0 auto; }
+
+/* Testimonials & client strip */
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.testimonial-card { display: flex; flex-direction: column; gap: 20px; padding: 30px; background: white; border: 1px solid var(--line); border-radius: var(--radius); }
+.testimonial-card blockquote { margin: 0; font-family: var(--font-sora); font-size: 19px; line-height: 1.5; letter-spacing: -.02em; }
+.testimonial-card figcaption { display: flex; flex-direction: column; gap: 3px; margin-top: auto; }
+.testimonial-card figcaption b { font-size: 15px; }
+.testimonial-card figcaption span { color: var(--slate); font-size: 13px; }
+.client-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 34px; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--line); color: #647181; }
+.client-strip > span { text-transform: uppercase; letter-spacing: .13em; font-size: 10px; font-weight: 800; }
+.client-strip b { font-family: var(--font-sora); color: #66717d; font-weight: 600; font-size: 17px; }
+
+/* Founder block */
+.founder-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: center; }
+.founder-photo { width: 100%; max-width: 360px; height: auto; border-radius: var(--radius); object-fit: cover; box-shadow: var(--shadow); }
+.founder-photo-placeholder { aspect-ratio: 36 / 44; display: grid; place-items: center; background: linear-gradient(135deg,#12203a,var(--ink) 60%,#123e42); color: #53d8c8; font-family: var(--font-sora); font-size: 120px; font-weight: 800; }
+.founder-copy h2 { margin: 14px 0 4px; font-size: clamp(32px,4vw,48px); }
+.founder-role { color: var(--teal-dark); font-weight: 700; margin: 0 0 20px; }
+.founder-copy p { color: var(--slate); line-height: 1.75; font-size: 17px; margin: 0 0 16px; }
+.founder-credentials { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.founder-credentials li { position: relative; padding-left: 26px; color: var(--ink); font-weight: 600; font-size: 15px; }
+.founder-credentials li::before { content: ""; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+
 @media (max-width: 960px) {
+  .founder-layout { grid-template-columns: 1fr; gap: 32px; }
+  .founder-media { max-width: 320px; }
   .desktop-nav { display: none; }
   .menu-button { display: block; }
   .mobile-nav { display: grid; grid-template-rows: 0fr; overflow: hidden; background: rgba(248,250,252,.98); transition: grid-template-rows .3s; }
@@ -225,6 +254,8 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
   .page-hero-inner { margin-left: 16px; }
   .page-lead { font-size: 17px; }
   .booking-embed iframe { height: max(760px, 88vh); }
+  .whatsapp-fab { right: 16px; bottom: 16px; padding: 13px; }
+  .whatsapp-fab span { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
+import { Analytics } from "@/components/analytics";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -22,20 +24,27 @@ export const metadata: Metadata = {
     locale: "en_KE",
     type: "website"
   },
-  twitter: { card: "summary", title: site.name, description: site.description },
+  twitter: { card: "summary_large_image", title: site.name, description: site.description },
   robots: { index: true, follow: true }
 };
 
 export const viewport: Viewport = { themeColor: "#0B1020", colorScheme: "light" };
 
+// ProfessionalService extends LocalBusiness (better for local SEO than plain
+// Organization). Deliberately region-level only — no street address — to protect the
+// founder's home/physical privacy while still signalling a Kenyan local business.
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "ProfessionalService",
   name: site.name,
   url: site.url,
   email: site.email,
+  ...(site.whatsapp ? { telephone: `+${site.whatsapp}` } : {}),
   logo: `${site.url}/roble-media-lab-icon.svg`,
+  image: `${site.url}/roble-media-lab-icon.svg`,
+  address: { "@type": "PostalAddress", addressCountry: "KE", addressRegion: "Nairobi" },
   areaServed: ["Kenya", "East Africa"],
+  slogan: site.tagline,
   description: site.description
 };
 
@@ -47,6 +56,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
+        <WhatsAppButton />
+        <Analytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       </body>
     </html>

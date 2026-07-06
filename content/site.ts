@@ -7,8 +7,51 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://roblemedialab.co.ke",
   bookingUrl: "https://calendar.zoho.com/zc/view/slot-booking/zz080112201249c2b13ca6730d88a480d251f416d38c2d8530dbef0a1dd11435f7bc5b11ae",
   bookingPath: "/book",
-  tallyFormId: process.env.NEXT_PUBLIC_TALLY_FORM_ID ?? "yPGxE4"
+  tallyFormId: process.env.NEXT_PUBLIC_TALLY_FORM_ID ?? "yPGxE4",
+  // WhatsApp number in international format, digits only (no +, spaces, or dashes).
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "254707773916",
+  whatsappMessage: "Hi Roble Media Lab, I'd like to talk about",
+  // Cloudflare Web Analytics beacon token. Get it from the Cloudflare dashboard
+  // (Analytics & Logs → Web Analytics). Empty = analytics disabled.
+  cfBeaconToken: process.env.NEXT_PUBLIC_CF_BEACON_TOKEN ?? ""
 } as const;
+
+// The founder block renders on /about only when `bio` has content.
+// REPLACE the placeholder copy with real details before publishing.
+export type Founder = {
+  name: string;
+  role: string;
+  photo?: string; // e.g. "/founder.jpg" placed in /public
+  bio: string[];
+  credentials: string[];
+};
+
+export const founder: Founder = {
+  name: "Abdifatah Hassan",
+  role: "Founder, Roble Media Lab",
+  photo: "", // add a headshot at /public/founder.jpg then set this to "/founder.jpg"
+  bio: [
+    "I'm Abdifatah Hassan, founder of Roble Media Lab. I started the studio to help growing businesses across Kenya and East Africa put content, automation, and practical AI to work — the grounded, useful way, without the hype.",
+    "My background is in business operations and compliance, including remote work with UK-based organisations where I built reporting systems, ran process audits, and kept documentation dependable. That work taught me to see a business as a set of systems — which is exactly how good automation and content workflows are built. I hold Google Professional Certificates in Data Analytics and Project Management, alongside a degree in International Business.",
+    "I work best with SMEs, founders, and service businesses that sense something could run smoother but want a partner who is honest about what technology can and cannot do. I bring an operations mindset, real data literacy, and a bias for simple systems people will actually use — and I work fluently in English, Swahili, and Somali."
+  ],
+  credentials: [
+    "Google Data Analytics Professional Certificate",
+    "Google Project Management Professional Certificate",
+    "BBA, International Business — Mount Kenya University",
+    "Operations & compliance experience with UK-based organisations",
+    "Works in English, Swahili & Somali · Based in Nairobi, Kenya"
+  ]
+};
+
+// Trust: real content only. Leave empty until you have permission to publish.
+// Fabricated proof is never shipped — these components render nothing when empty.
+export type Testimonial = { quote: string; name: string; role: string; company?: string };
+export const testimonials: Testimonial[] = [];
+
+// Optional "trusted by" logos or names. Leave empty until real.
+export type Client = { name: string; logo?: string };
+export const clients: Client[] = [];
 
 export type Service = {
   slug: string;
