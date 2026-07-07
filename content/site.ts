@@ -29,7 +29,7 @@ export type Founder = {
 export const founder: Founder = {
   name: "Abdifatah Hassan",
   role: "Founder, Roble Media Lab",
-  photo: "", // add a headshot at /public/founder.jpg then set this to "/founder.jpg"
+  photo: "/founder.jpg",
   bio: [
     "I'm Abdifatah Hassan, founder of Roble Media Lab. I started the studio to help growing businesses across Kenya and East Africa put content, automation, and practical AI to work — the grounded, useful way, without the hype.",
     "My background is in business operations and compliance, including remote work with UK-based organisations where I built reporting systems, ran process audits, and kept documentation dependable. That work taught me to see a business as a set of systems — which is exactly how good automation and content workflows are built. I hold Google Professional Certificates in Data Analytics and Project Management, alongside a Bachelor of Business Management (International Business) from Mount Kenya University.",
