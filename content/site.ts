@@ -16,6 +16,19 @@ export const site = {
   cfBeaconToken: process.env.NEXT_PUBLIC_CF_BEACON_TOKEN ?? ""
 } as const;
 
+// Social profiles. Renders in the footer only for entries with a real `href`.
+// Fill in the profile URLs you actually have; leave the rest as "" and they won't show.
+export type SocialId = "linkedin" | "instagram" | "x" | "facebook" | "youtube" | "tiktok";
+export type Social = { id: SocialId; label: string; href: string };
+export const socials: Social[] = [
+  { id: "linkedin", label: "LinkedIn", href: "" },
+  { id: "instagram", label: "Instagram", href: "" },
+  { id: "x", label: "X (Twitter)", href: "" },
+  { id: "facebook", label: "Facebook", href: "" },
+  { id: "youtube", label: "YouTube", href: "" },
+  { id: "tiktok", label: "TikTok", href: "" }
+];
+
 // The founder block renders on /about only when `bio` has content.
 // REPLACE the placeholder copy with real details before publishing.
 export type Founder = {

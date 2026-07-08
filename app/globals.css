@@ -142,6 +142,9 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .wordmark-light b { color: #53d8c8; }
 .footer-brand p, .footer-grid > div:last-child p { color: #8f9bad; line-height: 1.65; max-width: 280px; }
 .footer-brand > a { color: #53d8c8; font-size: 14px; }
+.footer-social { display: flex; gap: 12px; margin-top: 22px; list-style: none; padding: 0; }
+.footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 9px; color: #c2c9d4; background: #131a28; border: 1px solid #232a39; transition: color .15s, background .15s, border-color .15s; }
+.footer-social a:hover { color: #080c16; background: #53d8c8; border-color: #53d8c8; }
 .footer-grid h2 { margin: 6px 0 22px; color: #8996a9; font: 750 12px var(--font-inter); text-transform: uppercase; letter-spacing: .12em; }
 .footer-grid > div:not(:first-child) > a:not(.footer-cta) { display: block; color: #c2c9d4; font-size: 13px; margin: 0 0 14px; }
 .footer-cta { display: inline-flex; gap: 8px; align-items: center; margin-top: 9px; color: #53d8c8; font-size: 13px; font-weight: 750; }
