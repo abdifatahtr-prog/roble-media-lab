@@ -150,26 +150,5 @@ export const faqs = [
   ["Do you offer team training?", "Yes. Training can cover practical AI use, prompting, workflow design, content systems, and responsible usage tailored to your team."]
 ] as const;
 
-export const articles = [
-  {
-    slug: "where-to-start-with-ai",
-    title: "Where should a small business start with AI?",
-    description: "A grounded framework for finding useful AI opportunities without buying tools first.",
-    date: "2026-07-01",
-    readTime: "5 min read"
-  },
-  {
-    slug: "content-system-not-calendar",
-    title: "Your business needs a content system, not just a calendar",
-    description: "Why consistent content depends on decisions, roles, templates, and feedback—not a spreadsheet alone.",
-    date: "2026-07-01",
-    readTime: "6 min read"
-  },
-  {
-    slug: "automation-before-tools",
-    title: "Map the workflow before you automate it",
-    description: "How a simple process audit prevents expensive, fragile automations.",
-    date: "2026-07-01",
-    readTime: "4 min read"
-  }
-] as const;
+// Blog posts now live as .mdx files in content/blog/ and are read via lib/blog.ts.
+// (Previously this file held an `articles` metadata array.)
