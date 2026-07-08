@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#0B1020", colorScheme: "light" };
 
 // ProfessionalService extends LocalBusiness (better for local SEO than plain
-// Organization). Deliberately region-level only — no street address — to protect the
+// Organization). Deliberately region-level only, no street address, to protect the
 // founder's home/physical privacy while still signalling a Kenyan local business.
 const organizationSchema = {
   "@context": "https://schema.org",

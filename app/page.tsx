@@ -43,7 +43,7 @@ export default function Home() {
         <div className="shell">
           <Reveal className="section-heading split-heading">
             <div><span className="eyebrow">What we help improve</span><h2>Useful systems, built around the way your business works.</h2></div>
-            <p>We start with the problem—not the fashionable tool. The result is focused work that is easier to understand, adopt, and improve.</p>
+            <p>We start with the problem, not the fashionable tool. The result is focused work that is easier to understand, adopt, and improve.</p>
           </Reveal>
           <div className="service-grid">
             {services.slice(0, 6).map((service, index) => (

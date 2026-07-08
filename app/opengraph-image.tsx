@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
 
-export const alt = "Roble Media Lab — Practical AI & Content Systems";
+export const alt = "Roble Media Lab: Practical AI & Content Systems";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -53,7 +53,7 @@ export default function OpengraphImage() {
             content systems.
           </div>
           <div style={{ marginTop: 28, fontSize: 30, color: "#bdc8d5", maxWidth: 900 }}>
-            Clear systems people can actually use — for growing businesses in Kenya &amp; East Africa.
+            Clear systems people can actually use, for growing businesses in Kenya &amp; East Africa.
           </div>
         </div>
 

@@ -12,7 +12,7 @@ export function FrameBreakout() {
       try {
         window.top.location.replace(window.location.href);
       } catch {
-        // Cross-origin top (shouldn't happen for a same-origin redirect) — ignore.
+        // Cross-origin top (shouldn't happen for a same-origin redirect), ignore.
       }
     }
   }, []);

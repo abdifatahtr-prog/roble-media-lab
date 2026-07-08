@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const expectations = [
   "30 focused minutes over a Zoho Meeting audio call",
   "We talk through the workflow, content challenge, or AI idea on your mind",
-  "Honest guidance on whether and how we can help — no pressure, no jargon"
+  "Honest guidance on whether and how we can help, no pressure, no jargon"
 ];
 
 export default function BookPage() {

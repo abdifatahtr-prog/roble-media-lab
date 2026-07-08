@@ -44,9 +44,9 @@ export const founder: Founder = {
   role: "Founder, Roble Media Lab",
   photo: "/founder.jpg",
   bio: [
-    "I'm Abdifatah Hassan, founder of Roble Media Lab. I started the studio to help growing businesses across Kenya and East Africa put content, automation, and practical AI to work — the grounded, useful way, without the hype.",
-    "My background is in business operations and compliance, including remote work with UK-based organisations where I built reporting systems, ran process audits, and kept documentation dependable. That work taught me to see a business as a set of systems — which is exactly how good automation and content workflows are built. I hold Google Professional Certificates in Data Analytics and Project Management, alongside a Bachelor of Business Management (International Business) from Mount Kenya University.",
-    "I work best with SMEs, founders, and service businesses that sense something could run smoother but want a partner who is honest about what technology can and cannot do. I bring an operations mindset, real data literacy, and a bias for simple systems people will actually use — and I work fluently in English, Swahili, and Somali."
+    "I'm Abdifatah Hassan, founder of Roble Media Lab. I started the studio to help growing businesses across Kenya and East Africa put content, automation, and practical AI to work, the grounded, useful way, without the hype.",
+    "My background is in business operations and compliance, including remote work with UK-based organisations where I built reporting systems, ran process audits, and kept documentation dependable. That work taught me to see a business as a set of systems, which is exactly how good automation and content workflows are built. I hold Google Professional Certificates in Data Analytics and Project Management, alongside a Bachelor of Business Management (International Business) from Mount Kenya University.",
+    "I work best with SMEs, founders, and service businesses that sense something could run smoother but want a partner who is honest about what technology can and cannot do. I bring an operations mindset, real data literacy, and a bias for simple systems people will actually use, and I work fluently in English, Swahili, and Somali."
   ],
   credentials: [
     "Google Data Analytics Professional Certificate",
@@ -58,7 +58,7 @@ export const founder: Founder = {
 };
 
 // Trust: real content only. Leave empty until you have permission to publish.
-// Fabricated proof is never shipped — these components render nothing when empty.
+// Fabricated proof is never shipped, these components render nothing when empty.
 export type Testimonial = { quote: string; name: string; role: string; company?: string };
 export const testimonials: Testimonial[] = [];
 
@@ -120,7 +120,7 @@ export const services: Service[] = [
     slug: "seo-content-strategy",
     title: "SEO & Content Strategy",
     short: "Build useful content around what your audience is searching for.",
-    intro: "We connect search intent, brand expertise, and a realistic publishing plan—without promises of guaranteed rankings.",
+    intro: "We connect search intent, brand expertise, and a realistic publishing plan, without promises of guaranteed rankings.",
     outcomes: ["Search-informed priorities", "A useful topic architecture", "Stronger internal linking", "A measurable editorial plan"],
     process: ["Research the audience and search landscape", "Map topics to services", "Plan useful content", "Measure and refine"]
   },
@@ -142,7 +142,7 @@ export const principles = [
 ] as const;
 
 export const faqs = [
-  ["What kinds of businesses do you work with?", "We focus on SMEs, startups, agencies, consultants, service businesses, and growing teams—primarily in Kenya and East Africa."],
+  ["What kinds of businesses do you work with?", "We focus on SMEs, startups, agencies, consultants, service businesses, and growing teams, primarily in Kenya and East Africa."],
   ["Do we need to know which AI tools we want?", "No. We begin with the business problem and workflow, then recommend tools only where they are genuinely useful."],
   ["Can you automate our entire business?", "Usually, trying to automate everything at once creates more risk than value. We start with focused, repeatable workflows and expand based on evidence."],
   ["Do you guarantee SEO rankings or business results?", "No. Search rankings and commercial outcomes depend on factors no responsible provider can fully control. We commit to sound strategy, careful execution, and transparent measurement."],

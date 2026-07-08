@@ -5,7 +5,7 @@ import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { site } from "@/content/site";
 
-// Post-conversion confirmation page. Kept out of search — it has no standalone value
+// Post-conversion confirmation page. Kept out of search, it has no standalone value
 // and should never appear in results. Its pageviews act as a conversion signal in
 // analytics (every /thank-you view ≈ one completed enquiry or booking).
 export const metadata: Metadata = {
@@ -16,10 +16,10 @@ export const metadata: Metadata = {
 const content = {
   enquiry: {
     eyebrow: "Message received",
-    title: "Thank you — your message is in.",
+    title: "Thank you, your message is in.",
     lead: "We've received your enquiry. A real person will read it and reply honestly about whether and how we can help.",
     steps: [
-      ["We read it properly", "A person reviews what you sent — not an autoresponder pretending to be one."],
+      ["We read it properly", "A person reviews what you sent, not an autoresponder pretending to be one."],
       ["We reply within one business day", "You'll get a straight answer about whether there's a sensible way to help."],
       ["We find a time to talk", "If it looks like a fit, we'll set up a short, no-pressure discovery call."]
     ],
@@ -32,9 +32,9 @@ const content = {
     title: "You're booked. See you soon.",
     lead: "Your discovery call is confirmed and a calendar invite is on its way to your email.",
     steps: [
-      ["Check your inbox", "Your confirmation and calendar invite should arrive shortly — add it to your calendar."],
+      ["Check your inbox", "Your confirmation and calendar invite should arrive shortly, add it to your calendar."],
       ["Have a quick think", "Jot down the workflow, content challenge, or AI idea you'd like to talk through. Rough notes are plenty."],
-      ["We keep it useful", "Thirty focused minutes — no jargon, no pressure, just an honest look at what could help."]
+      ["We keep it useful", "Thirty focused minutes, no jargon, no pressure, just an honest look at what could help."]
     ],
     primary: { label: "Explore our services", href: "/services" },
     secondaryHref: "/resources",
