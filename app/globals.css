@@ -160,6 +160,20 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .prose h3 { margin: 35px 0 12px; font-size: 22px; }
 .prose p, .prose li { color: var(--slate); line-height: 1.8; font-size: 17px; }
 .prose a { color: var(--teal-dark); text-decoration: underline; }
+.prose blockquote { margin: 40px 0; padding: 6px 0 6px 26px; border-left: 3px solid var(--teal); }
+.prose blockquote p { color: var(--ink); font-size: 23px; line-height: 1.5; font-weight: 600; }
+.post-figure { margin: 40px 0; }
+.post-figure figcaption { margin-top: 12px; color: var(--slate); font-size: 14px; line-height: 1.55; text-align: center; }
+.post-img { position: relative; }
+.post-img img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 14px; }
+.post-img-label { position: absolute; top: 12px; left: 12px; z-index: 1; padding: 4px 11px; border-radius: 999px; background: var(--ink); color: white; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.post-img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 220px; padding: 24px; text-align: center; border: 1px dashed var(--line); border-radius: 14px; background: rgba(248,250,252,.7); }
+.post-img-placeholder span { color: var(--teal-dark); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; }
+.post-img-placeholder small { color: var(--slate); font-size: 13px; max-width: 320px; line-height: 1.5; }
+.post-beforeafter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+/* Crop before/after shots to a consistent hero height so full-page captures
+   line up as a clean comparison instead of two mismatched tall strips. */
+.post-beforeafter .post-img img { height: 300px; object-fit: cover; object-position: top; }
 .plain-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
 .plain-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
 .plain-card h2, .plain-card h3 { margin: 14px 0; font-size: 22px; }

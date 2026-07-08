@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes } from "react";
+import { Figure, BeforeAfter } from "./post-media";
 
 // Custom renderers for MDX article bodies. Body text is styled by the `.prose`
 // wrapper in globals.css; here we only special-case links so internal
@@ -22,5 +23,7 @@ function MdxLink({ href = "", children, ...props }: AnchorHTMLAttributes<HTMLAnc
 }
 
 export const mdxComponents = {
-  a: MdxLink
+  a: MdxLink,
+  Figure,
+  BeforeAfter
 };
