@@ -17,7 +17,10 @@ const serviceOptions = [
 ];
 const DEFAULT_SERVICE = "Not Sure Yet";
 
-const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+// Cloudflare Turnstile site key. Public by design (rendered into the page), so it is
+// safe to commit. A NEXT_PUBLIC_TURNSTILE_SITE_KEY env var overrides it if set at build.
+const turnstileSiteKey =
+  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAADzXcyuPsmyvAqbn";
 
 type Errors = Record<string, string>;
 type Status = "idle" | "submitting" | "success";
