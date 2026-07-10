@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FrameBreakout } from "@/components/frame-breakout";
 import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
+import { getAllPosts } from "@/lib/blog";
 import { site } from "@/content/site";
 
-// Post-conversion confirmation page. Kept out of search, it has no standalone value
-// and should never appear in results. Its pageviews act as a conversion signal in
-// analytics (every /thank-you view ≈ one completed enquiry or booking).
+// Post-conversion confirmation page. Kept out of search: it has no standalone value.
+// Its pageviews act as a conversion signal in analytics (every /thank-you view ≈ one
+// completed enquiry or booking).
 export const metadata: Metadata = {
   title: "Thank you",
   robots: { index: false, follow: false }
@@ -15,49 +15,46 @@ export const metadata: Metadata = {
 
 const content = {
   enquiry: {
-    eyebrow: "Message received",
-    title: "Thank you, your message is in.",
-    lead: "We've received your enquiry. A real person will read it and reply honestly about whether and how we can help.",
+    eyebrow: "Enquiry received",
+    title: "Thank You!",
+    lead: "We've received your enquiry and will respond within one business day.",
     steps: [
-      ["We read it properly", "A person reviews what you sent, not an autoresponder pretending to be one."],
+      ["We read it properly", "A real person reviews what you sent, not an autoresponder pretending to be one."],
       ["We reply within one business day", "You'll get a straight answer about whether there's a sensible way to help."],
-      ["We find a time to talk", "If it looks like a fit, we'll set up a short, no-pressure discovery call."]
-    ],
-    primary: { label: "Book a call now", href: site.bookingPath },
-    secondaryHref: "/services",
-    secondaryLabel: "Explore our services"
+      ["We find a time to talk", "If it looks like a fit, we'll invite you to a free, no-pressure discovery call."],
+      ["You get a clear proposal", "A simple plan for the next practical step, with no obligation."]
+    ]
   },
   booking: {
     eyebrow: "Call confirmed",
-    title: "You're booked. See you soon.",
+    title: "You're Booked!",
     lead: "Your discovery call is confirmed and a calendar invite is on its way to your email.",
     steps: [
-      ["Check your inbox", "Your confirmation and calendar invite should arrive shortly, add it to your calendar."],
-      ["Have a quick think", "Jot down the workflow, content challenge, or AI idea you'd like to talk through. Rough notes are plenty."],
+      ["Check your inbox", "Your confirmation and calendar invite should arrive shortly. Add it to your calendar."],
+      ["Have a quick think", "Jot down the workflow, content challenge, or AI idea you'd like to talk through."],
       ["We keep it useful", "Thirty focused minutes, no jargon, no pressure, just an honest look at what could help."]
-    ],
-    primary: { label: "Explore our services", href: "/services" },
-    secondaryHref: "/resources",
-    secondaryLabel: "Browse resources"
+    ]
   }
 } as const;
 
 export default async function ThankYouPage({ searchParams }: { searchParams: Promise<{ from?: string }> }) {
   const { from } = await searchParams;
-  const v = from === "booking" || from === "call" ? content.booking : content.enquiry;
+  const isBooking = from === "booking" || from === "call";
+  const v = isBooking ? content.booking : content.enquiry;
+  const posts = getAllPosts().slice(0, 3);
 
   return (
     <>
-      <FrameBreakout />
       <PageHero eyebrow={v.eyebrow} title={v.title}>
         <p>{v.lead}</p>
       </PageHero>
+
       <section className="content-section">
         <div className="shell">
           <div className="section-heading">
             <span className="eyebrow">What happens next</span>
           </div>
-          <div className="plain-grid">
+          <div className="plain-grid ty-steps">
             {v.steps.map(([title, text], i) => (
               <div className="plain-card" key={title}>
                 <div className="service-number">{String(i + 1).padStart(2, "0")}</div>
@@ -66,9 +63,14 @@ export default async function ThankYouPage({ searchParams }: { searchParams: Pro
               </div>
             ))}
           </div>
-          <div className="button-row" style={{ marginTop: 40 }}>
-            <Link className="button" href={v.primary.href}>{v.primary.label} <ArrowUpRight /></Link>
-            <Link className="text-link" href={v.secondaryHref}>{v.secondaryLabel} <ArrowRight /></Link>
+
+          <p className="ty-reassure">
+            <CheckIcon /> <span>No further action is needed from you right now. We&apos;ll be in touch.</span>
+          </p>
+
+          <div className="button-row ty-actions">
+            <Link className="button" href="/">Back to homepage <ArrowUpRight /></Link>
+            <Link className="text-link" href="/services">Explore our services <ArrowRight /></Link>
             {site.whatsapp && (
               <a
                 className="text-link"
@@ -76,16 +78,36 @@ export default async function ThankYouPage({ searchParams }: { searchParams: Pro
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Or message us on WhatsApp <ArrowUpRight />
+                Message us on WhatsApp <ArrowUpRight />
               </a>
             )}
           </div>
-          <p style={{ marginTop: 28, color: "var(--slate)", display: "inline-flex", alignItems: "center", gap: 8 }}>
-            <CheckIcon style={{ width: 18, color: "var(--teal-dark)" }} /> Prefer email? Write to{" "}
-            <a style={{ color: "var(--teal-dark)" }} href={`mailto:${site.email}`}>{site.email}</a>.
-          </p>
         </div>
       </section>
+
+      {posts.length > 0 && (
+        <section className="section soft-section">
+          <div className="shell">
+            <div className="section-heading split-heading">
+              <div>
+                <span className="eyebrow">While you wait</span>
+                <h2>A few ideas worth reading.</h2>
+              </div>
+              <p>Practical notes on AI, automation, and content systems for growing businesses.</p>
+            </div>
+            <div className="plain-grid">
+              {posts.map((post) => (
+                <article className="plain-card" key={post.slug}>
+                  <span className="eyebrow">{post.pillarLabel} · {post.readTime}</span>
+                  <h2>{post.title}</h2>
+                  <p>{post.description}</p>
+                  <Link className="text-link" href={`/blog/${post.slug}`}>Read article <ArrowRight /></Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }

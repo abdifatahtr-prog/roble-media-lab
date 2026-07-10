@@ -11,6 +11,9 @@ cloudflare-env.d.ts
 # Environment files
 .env*
 !.env.example
+# Wrangler local secrets (Resend key, etc.)
+.dev.vars
+.dev.vars.*
 
 # Claude Code
 .claude/

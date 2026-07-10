@@ -11,6 +11,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "db:migrate:local": "wrangler d1 migrations apply roble-media-lab --local",
+    "db:migrate": "wrangler d1 migrations apply roble-media-lab --remote",
     "cf:build": "opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"

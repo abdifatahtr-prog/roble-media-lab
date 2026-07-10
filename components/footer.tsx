@@ -59,7 +59,7 @@ export function Footer() {
         <div>
           <h2>Start a conversation</h2>
           <p>Tell us what is slowing your team down or making growth harder.</p>
-          <Link className="footer-cta" href={site.bookingPath}>Book a discovery call <ArrowUpRight /></Link>
+          <Link className="footer-cta" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
         </div>
       </div>
       <div className="shell footer-bottom">

@@ -40,7 +40,7 @@ export function Header() {
             <Link className={pathname.startsWith(href) ? "active" : ""} href={href} key={href}>{label}</Link>
           ))}
           <Link href="/search" className="icon-link" aria-label="Search"><SearchIcon /></Link>
-          <Link className="button button-small" href={site.bookingPath}>Book a call <ArrowUpRight /></Link>
+          <Link className="button button-small" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
         </div>
         <button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "Close menu" : "Open menu"}>
           {open ? <CloseIcon /> : <MenuIcon />}
@@ -49,7 +49,7 @@ export function Header() {
       <div className={`mobile-nav ${open ? "is-open" : ""}`} id="mobile-navigation">
         <div className="shell">
           {[...links, ["/contact", "Contact"] as const].map(([href, label]) => <Link href={href} key={href}>{label}</Link>)}
-          <Link className="button" href={site.bookingPath}>Book a discovery call <ArrowUpRight /></Link>
+          <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
         </div>
       </div>
     </header>

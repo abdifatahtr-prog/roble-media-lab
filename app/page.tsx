@@ -18,7 +18,7 @@ export default function Home() {
             <Reveal delay={0.06}><h1>Make better work <em>flow.</em></h1></Reveal>
             <Reveal delay={0.12}><p className="hero-lead">We help growing businesses turn scattered content, repetitive tasks, and promising AI ideas into clear systems people can actually use.</p></Reveal>
             <Reveal delay={0.18} className="button-row">
-              <Link className="button" href={site.bookingPath}>Book a discovery call <ArrowUpRight /></Link>
+              <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
               <Link className="text-link" href="/services">Explore our services <ArrowRight /></Link>
             </Reveal>
           </div>
