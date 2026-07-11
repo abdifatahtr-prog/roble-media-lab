@@ -8,22 +8,16 @@
     "binding": "ASSETS",
     "directory": ".open-next/assets"
   },
-  // Enquiries database (contact form). DISABLED until the database exists, because
-  // deploying with an unknown database_id fails the build. The app runs fine without
-  // it (enquiries go by email; D1 storage is skipped gracefully).
-  // To enable D1 storage:
-  //   1. npx wrangler d1 create roble-media-lab   (needs Node 22)
-  //   2. Uncomment the block below and paste the returned database_id.
-  //   3. npm run db:migrate   (applies migrations to remote D1)
-  //   4. Push again to redeploy.
-  // "d1_databases": [
-  //   {
-  //     "binding": "DB",
-  //     "database_name": "roble-media-lab",
-  //     "database_id": "PASTE_DATABASE_ID_HERE",
-  //     "migrations_dir": "migrations"
-  //   }
-  // ],
+  // Enquiries database (contact form). Stores every submission; the app also emails
+  // each one and degrades gracefully if D1 is ever unavailable.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "roble-media-lab",
+      "database_id": "677843fd-ee41-4012-947e-1f27dc182d32",
+      "migrations_dir": "migrations"
+    }
+  ],
   "observability": {
     "enabled": true
   }
