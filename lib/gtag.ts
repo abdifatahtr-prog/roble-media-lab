@@ -1,17 +1,14 @@
-// Small, framework-safe GA4 helper. Every call is a no-op when GA4 is not loaded
-// (no NEXT_PUBLIC_GA_ID, script blocked, or server render), so it never breaks the app.
+import { sendGAEvent } from "@next/third-parties/google";
 
-type GtagParams = Record<string, unknown>;
+// GA4 events via the official @next/third-parties helper. sendGAEvent pushes to the
+// dataLayer initialised by the <GoogleAnalytics /> component in the root layout, so
+// it is safe to call and no-ops on the server.
 
-interface GtagWindow extends Window {
-  gtag?: (command: string, ...args: unknown[]) => void;
-}
+type GaParams = Record<string, unknown>;
 
-export function trackEvent(name: string, params: GtagParams = {}): void {
+export function trackEvent(name: string, params: GaParams = {}): void {
   if (typeof window === "undefined") return;
-  const w = window as GtagWindow;
-  if (typeof w.gtag !== "function") return;
-  w.gtag("event", name, params);
+  sendGAEvent("event", name, params);
 }
 
 /** GA4 recommended lead event, fired after a successful contact submission. */

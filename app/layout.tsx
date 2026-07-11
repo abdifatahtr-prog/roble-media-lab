@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import { Analytics } from "@/components/analytics";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Footer } from "@/components/footer";
-import { GoogleAnalytics } from "@/components/google-analytics";
 import { Header } from "@/components/header";
 import { UtmCapture } from "@/components/utm-capture";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Footer />
         <WhatsAppButton />
         <Analytics />
-        <GoogleAnalytics />
+        <GoogleAnalytics gaId="G-DVFVKQNP4P" />
         <UtmCapture />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       </body>

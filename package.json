@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@next/mdx": "^15.5.9",
+    "@next/third-parties": "^15.5.19",
     "@types/mdx": "^2.0.13",
     "framer-motion": "^12.23.24",
     "gray-matter": "^4.0.3",
