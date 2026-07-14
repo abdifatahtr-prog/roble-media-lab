@@ -8,6 +8,14 @@
     "binding": "ASSETS",
     "directory": ".open-next/assets"
   },
+  // Zoho CRM Web-to-Lead identifiers. These are PUBLIC form values (they appear in the
+  // HTML of any page that embeds the Zoho web form), so they belong in config, not in
+  // secrets. Kept here (rather than as dashboard vars) so they survive every deploy.
+  "vars": {
+    "ZOHO_WEBTOLEAD_URL": "https://crm.zoho.com/crm/WebToLeadForm",
+    "ZOHO_WEBTOLEAD_ID": "68e48c8dabbaaf3df0183ce8d75b5868ebf532466beb15e71199f8245d0b909d",
+    "ZOHO_WEBTOLEAD_KEY": "b9f3f9e233edd7b79abe05eed7a3cd49e8a30ea9faddefc2464a16f80f5f3670a8b74a3e1908f52e274973d62007907a"
+  },
   // Enquiries database (contact form). Stores every submission; the app also emails
   // each one and degrades gracefully if D1 is ever unavailable.
   "d1_databases": [
