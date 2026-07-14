@@ -11,7 +11,8 @@ const links = [
   ["/services", "Services"],
   ["/about", "About"],
   ["/resources", "Resources"],
-  ["/blog", "Insights"]
+  ["/blog", "Insights"],
+  ["/contact", "Contact"]
 ] as const;
 
 export function Header() {
@@ -48,7 +49,7 @@ export function Header() {
       </nav>
       <div className={`mobile-nav ${open ? "is-open" : ""}`} id="mobile-navigation">
         <div className="shell">
-          {[...links, ["/contact", "Contact"] as const].map(([href, label]) => <Link href={href} key={href}>{label}</Link>)}
+          {links.map(([href, label]) => <Link href={href} key={href}>{label}</Link>)}
           <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
         </div>
       </div>
