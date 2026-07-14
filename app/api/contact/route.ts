@@ -6,11 +6,12 @@ import { serverEnv } from "@/lib/env";
 import { log } from "@/lib/log";
 import { generateReference } from "@/lib/reference";
 import { sendEmail } from "@/lib/resend";
+import { pushLeadToZoho } from "@/lib/zoho-crm";
 
 // Lead form handler. Runs on the Cloudflare Worker (OpenNext). Pipeline:
 //   1. Validate + honeypot   2. Verify Turnstile   3. Save to D1
-//   4. Notify the team        5. Confirm to the visitor
-// Storage and email each degrade gracefully; the request only fails if the enquiry
+//   4. Notify the team        5. Confirm to the visitor   6. Push to Zoho CRM
+// Storage, email and CRM each degrade gracefully; the request only fails if the enquiry
 // could not be persisted anywhere (neither saved nor emailed). Every stage is logged
 // with the enquiry reference as a correlation id and no sensitive data.
 export const dynamic = "force-dynamic";
@@ -194,6 +195,10 @@ export async function POST(request: Request) {
     ref: reference
   });
 
-  log.info("submission_completed", { ref: reference, stored, emailed });
+  // 6. Push into Zoho CRM (best-effort — never affects the response). Skips cleanly
+  // when the Web-to-Lead env vars are absent, so this is a no-op until configured.
+  const crm = await pushLeadToZoho(record);
+
+  log.info("submission_completed", { ref: reference, stored, emailed, crm: crm.ok });
   return NextResponse.json({ ok: true, reference });
 }
