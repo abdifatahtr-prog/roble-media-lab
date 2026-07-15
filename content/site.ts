@@ -2,7 +2,11 @@ import type { PillarId } from "@/lib/blog";
 
 export const site = {
   name: "Roble Media Lab",
-  tagline: "Smarter content. Practical AI.",
+  // The single source of truth for the tagline. Consumed by the homepage hero
+  // eyebrow and by the Organization schema's `slogan`. Anywhere the tagline
+  // appears off-site (email signature, business card, the reverse logo SVG)
+  // must be updated by hand to match this string.
+  tagline: "Practical AI, automation & websites",
   description:
     "Roble Media Lab helps growing businesses automate repeat workflows with practical AI, build fast business websites, and earn attention through useful content.",
   email: "hello@roblemedialab.co.ke",

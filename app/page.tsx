@@ -17,7 +17,7 @@ export default function Home() {
         <div className="hero-grid-lines" />
         <div className="shell home-hero-grid">
           <div className="hero-copy">
-            <Reveal><span className="eyebrow"><i /> Practical AI, automation & websites</span></Reveal>
+            <Reveal><span className="eyebrow"><i /> {site.tagline}</span></Reveal>
             <Reveal delay={0.06}><h1>Make better work <em>flow.</em></h1></Reveal>
             <Reveal delay={0.12}><p className="hero-lead">We help growing businesses turn repetitive tasks, promising AI ideas, and a website that should be working harder into clear systems people can actually use.</p></Reveal>
             <Reveal delay={0.18} className="button-row">
