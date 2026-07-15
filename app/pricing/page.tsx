@@ -142,12 +142,13 @@ export default function PricingPage() {
               over a price. Everything here is a starting point, including the starting point. Tell us
               your budget and we will tell you honestly what it buys, or whether it buys anything at all.
             </p>
-            {/* Deliberately no VAT claim here until Abdifatah confirms his registration
-                status. If he is NOT registered (threshold is KES 5m turnover), add
-                "No VAT on top." here: it is worth ~14% against VAT-registered rivals. */}
+            {/* Not VAT-registered (confirmed 2026-07-15; threshold is KES 5m turnover).
+                The price shown is the price billed, which is a real ~14% advantage over
+                VAT-registered agencies for clients who cannot reclaim it. Revisit this
+                line the moment turnover approaches the threshold. */}
             <p className="price-terms">
               <strong>How it works:</strong> half to start, half when it goes live. M-Pesa or bank
-              transfer.
+              transfer. The price we quote is the price you pay: no VAT gets added on top.
             </p>
           </div>
         </div>
