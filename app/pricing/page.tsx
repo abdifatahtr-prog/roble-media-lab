@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CTA } from "@/components/cta";
-import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
+import { ArrowRight, CheckIcon, WhatsAppIcon } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
-import { ksh, priceFactors, servicePricing, site, websitePackages } from "@/content/site";
+import { ksh, priceFactors, servicePricing, site, websitePackages, whatsappHref } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -79,8 +79,23 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link className={`button${pkg.featured ? "" : " button-quiet"}`} href={site.bookingPath}>
-                  Talk it through <ArrowUpRight />
+                {/* WhatsApp leads here: someone comparing prices usually has one
+                    specific question ("is this negotiable for 6 pages?"), which is a
+                    chat, not a meeting. The message names the package and the price so
+                    we know what they are looking at before we reply. The button keeps
+                    its tier treatment (solid on Growth, quiet on the others) so the
+                    card hierarchy is unchanged. */}
+                <a
+                  className={`button${pkg.featured ? "" : " button-quiet"}`}
+                  href={whatsappHref(`the ${pkg.name} website package (from KES ${ksh(pkg.from)})`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-service={`${pkg.name} package`}
+                >
+                  <WhatsAppIcon width={16} height={16} /> Chat on WhatsApp
+                </a>
+                <Link className="price-card-alt" href={site.bookingPath}>
+                  Or book a free call <ArrowRight />
                 </Link>
               </article>
             ))}

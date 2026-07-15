@@ -398,6 +398,14 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
 .price-dash { width: 17px; flex: 0 0 auto; height: 17px; position: relative; }
 .price-dash::before { content: ""; position: absolute; left: 3px; right: 3px; top: 8px; height: 1.5px; background: currentColor; opacity: .5; border-radius: 2px; }
 .price-card .button { margin-top: auto; width: 100%; }
+/* Booking stays one click away for anyone already ready to meet, without competing
+   with the chat CTA above it. */
+.price-card-alt { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: 12px; color: var(--slate); font-size: 13px; font-weight: 650; }
+.price-card-alt svg { width: 14px; height: 14px; transition: transform .2s; }
+.price-card-alt:hover { color: var(--ink); }
+.price-card-alt:hover svg { transform: translateX(2px); }
+.price-card.is-featured .price-card-alt { color: #a9b5c5; }
+.price-card.is-featured .price-card-alt:hover { color: var(--white); }
 /* The featured card sits on ink, so the default ink button would vanish into it. */
 .price-card.is-featured .button { background: var(--white); color: var(--ink); border-color: var(--white); }
 .price-card.is-featured .button:hover { background: #e6ecf3; border-color: #e6ecf3; }
