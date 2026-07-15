@@ -160,7 +160,11 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .footer-grid { display: grid; grid-template-columns: 1.45fr .7fr 1fr 1.05fr; gap: 60px; }
 .wordmark-light b { color: var(--teal-light); }
 .footer-brand p, .footer-grid > div:last-child p { color: #8f9bad; line-height: 1.65; max-width: 280px; }
-.footer-brand > a { color: var(--teal-light); font-size: 14px; }
+/* :not(.wordmark) matters. This rule is for the email link, but the wordmark is
+   also a direct <a> child of .footer-brand, and at (0,1,1) this out-specifies
+   .wordmark (0,1,0) — which turned "Roble" teal instead of white and shrank the
+   whole wordmark to 14px. */
+.footer-brand > a:not(.wordmark) { color: var(--teal-light); font-size: 14px; }
 .footer-social { display: flex; gap: 12px; margin-top: 22px; list-style: none; padding: 0; }
 .footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 9px; color: #c2c9d4; background: #131a28; border: 1px solid #232a39; transition: color .15s, background .15s, border-color .15s; }
 .footer-social a:hover { color: #080c16; background: var(--teal-light); border-color: var(--teal-light); }
