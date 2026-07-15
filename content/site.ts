@@ -1,8 +1,10 @@
+import type { PillarId } from "@/lib/blog";
+
 export const site = {
   name: "Roble Media Lab",
   tagline: "Smarter content. Practical AI.",
   description:
-    "Roble Media Lab helps growing businesses create better content systems, use practical AI tools, and automate repeat workflows.",
+    "Roble Media Lab helps growing businesses automate repeat workflows with practical AI, build fast business websites, and earn attention through useful content.",
   email: "hello@roblemedialab.co.ke",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://roblemedialab.co.ke",
   bookingUrl: "https://roblemedialab.zohobookings.com/#/4939818000000045045",
@@ -72,32 +74,39 @@ export type Service = {
   intro: string;
   outcomes: string[];
   process: string[];
+  // Blog pillar ids (see PILLARS in lib/blog.ts) whose posts belong on this
+  // service page. Drives the "related reading" block, so every service links
+  // out to the articles that support it.
+  pillars: PillarId[];
 };
 
 export const services: Service[] = [
   {
-    slug: "ai-consulting",
-    title: "AI Consulting",
-    short: "Find practical, responsible uses for AI in your business.",
-    intro: "We examine how work happens today, identify useful AI opportunities, and turn them into a grounded implementation roadmap.",
-    outcomes: ["A clear opportunity map", "Prioritised use cases", "Tool and risk guidance", "A practical next-step plan"],
-    process: ["Understand your business and constraints", "Map workflows and opportunities", "Prioritise by value and feasibility", "Deliver a practical roadmap"]
+    slug: "ai-business-automation",
+    title: "AI & Business Automation",
+    short: "Find the workflows worth automating, then build ones your team will actually use.",
+    intro: "We look at how work happens today, agree which workflows are worth automating, and build the ones that earn their place. Testing, documentation, and team training are part of the work rather than an afterthought.",
+    outcomes: ["A prioritised opportunity map", "Working automations, not demos", "Documented workflows and safeguards", "A team confident enough to run it"],
+    process: ["Understand the business and its constraints", "Map workflows and rank opportunities", "Build and test against real inputs", "Train the team, document, and improve"],
+    pillars: ["ai", "automation", "operations"]
   },
   {
-    slug: "ai-implementation",
-    title: "AI Implementation",
-    short: "Move from an AI idea to a dependable working system.",
-    intro: "We design and implement focused AI tools around your real workflow, with testing, documentation, and team adoption built in.",
-    outcomes: ["A working implementation", "Documented workflows", "Testing and safeguards", "Team handover and training"],
-    process: ["Define the use case", "Prototype the workflow", "Test with real inputs", "Launch, document, and improve"]
+    slug: "business-websites",
+    title: "Business Websites",
+    short: "A fast, findable website that makes it easy to get in touch.",
+    intro: "We design and build business websites that load quickly, read clearly, and turn interest into an enquiry. Search structure, analytics, and a contact process that actually reaches you are built in from the start.",
+    outcomes: ["A site that loads fast on real connections", "Clear routes to an enquiry", "Search-ready structure and content", "Analytics that show what visitors do"],
+    process: ["Clarify the audience and the offer", "Plan the structure and the content", "Design, build, and test the site", "Measure real use and improve on evidence"],
+    pillars: ["websites", "seo-content"]
   },
   {
-    slug: "business-automation",
-    title: "Business Automation",
-    short: "Reduce repetitive admin and make handoffs more reliable.",
-    intro: "We connect the everyday tools your business uses and automate repeatable work without making the system harder to manage.",
-    outcomes: ["Less manual repetition", "Fewer missed handoffs", "Clearer operating processes", "Time returned to higher-value work"],
-    process: ["Audit the current process", "Design the automation", "Build and test safeguards", "Train the team and monitor"]
+    slug: "seo-content-strategy",
+    title: "SEO & Content Strategy",
+    short: "Useful content built around what your audience is searching for, at a rhythm you can sustain.",
+    intro: "We connect search intent, your own expertise, and a realistic publishing plan, then hand over the templates and workflow that keep it going. No promises of guaranteed rankings.",
+    outcomes: ["Search-informed priorities", "A useful topic architecture", "Reusable templates and a clear workflow", "A measurable editorial plan"],
+    process: ["Research the audience and search landscape", "Map topics to services", "Build the templates and publishing workflow", "Measure and refine"],
+    pillars: ["seo-content", "websites"]
   },
   {
     slug: "whatsapp-automation",
@@ -105,31 +114,8 @@ export const services: Service[] = [
     short: "Create faster, more consistent customer conversations.",
     intro: "We help service businesses structure enquiries, qualification, updates, and follow-up through practical WhatsApp workflows.",
     outcomes: ["Faster first responses", "Consistent lead qualification", "Clearer follow-up", "Better routing to a person"],
-    process: ["Map conversation paths", "Write useful responses", "Connect business tools", "Test escalation and handoff"]
-  },
-  {
-    slug: "content-systems",
-    title: "Content Systems",
-    short: "Turn scattered content work into a repeatable operating rhythm.",
-    intro: "We build the strategy, templates, planning workflow, and measurement habits that help your business publish consistently.",
-    outcomes: ["Clear content direction", "Reusable templates", "A manageable calendar", "A workflow your team can sustain"],
-    process: ["Clarify audience and offers", "Build the content pillars", "Create templates and workflow", "Review and improve"]
-  },
-  {
-    slug: "seo-content-strategy",
-    title: "SEO & Content Strategy",
-    short: "Build useful content around what your audience is searching for.",
-    intro: "We connect search intent, brand expertise, and a realistic publishing plan, without promises of guaranteed rankings.",
-    outcomes: ["Search-informed priorities", "A useful topic architecture", "Stronger internal linking", "A measurable editorial plan"],
-    process: ["Research the audience and search landscape", "Map topics to services", "Plan useful content", "Measure and refine"]
-  },
-  {
-    slug: "ai-training",
-    title: "AI Training",
-    short: "Help your team use AI confidently, safely, and usefully.",
-    intro: "Hands-on training is shaped around your team’s actual tasks, tools, policies, and level of experience.",
-    outcomes: ["Shared practical skills", "Safer AI habits", "Reusable prompt patterns", "Role-specific examples"],
-    process: ["Assess current needs", "Design relevant exercises", "Run hands-on sessions", "Provide reference material"]
+    process: ["Map conversation paths", "Write useful responses", "Connect business tools", "Test escalation and handoff"],
+    pillars: ["automation", "operations"]
   }
 ];
 
@@ -146,7 +132,8 @@ export const faqs = [
   ["Can you automate our entire business?", "Usually, trying to automate everything at once creates more risk than value. We start with focused, repeatable workflows and expand based on evidence."],
   ["Do you guarantee SEO rankings or business results?", "No. Search rankings and commercial outcomes depend on factors no responsible provider can fully control. We commit to sound strategy, careful execution, and transparent measurement."],
   ["What is the best first step?", "A 30-minute discovery call is a useful place to start. We will discuss the problem, current workflow, and whether there is a sensible way to help."],
-  ["Do you offer team training?", "Yes. Training can cover practical AI use, prompting, workflow design, content systems, and responsible usage tailored to your team."]
+  ["Do you offer team training?", "Yes. Training is part of how we hand over automation work rather than a separate product, because a system nobody understands does not survive contact with a busy week. It can also be run on its own, covering practical AI use, prompting, workflow design, and responsible usage."],
+  ["Do you build websites, or only automate things?", "We build them. A business website is one of the four things we do, and this site is our own example of the work: fast to load, structured for search, with a contact process that actually reaches a person."]
 ] as const;
 
 // Blog posts now live as .mdx files in content/blog/ and are read via lib/blog.ts.

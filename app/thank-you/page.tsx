@@ -93,7 +93,7 @@ export default async function ThankYouPage({ searchParams }: { searchParams: Pro
                 <span className="eyebrow">While you wait</span>
                 <h2>A few ideas worth reading.</h2>
               </div>
-              <p>Practical notes on AI, automation, and content systems for growing businesses.</p>
+              <p>Practical notes on AI, automation, websites, and content for growing businesses.</p>
             </div>
             <div className="plain-grid">
               {posts.map((post) => (

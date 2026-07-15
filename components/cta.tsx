@@ -9,7 +9,7 @@ export function CTA() {
         <div className="cta-panel">
           <span className="eyebrow eyebrow-light">A sensible first step</span>
           <h2>Ready to improve your workflow?</h2>
-          <p>Bring us a repetitive workflow, an AI idea, or a content challenge. We’ll help you identify practical opportunities to save time and grow your business.</p>
+          <p>Bring us a repetitive workflow, an AI idea, a website that should be working harder, or a content challenge. We’ll help you identify practical opportunities to save time and grow your business.</p>
           <div className="cta-actions">
             <Link className="button button-light" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
             <p className="cta-alt">Prefer email? <Link href="/contact">Send us a message.</Link></p>

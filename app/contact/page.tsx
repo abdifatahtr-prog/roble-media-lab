@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { ArrowUpRight, CheckIcon } from "@/components/icons";
 import { site } from "@/content/site";
 
-export const metadata: Metadata = { title: "Contact", description: "Talk to Roble Media Lab about content systems, automation, SEO, or practical AI. Book a free discovery call or send us a message." };
+export const metadata: Metadata = { title: "Contact", description: "Talk to Roble Media Lab about AI and business automation, a new website, SEO and content, or WhatsApp. Book a free discovery call or send us a message.", alternates: { canonical: "/contact" } };
 
 const trustBadges = [
   "30-minute video call",
@@ -29,7 +29,7 @@ export default function ContactPage() {
           <Reveal><span className="eyebrow">Contact</span></Reveal>
           <Reveal delay={0.06}><h1>Let’s talk about your business.</h1></Reveal>
           <Reveal delay={0.12}>
-            <p className="page-lead">Whether you’re exploring AI, automation, SEO, content systems, or custom software, we’ll help you identify the next practical step for your business.</p>
+            <p className="page-lead">Whether you’re exploring AI and automation, need a website that pulls its weight, or want your content to be found, we’ll help you identify the next practical step for your business.</p>
           </Reveal>
           <Reveal delay={0.18} className="contact-hero-cta">
             <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>

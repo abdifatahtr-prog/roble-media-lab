@@ -6,6 +6,17 @@ const securityHeaders = [
   { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" }
 ];
 
+// Services consolidated from seven to four (July 2026). The retired slugs keep
+// their inbound links and any accrued ranking by redirecting to the service that
+// absorbed them.
+const retiredServiceRedirects = [
+  ["/services/ai-consulting", "/services/ai-business-automation"],
+  ["/services/ai-implementation", "/services/ai-business-automation"],
+  ["/services/business-automation", "/services/ai-business-automation"],
+  ["/services/ai-training", "/services/ai-business-automation"],
+  ["/services/content-systems", "/services/seo-content-strategy"]
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
@@ -13,6 +24,12 @@ const nextConfig = {
   compress: true,
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
+  },
+  async redirects() {
+    // statusCode 301 rather than `permanent: true`, which emits a 308. Search
+    // engines treat them alike, but 301 is what every SEO tool and older crawler
+    // expects, and these are GET-only pages so there is no method to preserve.
+    return retiredServiceRedirects.map(([source, destination]) => ({ source, destination, statusCode: 301 }));
   }
 };
 

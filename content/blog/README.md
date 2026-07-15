@@ -11,7 +11,7 @@ needs editing — the listing, sitemap, and site search pick it up automatically
 title: Where should a small business start with AI?
 description: A grounded framework for finding useful AI opportunities without buying tools first.
 date: 2026-07-01          # yyyy-mm-dd
-pillar: ai                # ai | content-systems | operations | automation | case-studies
+pillar: ai                # ai | automation | websites | seo-content | operations | case-studies
 readTime: 5 min read      # optional — auto-estimated from word count if omitted
 draft: true               # optional — hides the post from the live site
 ---
@@ -19,14 +19,16 @@ draft: true               # optional — hides the post from the live site
 
 - **title / description / date / pillar** are required. Description doubles as the
   SEO meta description and the listing blurb, so keep it tight (~150 chars).
-- **pillar** must be one of the five ids above (defined in `scripts/generate-blog.mjs`).
+- **pillar** must be one of the six ids above (defined in `scripts/generate-blog.mjs`,
+  mirrored in `lib/blog.ts` — change both). They track the four services, so a post's
+  pillar tells you which service page it should link back to.
 - **draft: true** keeps a work-in-progress out of the listing, sitemap, and search.
 
 ## Body
 
 Write in plain **Markdown**. Use `##` for section headings (the page title comes
 from frontmatter — don't repeat it as an `#` heading). Links like
-`[our automation service](/services/business-automation)` work normally. Styling
+`[our automation service](/services/ai-business-automation)` work normally. Styling
 comes from the `.prose` wrapper — just write content.
 
 Need something Markdown can't express (e.g. a before/after image pair)? Drop in

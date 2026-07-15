@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { UtmCapture } from "@/components/utm-capture";
 import { WhatsAppButton } from "@/components/whatsapp-button";
-import { site } from "@/content/site";
+import { services, site } from "@/content/site";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -14,9 +14,12 @@ const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap"
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: "Roble Media Lab | Practical AI & Content Systems", template: "%s | Roble Media Lab" },
+  title: { default: "Roble Media Lab | Practical AI, Automation & Business Websites", template: "%s | Roble Media Lab" },
   description: site.description,
-  alternates: { canonical: "/" },
+  // NOTE: no `alternates.canonical` here on purpose. Metadata cascades, so a
+  // canonical set in the root layout is inherited by every page that does not
+  // override it — which pointed the whole site (every blog post included) at the
+  // homepage and told Google not to index them. Each page declares its own.
   icons: { icon: "/roble-media-lab-icon.svg", apple: "/roble-media-lab-icon.svg" },
   openGraph: {
     title: "Roble Media Lab",
@@ -47,7 +50,21 @@ const organizationSchema = {
   address: { "@type": "PostalAddress", addressCountry: "KE", addressRegion: "Nairobi" },
   areaServed: ["Kenya", "East Africa"],
   slogan: site.tagline,
-  description: site.description
+  description: site.description,
+  // Derived from the service list so the catalogue can't drift from the site.
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Services",
+    itemListElement: services.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        description: service.intro,
+        url: `${site.url}/services/${service.slug}`
+      }
+    }))
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

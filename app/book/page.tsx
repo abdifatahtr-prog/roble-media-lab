@@ -5,7 +5,8 @@ import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Book a call",
-  description: "Book a 30-minute discovery call with Roble Media Lab to talk through content systems, automation, or practical AI."
+  description: "Book a 30-minute discovery call with Roble Media Lab to talk through AI and business automation, a new website, SEO, or WhatsApp workflows.",
+  alternates: { canonical: "/book" }
 };
 
 const expectations = [

@@ -31,7 +31,7 @@ export function Footer() {
             <Image src="/roble-media-lab-icon.svg" width={40} height={40} alt="" />
             <span>Roble <b>Media Lab</b></span>
           </Link>
-          <p>Clear content systems and practical AI solutions for growing businesses.</p>
+          <p>Practical AI, automation, and websites for growing businesses in Kenya and East Africa.</p>
           <a href={`mailto:${site.email}`}>{site.email}</a>
           {activeSocials.length > 0 && (
             <ul className="footer-social" aria-label="Roble Media Lab on social media">
@@ -50,7 +50,7 @@ export function Footer() {
         </div>
         <div>
           <h2>Explore</h2>
-          <Link href="/about">About</Link><Link href="/services">Services</Link><Link href="/blog">Insights</Link><Link href="/resources">Resources</Link><Link href="/case-studies">Case studies</Link>
+          <Link href="/about">About</Link><Link href="/services">Services</Link><Link href="/blog">Insights</Link><Link href="/resources">Resources</Link><Link href="/case-studies">Case studies</Link><Link href="/faq">FAQ</Link>
         </div>
         <div>
           <h2>Services</h2>

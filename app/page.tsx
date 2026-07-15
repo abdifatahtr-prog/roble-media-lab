@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CTA } from "@/components/cta";
 import { FAQList } from "@/components/faq-list";
@@ -5,6 +6,8 @@ import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { Testimonials } from "@/components/testimonials";
 import { faqs, principles, services, site } from "@/content/site";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function Home() {
   return (
@@ -14,9 +17,9 @@ export default function Home() {
         <div className="hero-grid-lines" />
         <div className="shell home-hero-grid">
           <div className="hero-copy">
-            <Reveal><span className="eyebrow"><i /> Content systems & practical AI</span></Reveal>
+            <Reveal><span className="eyebrow"><i /> Practical AI, automation & websites</span></Reveal>
             <Reveal delay={0.06}><h1>Make better work <em>flow.</em></h1></Reveal>
-            <Reveal delay={0.12}><p className="hero-lead">We help growing businesses turn scattered content, repetitive tasks, and promising AI ideas into clear systems people can actually use.</p></Reveal>
+            <Reveal delay={0.12}><p className="hero-lead">We help growing businesses turn repetitive tasks, promising AI ideas, and a website that should be working harder into clear systems people can actually use.</p></Reveal>
             <Reveal delay={0.18} className="button-row">
               <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
               <Link className="text-link" href="/services">Explore our services <ArrowRight /></Link>

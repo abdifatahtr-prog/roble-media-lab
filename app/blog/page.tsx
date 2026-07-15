@@ -6,7 +6,8 @@ import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Insights",
-  description: "Practical notes on AI, automation, content systems, and digital growth."
+  description: "Practical notes on AI, business automation, websites, and SEO for growing businesses in Kenya and East Africa.",
+  alternates: { canonical: "/blog" }
 };
 
 export default function BlogPage() {
@@ -14,7 +15,7 @@ export default function BlogPage() {
   return (
     <>
       <PageHero eyebrow="Insights" title="Ideas you can put to work.">
-        <p>Grounded thinking about practical AI, better workflows, and content systems for growing businesses.</p>
+        <p>Grounded thinking about practical AI, better workflows, websites, and content for growing businesses.</p>
       </PageHero>
       <section className="content-section">
         <div className="shell plain-grid">

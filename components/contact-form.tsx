@@ -6,15 +6,11 @@ import { ArrowRight } from "./icons";
 import { Turnstile, type TurnstileHandle } from "./turnstile";
 import { trackGenerateLead } from "@/lib/gtag";
 import { getUtms } from "@/lib/utm";
+import { services } from "@/content/site";
 
-const serviceOptions = [
-  "AI Automation",
-  "Website Development",
-  "SEO",
-  "AI Content Systems",
-  "Consulting",
-  "Not Sure Yet"
-];
+// Derived from the service list so the enquiry topics can never drift from what
+// we actually sell. The value is sent to the CRM as free text.
+const serviceOptions = [...services.map((service) => service.title), "Not Sure Yet"];
 const DEFAULT_SERVICE = "Not Sure Yet";
 
 // Cloudflare Turnstile site key. Public by design (rendered into the page), so it is

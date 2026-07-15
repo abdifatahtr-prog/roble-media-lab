@@ -18,11 +18,14 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const BLOG_DIR = path.join(ROOT, "content", "blog");
 const OUT_FILE = path.join(ROOT, "content", "blog-data.json");
 
+// Keep in sync with PILLARS in lib/blog.ts. These mirror the four services so a
+// post's pillar maps to the service it should link back to.
 const PILLARS = {
   ai: "AI for SMEs",
-  "content-systems": "Content Systems",
-  operations: "Business Operations",
   automation: "Automation",
+  websites: "Business Websites",
+  "seo-content": "SEO & Content",
+  operations: "Business Operations",
   "case-studies": "Case Studies"
 };
 

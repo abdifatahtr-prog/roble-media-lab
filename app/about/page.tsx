@@ -4,7 +4,7 @@ import { CTA } from "@/components/cta";
 import { PageHero } from "@/components/page-hero";
 import { founder, principles } from "@/content/site";
 
-export const metadata: Metadata = { title: "About", description: "How Roble Media Lab approaches content systems, automation, and practical AI." };
+export const metadata: Metadata = { title: "About", description: "How Roble Media Lab approaches practical AI, business automation, websites, and content that earns attention.", alternates: { canonical: "/about" } };
 
 function FounderSection() {
   if (!founder.bio.length) return null;

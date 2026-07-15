@@ -12,7 +12,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = getPost(slug);
-  return post ? { title: post.title, description: post.description } : {};
+  return post
+    ? {
+        title: post.title,
+        description: post.description,
+        alternates: { canonical: `/blog/${slug}` },
+        openGraph: { title: post.title, description: post.description, type: "article", publishedTime: post.date, url: `${site.url}/blog/${slug}` }
+      }
+    : {};
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
