@@ -9,6 +9,7 @@ import { ArrowUpRight, CloseIcon, MenuIcon, SearchIcon } from "./icons";
 
 const links = [
   ["/services", "Services"],
+  ["/pricing", "Pricing"],
   ["/about", "About"],
   ["/resources", "Resources"],
   ["/blog", "Insights"],

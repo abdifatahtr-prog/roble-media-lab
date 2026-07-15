@@ -123,6 +123,122 @@ export const services: Service[] = [
   }
 ];
 
+/* ---------------------------------------------------------------------------
+   PRICING
+   Set July 2026 from desk research into published Kenyan agency rates, anchored
+   ~10% below the AGENCY tier (not the freelancer floor, which is a segment we
+   have deliberately chosen not to compete in).
+
+   Every figure is a STARTING point, never a ceiling. Nothing here is a quote.
+   Re-check these against real delivery hours after the first few projects: we
+   do not yet know what this work actually costs us in time.
+--------------------------------------------------------------------------- */
+
+/** Formats 95000 as "95,000". Prices are shown in KES, VAT not applicable. */
+export function ksh(amount: number): string {
+  return amount.toLocaleString("en-KE");
+}
+
+export type WebsitePackage = {
+  name: string;
+  from: number;
+  who: string;
+  includes: string[];
+  excludes?: string[];
+  featured?: boolean;
+};
+
+/** Websites are the only service productised into fixed tiers: scope is
+ *  predictable enough to promise, and buyers in this market expect three. */
+export const websitePackages: WebsitePackage[] = [
+  {
+    name: "Starter",
+    from: 60_000,
+    who: "A site that makes people trust you and makes it easy to get in touch. Nothing you do not need.",
+    includes: [
+      "Up to 5 pages",
+      "Built mobile-first, made to load fast",
+      "A contact form that actually reaches you",
+      "WhatsApp click-to-chat",
+      "Search structure and Search Console",
+      "Analytics",
+      "2 rounds of revisions"
+    ],
+    excludes: ["No booking system", "No blog"]
+  },
+  {
+    name: "Growth",
+    from: 95_000,
+    who: "The site most growing businesses actually need. This website is the Growth package: look around.",
+    featured: true,
+    includes: [
+      "Everything in Starter",
+      "Up to 12 pages",
+      "Booking that goes straight to your calendar",
+      "A blog you can publish to yourself",
+      "Lead capture with an automatic reply",
+      "Full search structure: schema, sitemap, canonicals",
+      "Readable for everyone (WCAG AA)",
+      "Conversion tracking",
+      "3 rounds of revisions",
+      "Handover training and 30 days of support"
+    ]
+  },
+  {
+    name: "Scale",
+    from: 185_000,
+    who: "For when the website is a system rather than a brochure, and it has to sell or book while you sleep.",
+    includes: [
+      "Everything in Growth",
+      "Up to 25 pages",
+      "Online shop or advanced booking",
+      "M-Pesa integration",
+      "Leads land in your CRM automatically",
+      "One automation workflow included",
+      "90 days of support and 2 training sessions"
+    ]
+  }
+];
+
+export type ServicePrice = {
+  slug: string;
+  title: string;
+  from: string;
+  note: string;
+};
+
+/** The other three are quoted, not packaged: their scope genuinely varies, and a
+ *  fixed tier would be a promise we could not keep. */
+export const servicePricing: ServicePrice[] = [
+  {
+    slug: "ai-business-automation",
+    title: "AI & Business Automation",
+    from: `From KES ${ksh(135_000)}`,
+    note: "Most first builds land between KES 135,000 and 300,000, depending on how many systems have to talk to each other. Not sure it is worth it? Start with an audit at KES 25,000, and we take that off the build if you go ahead."
+  },
+  {
+    slug: "whatsapp-automation",
+    title: "WhatsApp Automation",
+    from: `From KES ${ksh(45_000)} to build, then from KES ${ksh(9_000)}/month`,
+    note: "WhatsApp charges its own fee per conversation, and the AI costs a little to run. We bill both at cost, on the invoice, with no markup, and we estimate them for you before you commit to anything."
+  },
+  {
+    slug: "seo-content-strategy",
+    title: "SEO & Content Strategy",
+    from: `From KES ${ksh(45_000)}/month`,
+    note: "Fewer, better pieces rather than ten posts a month nobody reads. This work takes months to show up, not weeks, and we would rather tell you that now than sell you a single month of it."
+  }
+];
+
+/** Honest answer to "why is it not one number?", shown on /pricing. */
+export const priceFactors = [
+  "How many pages, and whether they are variations on one design or each built once.",
+  "Whether you already have the words and photos, or need them written and made.",
+  "What has to connect: M-Pesa, your CRM, booking, stock.",
+  "How quickly you need it.",
+  "Whether we hand it over and leave, or stay on afterwards."
+];
+
 export const principles = [
   ["Useful before impressive", "Technology should remove friction and support a clear business need."],
   ["Honest by default", "We do not sell AI as magic or promise outcomes we cannot control."],

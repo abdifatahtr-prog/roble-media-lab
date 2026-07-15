@@ -27,8 +27,10 @@ export function Footer() {
     <footer className="footer">
       <div className="shell footer-grid">
         <div className="footer-brand">
+          {/* icon-light (white tile) not the navy icon: the navy tile is 1.03:1 against
+              this footer, i.e. invisible. Same treatment as the business card. */}
           <Link className="wordmark wordmark-light" href="/">
-            <Image src="/roble-media-lab-icon.svg" width={40} height={40} alt="" />
+            <Image src="/icon-light.svg" width={40} height={40} alt="" />
             <span>Roble <b>Media Lab</b></span>
           </Link>
           <p>Practical AI, automation, and websites for growing businesses in Kenya and East Africa.</p>
@@ -50,7 +52,7 @@ export function Footer() {
         </div>
         <div>
           <h2>Explore</h2>
-          <Link href="/about">About</Link><Link href="/services">Services</Link><Link href="/blog">Insights</Link><Link href="/resources">Resources</Link><Link href="/case-studies">Case studies</Link><Link href="/faq">FAQ</Link>
+          <Link href="/about">About</Link><Link href="/services">Services</Link><Link href="/pricing">Pricing</Link><Link href="/blog">Insights</Link><Link href="/resources">Resources</Link><Link href="/case-studies">Case studies</Link><Link href="/faq">FAQ</Link>
         </div>
         <div>
           <h2>Services</h2>

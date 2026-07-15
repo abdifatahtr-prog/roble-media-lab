@@ -357,6 +357,68 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
   .whatsapp-fab span { display: none; }
 }
 
+/* Pricing */
+.price-intro h2 { font-size: clamp(26px,3vw,34px); margin: 0 0 16px; }
+.price-intro p { color: var(--slate); line-height: 1.75; font-size: 17px; margin: 0 0 14px; }
+.price-who { padding: 16px 18px; border-left: 3px solid var(--teal); background: var(--mist); border-radius: 0 12px 12px 0; }
+.price-who strong { color: var(--ink); }
+
+/* stretch, not start: equal-height cards let margin-top:auto line the CTAs up. */
+.price-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: stretch; }
+.price-card { display: flex; flex-direction: column; padding: 30px 26px; background: white; border: 1px solid var(--line); border-radius: var(--radius); }
+/* The featured tier is the one we want sold: give it the ink ground so the eye lands there. */
+.price-card.is-featured { background: var(--ink); border-color: var(--ink); color: white; box-shadow: var(--shadow); }
+.price-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.price-card h3 { margin: 0; font-size: 20px; }
+.price-tag { padding: 4px 11px; border-radius: 999px; background: var(--teal-light); color: var(--ink); font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.price-amount { margin: 16px 0 0; font-family: var(--font-sora); font-size: 31px; font-weight: 700; letter-spacing: -.04em; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
+.price-card.is-featured .price-amount { color: var(--teal-light); }
+.price-from { font-family: var(--font-inter); font-size: 13px; font-weight: 650; letter-spacing: 0; color: var(--slate); }
+.price-card.is-featured .price-from { color: #a9b5c5; }
+.price-who-line { margin: 10px 0 22px; color: var(--slate); font-size: 14px; line-height: 1.6; min-height: 66px; }
+.price-card.is-featured .price-who-line { color: #bdc8d5; }
+.price-list { list-style: none; margin: 0 0 26px; padding: 0; display: grid; gap: 10px; }
+.price-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.5; color: var(--ink); }
+.price-card.is-featured .price-list li { color: #e2e8f1; }
+.price-list svg { width: 17px; height: 17px; flex: 0 0 auto; margin-top: 1px; color: var(--teal-dark); }
+.price-card.is-featured .price-list svg { color: var(--teal-light); }
+.price-list li.is-out { color: var(--slate-soft); }
+.price-dash { width: 17px; flex: 0 0 auto; height: 17px; position: relative; }
+.price-dash::before { content: ""; position: absolute; left: 3px; right: 3px; top: 8px; height: 1.5px; background: currentColor; opacity: .5; border-radius: 2px; }
+.price-card .button { margin-top: auto; width: 100%; }
+/* The featured card sits on ink, so the default ink button would vanish into it. */
+.price-card.is-featured .button { background: var(--white); color: var(--ink); border-color: var(--white); }
+.price-card.is-featured .button:hover { background: #e6ecf3; border-color: #e6ecf3; }
+.button-quiet { background: transparent; color: var(--ink); border-color: var(--line); }
+.button-quiet:hover { background: var(--mist); border-color: #b9c6cc; box-shadow: none; }
+
+.price-rows { display: grid; gap: 16px; }
+.price-row { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+.price-row-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; }
+.price-row h3 { margin: 0; font-size: 22px; }
+.price-row-from { margin: 0; font-family: var(--font-sora); font-size: 19px; font-weight: 700; letter-spacing: -.03em; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
+.price-row-note { margin: 14px 0 16px; color: var(--slate); line-height: 1.7; font-size: 15px; max-width: 74ch; }
+
+.price-honest { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.price-honest h2 { font-size: clamp(24px,2.6vw,30px); margin: 0 0 18px; }
+.price-honest h3 { font-size: 17px; margin: 26px 0 8px; }
+.price-honest p { color: var(--slate); line-height: 1.75; margin: 0 0 14px; }
+.price-factors { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.price-factors li { position: relative; padding-left: 26px; color: var(--slate); line-height: 1.65; }
+.price-factors li::before { content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+.price-terms { margin-top: 22px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--cloud); font-size: 14px; }
+.price-terms strong { color: var(--ink); }
+
+@media (max-width: 960px) {
+  .price-grid { grid-template-columns: 1fr; }
+  .price-who-line { min-height: 0; }
+  .price-honest { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 620px) {
+  .price-card, .price-row { padding: 24px 20px; }
+  .price-row-head { gap: 4px; }
+}
+
 /* Touch devices: raise tap targets to the 44x44 minimum.
    Scoped to coarse pointers so mouse users keep the tighter visual rhythm.
    Standalone links get a transparent overlay that grows the hit area without
