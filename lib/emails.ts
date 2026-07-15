@@ -4,10 +4,13 @@ import type { EnquiryRecord } from "@/lib/db";
 // Brand-consistent transactional emails. Kept as inline-styled, table-based HTML so
 // they render reliably across email clients (Gmail, Outlook, Apple Mail, mobile).
 
+// Keep in sync with the tokens in app/globals.css. Email clients can't read CSS
+// variables, so these are duplicated by necessity: change them in both places.
 const BRAND = {
   ink: "#0b1020",
-  teal: "#0f8f83",
+  teal: "#0d7c71", // text-on-light accent; the old #0f8f83 was 3.98:1 on white (AA needs 4.5)
   slate: "#536171",
+  slateSoft: "#637080", // muted meta text; the old #8a97a6 was 2.98:1 on white
   line: "#dbe3e7",
   cloud: "#f6faf9",
   white: "#ffffff"
@@ -133,7 +136,7 @@ export function renderNotificationEmail(record: EnquiryRecord): RenderedEmail {
     <p style="margin:24px 0 0;">
       <a href="mailto:${escapeHtml(record.email)}" style="display:inline-block;background:${BRAND.ink};color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:12px 22px;border-radius:999px;">Reply to ${escapeHtml(record.name)}</a>
     </p>
-    ${record.userAgent ? `<p style="margin:22px 0 0;color:#8a97a6;font-size:11px;line-height:1.5;">Device: ${escapeHtml(record.userAgent)}</p>` : ""}
+    ${record.userAgent ? `<p style="margin:22px 0 0;color:${BRAND.slateSoft};font-size:11px;line-height:1.5;">Device: ${escapeHtml(record.userAgent)}</p>` : ""}
   `;
 
   const text = [

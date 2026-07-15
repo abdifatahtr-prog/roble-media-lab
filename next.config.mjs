@@ -29,7 +29,18 @@ const nextConfig = {
     // statusCode 301 rather than `permanent: true`, which emits a 308. Search
     // engines treat them alike, but 301 is what every SEO tool and older crawler
     // expects, and these are GET-only pages so there is no method to preserve.
-    return retiredServiceRedirects.map(([source, destination]) => ({ source, destination, statusCode: 301 }));
+    return [
+      ...retiredServiceRedirects.map(([source, destination]) => ({ source, destination, statusCode: 301 })),
+      // Printed business card QR target. Deliberately a SHORT path and a TEMPORARY
+      // (302) redirect: 302 keeps it out of browser/CDN permanent caches, so the
+      // destination can be changed later without reprinting cards that are already
+      // in people's wallets. The UTMs live here, not on the card, for the same reason.
+      {
+        source: "/card",
+        destination: "/book?utm_source=card&utm_medium=print&utm_campaign=business_card",
+        statusCode: 302
+      }
+    ];
   }
 };
 
