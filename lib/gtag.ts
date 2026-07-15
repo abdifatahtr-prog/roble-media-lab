@@ -18,3 +18,22 @@ export function trackGenerateLead(params: { selected_service?: string; page_loca
     ...params
   });
 }
+
+/**
+ * Clicks on the two CTAs that are NOT the enquiry form.
+ *
+ * Deliberately separate event names rather than folding them into generate_lead:
+ * generate_lead is a confirmed submission and is already a GA4 Key Event, whereas
+ * these are intent clicks (someone can open WhatsApp and never send). Mixing them
+ * would quietly corrupt the one number that currently means something.
+ *
+ * Mark `whatsapp_click` as a Key Event in GA4 alongside generate_lead, since
+ * WhatsApp is now the primary funnel entry. Without it, promoting WhatsApp makes
+ * form submissions fall and conversions look like they collapsed.
+ */
+export function trackCtaClick(
+  name: "whatsapp_click" | "book_call_click",
+  params: { link_location?: string; link_text?: string; page_path?: string; service?: string } = {}
+): void {
+  trackEvent(name, params);
+}

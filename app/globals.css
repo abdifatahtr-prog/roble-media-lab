@@ -59,6 +59,9 @@ button { color: inherit; }
 .button:hover svg, .text-link:hover svg, .service-card a:hover svg, .all-services-link:hover svg, .footer-cta:hover svg { transform: translate(2px,-2px); }
 .button-small { min-height: 44px; padding: 0 18px; }
 .button-light { color: var(--ink); background: var(--white); border-color: var(--white); }
+/* Secondary action on a dark panel: the light button keeps the primary slot. */
+.button-on-dark { background: transparent; color: var(--white); border-color: rgba(255,255,255,.32); }
+.button-on-dark:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.6); box-shadow: none; }
 /* 44x44 tap target (was 41x41). Icon stays 25px and centred. */
 .menu-button { display: none; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; padding: 0; }
 .menu-button svg { width: 25px; height: 25px; }
@@ -212,6 +215,11 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 /* Contact page */
 .contact-hero { padding-bottom: 84px; }
 .contact-hero-cta { margin-top: 34px; }
+/* Routes people to the right contact method instead of making them guess. */
+.contact-chooser { max-width: 640px; margin: 0 0 22px; color: var(--slate); font-size: 15px; line-height: 1.9; }
+.contact-chooser strong { color: var(--ink); font-weight: 700; }
+.contact-chooser strong:not(:first-child) { margin-left: 4px; }
+.contact-hero-cta .button-row { margin-top: 0; }
 .trust-badges { list-style: none; margin: 30px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px 26px; }
 .trust-badges li { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); font-size: 15px; font-weight: 600; }
 .trust-badges svg { width: 18px; height: 18px; flex: 0 0 auto; color: var(--teal-dark); }

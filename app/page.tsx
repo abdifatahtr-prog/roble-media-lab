@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CTA } from "@/components/cta";
 import { FAQList } from "@/components/faq-list";
-import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
+import { ArrowRight, ArrowUpRight, CheckIcon, WhatsAppIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { Testimonials } from "@/components/testimonials";
-import { faqs, principles, services, site } from "@/content/site";
+import { faqs, principles, services, site, whatsappHref } from "@/content/site";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -20,8 +20,15 @@ export default function Home() {
             <Reveal><span className="eyebrow"><i /> {site.tagline}</span></Reveal>
             <Reveal delay={0.06}><h1>Make better work <em>flow.</em></h1></Reveal>
             <Reveal delay={0.12}><p className="hero-lead">We help growing businesses turn repetitive tasks, promising AI ideas, and a website that should be working harder into clear systems people can actually use.</p></Reveal>
+            {/* WhatsApp leads: it is the lowest-friction way to start, and booking a
+                call is a commitment most first-time visitors are not ready for yet. */}
             <Reveal delay={0.18} className="button-row">
-              <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
+              {whatsappHref() && (
+                <a className="button" href={whatsappHref()} target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon width={16} height={16} /> Chat on WhatsApp
+                </a>
+              )}
+              <Link className="button button-quiet" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
               <Link className="text-link" href="/services">Explore our services <ArrowRight /></Link>
             </Reveal>
           </div>

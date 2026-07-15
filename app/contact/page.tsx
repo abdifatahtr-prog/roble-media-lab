@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { Reveal } from "@/components/reveal";
-import { ArrowUpRight, CheckIcon } from "@/components/icons";
-import { site } from "@/content/site";
+import { ArrowUpRight, CheckIcon, WhatsAppIcon } from "@/components/icons";
+import { site, whatsappHref } from "@/content/site";
 
 export const metadata: Metadata = { title: "Contact", description: "Talk to Roble Media Lab about AI and business automation, a new website, SEO and content, or WhatsApp. Book a free discovery call or send us a message.", alternates: { canonical: "/contact" } };
 
@@ -31,8 +31,22 @@ export default function ContactPage() {
           <Reveal delay={0.12}>
             <p className="page-lead">Whether you’re exploring AI and automation, need a website that pulls its weight, or want your content to be found, we’ll help you identify the next practical step for your business.</p>
           </Reveal>
+          {/* Three ways in, each labelled by when to use it, rather than one CTA
+              shouting over the page's own enquiry form. */}
           <Reveal delay={0.18} className="contact-hero-cta">
-            <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
+            <p className="contact-chooser">
+              <strong>Need a quick answer?</strong> WhatsApp is fastest.
+              <strong>Ready to talk it through?</strong> Book a call.
+              <strong>Have a project with real detail?</strong> Use the enquiry form below.
+            </p>
+            <span className="button-row">
+              {whatsappHref() && (
+                <a className="button" href={whatsappHref()} target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon width={16} height={16} /> Chat on WhatsApp
+                </a>
+              )}
+              <Link className="button button-quiet" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
+            </span>
           </Reveal>
           <Reveal delay={0.24}>
             <ul className="trust-badges" aria-label="What to expect from a discovery call">
@@ -49,14 +63,14 @@ export default function ContactPage() {
       <section className="content-section contact-body">
         <div className="shell contact-grid">
           <Reveal className="contact-form-col">
-            <span className="eyebrow">Prefer email?</span>
+            <span className="eyebrow">Have a project in mind?</span>
             <h2>Send us your project details.</h2>
-            <p className="contact-lead">Complete the short form below and we’ll get back to you within one business day.</p>
+            <p className="contact-lead">Complete the enquiry form and we’ll review your requirements properly before getting back to you. This is the one to use if your project has real detail to it. We reply within one business day.</p>
             <div className="plain-card contact-form-card">
               <ContactForm />
             </div>
             <p className="contact-alt">
-              Prefer to talk sooner? <Link href={site.bookingPath}>Book a free discovery call</Link> or write to <a href={`mailto:${site.email}`}>{site.email}</a>.
+              Prefer to talk sooner? <a href={whatsappHref()} target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>, <Link href={site.bookingPath}>book a free discovery call</Link>, or write to <a href={`mailto:${site.email}`}>{site.email}</a>.
             </p>
           </Reveal>
 

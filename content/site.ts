@@ -15,11 +15,28 @@ export const site = {
   bookingPath: "/book",
   // WhatsApp number in international format, digits only (no +, spaces, or dashes).
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "254707773916",
-  whatsappMessage: "Hi Roble Media Lab, I'd like to talk about",
+  // Kept deliberately short. WhatsApp's whole advantage is that it costs the visitor
+  // nothing to start; a form-shaped prefilled message hands that friction straight
+  // back. Business name, site, service and detail get collected conversationally
+  // once the chat is open. Use whatsappHref() rather than reading this directly.
+  whatsappMessage: "Hi Roble Media Lab! I'd like to improve my business with AI and automation.",
   // Cloudflare Web Analytics beacon token. Get it from the Cloudflare dashboard
   // (Analytics & Logs → Web Analytics). Empty = analytics disabled.
   cfBeaconToken: process.env.NEXT_PUBLIC_CF_BEACON_TOKEN ?? ""
 } as const;
+
+/**
+ * The click-to-chat link. Pass a service title to open the chat already on-topic
+ * (used by the CTA panel on service pages); omit it for the generic opener.
+ * Returns "" when no number is configured, so callers can render nothing.
+ */
+export function whatsappHref(topic?: string): string {
+  if (!site.whatsapp) return "";
+  const text = topic
+    ? `Hi Roble Media Lab! I'd like to talk about ${topic} for my business.`
+    : site.whatsappMessage;
+  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
+}
 
 // Social profiles. Renders in the footer only for entries with a real `href`.
 // Fill in the profile URLs you actually have; leave the rest as "" and they won't show.
@@ -207,28 +224,34 @@ export type ServicePrice = {
   note: string;
 };
 
+/** Titles come from `services`, never retyped here: hardcoding them meant renaming
+ *  a service silently desynced the pricing page. Throws at build time on a bad slug
+ *  rather than shipping a wrong name. */
+function serviceTitle(slug: string): string {
+  const match = services.find((service) => service.slug === slug);
+  if (!match) throw new Error(`servicePricing references an unknown service slug: ${slug}`);
+  return match.title;
+}
+
 /** The other three are quoted, not packaged: their scope genuinely varies, and a
  *  fixed tier would be a promise we could not keep. */
 export const servicePricing: ServicePrice[] = [
   {
     slug: "ai-business-automation",
-    title: "AI & Business Automation",
     from: `From KES ${ksh(135_000)}`,
     note: "Most first builds land between KES 135,000 and 300,000, depending on how many systems have to talk to each other. Not sure it is worth it? Start with an audit at KES 25,000, and we take that off the build if you go ahead."
   },
   {
     slug: "whatsapp-automation",
-    title: "WhatsApp Automation",
     from: `From KES ${ksh(45_000)} to build, then from KES ${ksh(9_000)}/month`,
     note: "WhatsApp charges its own fee per conversation, and the AI costs a little to run. We bill both at cost, on the invoice, with no markup, and we estimate them for you before you commit to anything."
   },
   {
     slug: "seo-content-strategy",
-    title: "SEO & Content Strategy",
     from: `From KES ${ksh(45_000)}/month`,
     note: "Fewer, better pieces rather than ten posts a month nobody reads. This work takes months to show up, not weeks, and we would rather tell you that now than sell you a single month of it."
   }
-];
+].map((entry) => ({ ...entry, title: serviceTitle(entry.slug) }));
 
 /** Honest answer to "why is it not one number?", shown on /pricing. */
 export const priceFactors = [

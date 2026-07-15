@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { UtmCapture } from "@/components/utm-capture";
+import { ConversionTracking } from "@/components/conversion-tracking";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { services, site } from "@/content/site";
 import "./globals.css";
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <WhatsAppButton />
         <Analytics />
         <GoogleAnalytics gaId="G-DVFVKQNP4P" />
+        <ConversionTracking />
         <UtmCapture />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       </body>
