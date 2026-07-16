@@ -23,7 +23,7 @@ export default function Home() {
           <div className="hero-copy">
             <div className="rise"><span className="eyebrow"><i /> {site.tagline}</span></div>
             <div className="rise" style={{ "--rise-delay": ".06s" } as React.CSSProperties}><h1>Make better work <em>flow.</em></h1></div>
-            <div className="rise" style={{ "--rise-delay": ".12s" } as React.CSSProperties}><p className="hero-lead">We help growing businesses turn repetitive tasks, promising AI ideas, and a website that should be working harder into clear systems people can actually use.</p></div>
+            <div className="rise" style={{ "--rise-delay": ".12s" } as React.CSSProperties}><p className="hero-lead">We help growing businesses turn repetitive tasks, promising AI ideas, and a website that should be working harder into clear systems that save time and win customers.</p></div>
             {/* WhatsApp leads: it is the lowest-friction way to start, and booking a
                 call is a commitment most first-time visitors are not ready for yet. */}
             <div className="rise button-row" style={{ "--rise-delay": ".18s" } as React.CSSProperties}>
@@ -75,8 +75,8 @@ export default function Home() {
       <section className="section dark-section">
         <div className="shell">
           <Reveal className="section-heading split-heading">
-            <div><span className="eyebrow eyebrow-light">Why Roble</span><h2>Good technology should make work feel clearer.</h2></div>
-            <p>We combine content thinking, workflow design, and practical AI implementation. That means fewer disconnected tactics and more attention to how the whole system works.</p>
+            <div><span className="eyebrow eyebrow-light">Why businesses choose us</span><h2>Good technology should make work feel clearer.</h2></div>
+            <p>We combine workflow design, content thinking, and practical AI implementation, so you get one system that works together instead of disconnected tactics. And we publish our prices and our thinking up front, so you can judge us before you spend a shilling.</p>
           </Reveal>
           <div className="principle-grid">
             {principles.map(([title, text], index) => <Reveal className="principle" delay={index * 0.05} key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p></Reveal>)}

@@ -51,32 +51,16 @@ export const socials: Social[] = [
   { id: "tiktok", label: "TikTok", href: "" }
 ];
 
-// The founder block renders on /about only when `bio` has content.
-// REPLACE the placeholder copy with real details before publishing.
+// Deliberately minimal: the company is the story, not the founder. /about names
+// the founder in one line inside the transparency section, nothing more.
 export type Founder = {
   name: string;
   role: string;
-  photo?: string; // e.g. "/founder.jpg" placed in /public
-  bio: string[];
-  credentials: string[];
 };
 
 export const founder: Founder = {
   name: "Abdifatah Hassan",
-  role: "Founder, Roble Media Lab",
-  photo: "/founder.jpg",
-  bio: [
-    "I'm Abdifatah Hassan, founder of Roble Media Lab. I started the studio to help growing businesses across Kenya and East Africa put content, automation, and practical AI to work, the grounded, useful way, without the hype.",
-    "My background is in business operations and compliance, including remote work with UK-based organisations where I built reporting systems, ran process audits, and kept documentation dependable. That work taught me to see a business as a set of systems, which is exactly how good automation and content workflows are built. I hold Google Professional Certificates in Data Analytics and Project Management, alongside a Bachelor of Business Management (International Business) from Mount Kenya University.",
-    "I work best with SMEs, founders, and service businesses that sense something could run smoother but want a partner who is honest about what technology can and cannot do. I bring an operations mindset, real data literacy, and a bias for simple systems people will actually use, and I work fluently in English, Swahili, and Somali."
-  ],
-  credentials: [
-    "Google Data Analytics Professional Certificate",
-    "Google Project Management Professional Certificate",
-    "Bachelor of Business Management (International Business), Mount Kenya University",
-    "Operations & compliance experience with UK-based organisations",
-    "Works in English, Swahili & Somali · Based in Nairobi, Kenya"
-  ]
+  role: "Founder, Roble Media Lab"
 };
 
 // Trust: real content only. Leave empty until you have permission to publish.
