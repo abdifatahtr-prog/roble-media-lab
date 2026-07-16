@@ -45,3 +45,20 @@ export function getPostSlugs(): string[] {
 export function getPost(slug: string): Post | null {
   return posts.find((p) => p.slug === slug) ?? null;
 }
+
+/**
+ * What to read next. Same pillar first, since that is the closest topic match
+ * and the pillars are what make the blog a library rather than a pile of posts.
+ * Anything still short is topped up with the most recent other posts, so a post
+ * that is currently alone in its pillar still gets a full set rather than an
+ * empty rail. `posts` is already sorted newest-first.
+ */
+export function getRelatedPosts(slug: string, limit = 3): PostMeta[] {
+  const current = posts.find((p) => p.slug === slug);
+  if (!current) return [];
+  const others = posts.filter((p) => p.slug !== slug);
+  return [
+    ...others.filter((p) => p.pillar === current.pillar),
+    ...others.filter((p) => p.pillar !== current.pillar)
+  ].slice(0, limit);
+}

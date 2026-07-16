@@ -31,9 +31,36 @@ const PILLARS = {
 
 marked.setOptions({ gfm: true, breaks: false });
 
+// Always measured, never declared. A hand-typed `readTime` in frontmatter drifts
+// away from the post the moment it is edited, and three of the five posts were
+// advertising 4-6 min on bodies of 134-182 words (about one minute each). A
+// reader who is promised six minutes and gets one concludes the site is padded,
+// which is an expensive impression for an agency that sells content strategy.
 function estimateReadTime(body) {
   const words = body.trim().split(/\s+/).filter(Boolean).length;
   return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
+const CALLOUT_LABELS = { NOTE: "Note", TIP: "Tip", WARNING: "Warning" };
+
+// Post-processing that Markdown itself cannot express.
+function enhance(html) {
+  return (
+    html
+      // GitHub-style alerts: `> [!TIP]` and the following lines become a callout.
+      // The label is rendered as text, so the meaning never rests on colour alone.
+      .replace(
+        /<blockquote>\s*<p>\s*\[!(NOTE|TIP|WARNING)\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/g,
+        (_, kind, body) =>
+          `<div class="callout callout-${kind.toLowerCase()}">` +
+          `<span class="callout-label">${CALLOUT_LABELS[kind]}</span>` +
+          `<p>${body.trim()}</p></div>`
+      )
+      // A wide table has to scroll inside its own box; otherwise it drags the
+      // whole page sideways on a phone.
+      .replace(/<table>/g, '<div class="table-scroll"><table>')
+      .replace(/<\/table>/g, "</table></div>")
+  );
 }
 
 function toISODate(value, slug) {
@@ -77,10 +104,10 @@ function build() {
         description: String(data.description),
         date,
         dateLabel: formatDate(date),
-        readTime: data.readTime ? String(data.readTime) : estimateReadTime(content),
+        readTime: estimateReadTime(content),
         pillar: data.pillar,
         pillarLabel: PILLARS[data.pillar],
-        html: marked.parse(content)
+        html: enhance(marked.parse(content))
       };
     })
     .filter((p) => !p.draft)

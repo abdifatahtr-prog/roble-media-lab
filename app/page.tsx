@@ -16,13 +16,17 @@ export default function Home() {
         <div className="hero-orb hero-orb-one" /><div className="hero-orb hero-orb-two" />
         <div className="hero-grid-lines" />
         <div className="shell home-hero-grid">
+          {/* CSS .rise, not <Reveal>: the JS reveal server-rendered this whole
+              column at opacity:0, which held back the h1 — the page's LCP element —
+              until framer-motion hydrated. Below-the-fold sections keep <Reveal>,
+              where the trade-off is harmless. */}
           <div className="hero-copy">
-            <Reveal><span className="eyebrow"><i /> {site.tagline}</span></Reveal>
-            <Reveal delay={0.06}><h1>Make better work <em>flow.</em></h1></Reveal>
-            <Reveal delay={0.12}><p className="hero-lead">We help growing businesses turn repetitive tasks, promising AI ideas, and a website that should be working harder into clear systems people can actually use.</p></Reveal>
+            <div className="rise"><span className="eyebrow"><i /> {site.tagline}</span></div>
+            <div className="rise" style={{ "--rise-delay": ".06s" } as React.CSSProperties}><h1>Make better work <em>flow.</em></h1></div>
+            <div className="rise" style={{ "--rise-delay": ".12s" } as React.CSSProperties}><p className="hero-lead">We help growing businesses turn repetitive tasks, promising AI ideas, and a website that should be working harder into clear systems people can actually use.</p></div>
             {/* WhatsApp leads: it is the lowest-friction way to start, and booking a
                 call is a commitment most first-time visitors are not ready for yet. */}
-            <Reveal delay={0.18} className="button-row">
+            <div className="rise button-row" style={{ "--rise-delay": ".18s" } as React.CSSProperties}>
               {whatsappHref() && (
                 <a className="button" href={whatsappHref()} target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon width={16} height={16} /> Chat on WhatsApp
@@ -30,9 +34,9 @@ export default function Home() {
               )}
               <Link className="button button-quiet" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
               <Link className="text-link" href="/services">Explore our services <ArrowRight /></Link>
-            </Reveal>
+            </div>
           </div>
-          <Reveal delay={0.18} className="system-visual">
+          <div className="rise system-visual" style={{ "--rise-delay": ".18s" } as React.CSSProperties}>
             <div className="visual-top"><span>From friction to flow</span><span className="status"><i /> Practical by design</span></div>
             <div className="flow">
               <div className="flow-node"><span>01</span><b>Find the friction</b><small>Content, admin, leads, handoffs</small></div>
@@ -42,7 +46,7 @@ export default function Home() {
               <div className="flow-node"><span>03</span><b>Make it useful</b><small>Test, train, measure, improve</small></div>
             </div>
             <div className="visual-footer"><span><CheckIcon /> Clear ownership</span><span><CheckIcon /> Sensible automation</span><span><CheckIcon /> Human handoff</span></div>
-          </Reveal>
+          </div>
         </div>
         <div className="shell trust-strip">
           <span>Built for</span><b>SMEs</b><b>Startups</b><b>Agencies</b><b>Consultants</b><b>Growing teams</b>

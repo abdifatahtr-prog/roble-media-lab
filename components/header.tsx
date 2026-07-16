@@ -48,7 +48,13 @@ export function Header() {
           {open ? <CloseIcon /> : <MenuIcon />}
         </button>
       </nav>
-      <div className={`mobile-nav ${open ? "is-open" : ""}`} id="mobile-navigation">
+      {/* The closed menu collapses to 0px via grid-template-rows, which hides it
+          visually but leaves it in the layout — all seven links stayed focusable
+          and were still announced by screen readers, so a keyboard user on a
+          phone tabbed into a menu that wasn't open. `inert` takes the whole
+          subtree out of the tab order and the accessibility tree without
+          touching the open/close animation. */}
+      <div className={`mobile-nav ${open ? "is-open" : ""}`} id="mobile-navigation" inert={!open}>
         <div className="shell">
           {links.map(([href, label]) => <Link href={href} key={href}>{label}</Link>)}
           <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>

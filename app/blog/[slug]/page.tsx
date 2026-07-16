@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CTA } from "@/components/cta";
+import { ArrowRight } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
-import { getPost, getPostSlugs } from "@/lib/blog";
+import { getPost, getPostSlugs, getRelatedPosts } from "@/lib/blog";
 import { site } from "@/content/site";
 
 export function generateStaticParams() {
@@ -26,6 +28,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) notFound();
+  const related = getRelatedPosts(slug);
 
   const schema = {
     "@context": "https://schema.org",
@@ -39,12 +42,37 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <PageHero eyebrow={`${post.pillarLabel} · ${post.readTime} · ${post.dateLabel}`} title={post.title}>
+      <PageHero
+        eyebrow={`${post.pillarLabel} · ${post.readTime} · ${post.dateLabel}`}
+        title={post.title}
+        variant="article"
+      >
         <p>{post.description}</p>
       </PageHero>
       <article className="content-section">
         <div className="shell narrow prose" dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
+
+      {related.length > 0 && (
+        <section className="content-section section-compact related-posts">
+          <div className="shell">
+            <h2 className="related-posts-heading">Keep reading</h2>
+            <div className="plain-grid">
+              {related.map((item) => (
+                <article className="plain-card" key={item.slug}>
+                  <span className="eyebrow">{item.pillarLabel} · {item.readTime}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <Link className="text-link" href={`/blog/${item.slug}`}>
+                    Read article <ArrowRight />
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </>

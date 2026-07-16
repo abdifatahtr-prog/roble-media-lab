@@ -12,13 +12,17 @@ title: Where should a small business start with AI?
 description: A grounded framework for finding useful AI opportunities without buying tools first.
 date: 2026-07-01          # yyyy-mm-dd
 pillar: ai                # ai | automation | websites | seo-content | operations | case-studies
-readTime: 5 min read      # optional — auto-estimated from word count if omitted
 draft: true               # optional — hides the post from the live site
 ---
 ```
 
 - **title / description / date / pillar** are required. Description doubles as the
   SEO meta description and the listing blurb, so keep it tight (~150 chars).
+- **read time is measured, not declared.** There is deliberately no `readTime`
+  field: it is always counted from the body at ~200 wpm. A typed-in value drifts
+  the moment you edit the post, and three posts once advertised "4-6 min read" on
+  about 150 words. Promising six minutes and delivering one makes the whole
+  library look padded — the last impression an agency selling content wants.
 - **pillar** must be one of the six ids above (defined in `scripts/generate-blog.mjs`,
   mirrored in `lib/blog.ts` — change both). They track the four services, so a post's
   pillar tells you which service page it should link back to.
@@ -35,6 +39,25 @@ Need something Markdown can't express (e.g. a before/after image pair)? Drop in
 **raw HTML** — it passes straight through. See the before/after block in
 `building-this-as-a-non-coder.mdx` for an example using the `.post-beforeafter`
 styles.
+
+### Callouts
+
+Pull a key point out of the flow with a GitHub-style alert. `NOTE`, `TIP`, and
+`WARNING` are supported:
+
+```markdown
+> [!TIP]
+> Map the workflow before you automate it.
+```
+
+Each one renders with a visible label, so the meaning never depends on the colour
+alone. A blockquote without a `[!...]` tag stays an ordinary quote.
+
+### Tables
+
+Write normal Markdown tables. They're wrapped automatically so a wide table
+scrolls inside its own box instead of dragging the whole page sideways on a
+phone. Lists, code blocks, `---` rules, and quotes are all styled — just write.
 
 ## How it builds (why there's no runtime MDX)
 
