@@ -22,7 +22,10 @@ export default function Home() {
               where the trade-off is harmless. */}
           <div className="hero-copy">
             <div className="rise"><span className="eyebrow"><i /> {site.tagline}</span></div>
-            <div className="rise" style={{ "--rise-delay": ".06s" } as React.CSSProperties}><h1>Make better work <em>flow.</em></h1></div>
+            <div className="rise" style={{ "--rise-delay": ".06s" } as React.CSSProperties}>{/* Explicit break + &nbsp;: the headline must always read "Make better" /
+                "work flow." — free wrapping stranded "work" on its own line at
+                desktop widths, which killed the workflow pun. */}
+            <h1>Make better<br />work&nbsp;<em>flow.</em></h1></div>
             <div className="rise" style={{ "--rise-delay": ".12s" } as React.CSSProperties}><p className="hero-lead">We help growing businesses turn repetitive tasks, promising AI ideas, and a website that should be working harder into clear systems that save time and win customers.</p></div>
             {/* WhatsApp leads: it is the lowest-friction way to start, and booking a
                 call is a commitment most first-time visitors are not ready for yet. */}

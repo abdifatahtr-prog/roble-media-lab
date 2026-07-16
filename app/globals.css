@@ -83,8 +83,12 @@ button { color: inherit; }
 .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--teal-dark); text-transform: uppercase; font-weight: 800; font-size: 13px; letter-spacing: .12em; }
 .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 5px rgba(20,184,166,.1); }
 h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
-.hero-copy h1 { margin: 22px 0 24px; font-size: clamp(58px,7.6vw,104px); line-height: .94; max-width: 740px; }
-.hero-copy h1 em { display: block; font-style: normal; color: var(--teal-dark); }
+/* Cap 100px, not 104: the column is 575px on wide screens and "Make better"
+   at 104px is 584px, which wrapped the headline onto three lines. */
+.hero-copy h1 { margin: 22px 0 24px; font-size: clamp(58px,7.6vw,100px); line-height: .94; max-width: 740px; }
+/* Inline, not block: the h1 sets its own line break, so "work" and the teal
+   "flow." sit together and read as the intended pun. */
+.hero-copy h1 em { font-style: normal; color: var(--teal-dark); }
 .hero-lead { color: var(--slate); font-size: clamp(18px,1.7vw,21px); line-height: 1.65; max-width: 650px; }
 .button-row { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-top: 34px; }
 .text-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 750; font-size: 14px; border-bottom: 1px solid var(--line); padding: 8px 0; }
@@ -405,7 +409,6 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
   .mobile-nav .button { margin-top: 14px; }
   .home-hero-grid, .split-heading, .process-layout, .faq-layout { grid-template-columns: 1fr; gap: 55px; }
   .home-hero { min-height: auto; }
-  .hero-copy h1 em { display: inline; }
   .system-visual { max-width: 680px; }
   .service-grid { grid-template-columns: repeat(2,1fr); }
   .principle-grid { grid-template-columns: repeat(2,1fr); }
