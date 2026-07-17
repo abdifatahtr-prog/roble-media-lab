@@ -7,7 +7,10 @@ import { Reveal } from "@/components/reveal";
 import { Testimonials } from "@/components/testimonials";
 import { faqs, principles, services, site, whatsappHref } from "@/content/site";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+// `types` must be repeated here: a page-level `alternates` REPLACES the root
+// layout's whole alternates object (no deep merge), which would silently drop
+// the RSS autodiscovery link.
+export const metadata: Metadata = { alternates: { canonical: "/", types: { "application/rss+xml": "/feed.xml" } } };
 
 export default function Home() {
   return (
