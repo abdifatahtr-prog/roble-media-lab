@@ -36,9 +36,46 @@ marked.setOptions({ gfm: true, breaks: false });
 // advertising 4-6 min on bodies of 134-182 words (about one minute each). A
 // reader who is promised six minutes and gets one concludes the site is padded,
 // which is an expensive impression for an agency that sells content strategy.
-function estimateReadTime(body) {
-  const words = body.trim().split(/\s+/).filter(Boolean).length;
+function countWords(body) {
+  return body.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function estimateReadTime(words) {
   return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
+// marked escapes text content; anchor ids and the table of contents need the
+// plain characters back (the TOC text is re-escaped by React when rendered).
+function decodeEntities(text) {
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+// Give every h2 a stable id and collect them as the table of contents. Only
+// h2s: they are the section markers, and a TOC that lists every h3 stops being
+// a map and becomes a second article. Duplicate headings get -2, -3 suffixes.
+function addHeadingAnchors(html) {
+  const toc = [];
+  const seen = new Map();
+  const out = html.replace(/<h2>([\s\S]*?)<\/h2>/g, (_, inner) => {
+    const text = decodeEntities(inner.replace(/<[^>]+>/g, "")).trim();
+    let id = text
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/['’]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    const count = (seen.get(id) ?? 0) + 1;
+    seen.set(id, count);
+    if (count > 1) id = `${id}-${count}`;
+    toc.push({ id, text });
+    return `<h2 id="${id}">${inner}</h2>`;
+  });
+  return { html: out, toc };
 }
 
 const CALLOUT_LABELS = { NOTE: "Note", TIP: "Tip", WARNING: "Warning" };
@@ -97,6 +134,21 @@ function build() {
       }
 
       const date = toISODate(data.date, slug);
+
+      // Optional frontmatter. `updated` shows a "Last updated" line and feeds
+      // dateModified/sitemap; `cover`/`coverAlt` swap the auto-generated
+      // branded cover for a real image living under public/.
+      const updated = data.updated ? toISODate(data.updated, slug) : null;
+      if (updated && updated < date) {
+        throw new Error(`Post "${slug}" has an "updated" date earlier than its "date".`);
+      }
+      const cover = data.cover ? String(data.cover) : null;
+      if (cover && !cover.startsWith("/")) {
+        throw new Error(`Post "${slug}" has a "cover" that is not a root-relative path (expected e.g. /blog/${slug}.png).`);
+      }
+
+      const words = countWords(content);
+      const { html, toc } = addHeadingAnchors(enhance(marked.parse(content)));
       return {
         slug,
         draft: data.draft === true,
@@ -104,10 +156,16 @@ function build() {
         description: String(data.description),
         date,
         dateLabel: formatDate(date),
-        readTime: estimateReadTime(content),
+        updated,
+        updatedLabel: updated ? formatDate(updated) : null,
+        readTime: estimateReadTime(words),
+        wordCount: words,
         pillar: data.pillar,
         pillarLabel: PILLARS[data.pillar],
-        html: enhance(marked.parse(content))
+        cover,
+        coverAlt: cover && data.coverAlt ? String(data.coverAlt) : null,
+        toc,
+        html
       };
     })
     .filter((p) => !p.draft)

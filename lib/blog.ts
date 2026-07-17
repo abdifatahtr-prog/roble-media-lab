@@ -25,12 +25,28 @@ export type PostMeta = {
   description: string;
   date: string; // ISO yyyy-mm-dd — for schema.org + sitemap
   dateLabel: string; // human-readable, e.g. "8 July 2026" — for display
+  updated: string | null; // ISO — set via `updated` frontmatter when a post is revised
+  updatedLabel: string | null;
   readTime: string; // e.g. "5 min read"
+  wordCount: number;
   pillar: PillarId;
   pillarLabel: string;
+  cover: string | null; // root-relative image path from `cover` frontmatter; null = branded auto-cover
+  coverAlt: string | null;
 };
 
-export type Post = PostMeta & { html: string };
+export type TocEntry = { id: string; text: string };
+
+export type Post = PostMeta & { html: string; toc: TocEntry[] };
+
+/**
+ * A table of contents earns its place on long pieces only: on a short post it
+ * pushes the article below the fold to index three screens of text. ~1,200
+ * words is the threshold, and it still needs enough sections to be a map.
+ */
+export function showToc(post: Post): boolean {
+  return post.wordCount >= 1200 && post.toc.length >= 3;
+}
 
 const posts = data.posts as Post[];
 

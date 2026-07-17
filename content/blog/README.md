@@ -13,6 +13,9 @@ description: A grounded framework for finding useful AI opportunities without bu
 date: 2026-07-01          # yyyy-mm-dd
 pillar: ai                # ai | automation | websites | seo-content | operations | case-studies
 draft: true               # optional — hides the post from the live site
+updated: 2026-08-01       # optional — shows "Updated ..." in the byline, feeds dateModified + sitemap
+cover: /blog/my-image.png # optional — real featured image (file goes in public/blog/)
+coverAlt: What the image shows  # pairs with cover
 ---
 ```
 
@@ -27,6 +30,15 @@ draft: true               # optional — hides the post from the live site
   mirrored in `lib/blog.ts` — change both). They track the four services, so a post's
   pillar tells you which service page it should link back to.
 - **draft: true** keeps a work-in-progress out of the listing, sitemap, and search.
+- **The article chrome is automatic.** Byline ("By Roble Media Lab"), published
+  date, measured read time, featured cover, reading-progress bar, share buttons,
+  the author box, related articles, and the closing discovery-call CTA are all
+  part of the template — never add them to a post body.
+- **Featured image**: every post gets a branded cover automatically (ink
+  gradient + pillar label). Add `cover`/`coverAlt` only when you have a real,
+  topic-specific image — it then also becomes the social-share (OG) image.
+- **Table of contents is automatic** on posts of ~1,200+ words with at least
+  three `##` sections (see `showToc` in `lib/blog.ts`). Nothing to declare.
 
 ## Body
 

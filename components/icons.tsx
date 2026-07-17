@@ -22,6 +22,10 @@ export function SearchIcon(props: IconProps) {
   return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}><circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="1.8"/><path d="m16 16 4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>;
 }
 
+export function LinkIcon(props: IconProps) {
+  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}><path d="M10 14a4.5 4.5 0 0 0 6.36 0l3.32-3.32a4.5 4.5 0 0 0-6.36-6.36L11.5 6.14M14 10a4.5 4.5 0 0 0-6.36 0l-3.32 3.32a4.5 4.5 0 0 0 6.36 6.36l1.82-1.82" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+}
+
 export function CheckIcon(props: IconProps) {
   return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}><path d="m5 12 4 4L19 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
 }

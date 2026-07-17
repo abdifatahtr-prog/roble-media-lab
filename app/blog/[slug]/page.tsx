@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AuthorBox } from "@/components/author-box";
 import { CTA } from "@/components/cta";
 import { ArrowRight } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
-import { getPost, getPostSlugs, getRelatedPosts } from "@/lib/blog";
+import { PostCover } from "@/components/post-cover";
+import { ReadingProgress } from "@/components/reading-progress";
+import { ShareButtons } from "@/components/share-buttons";
+import { getPost, getPostSlugs, getRelatedPosts, showToc } from "@/lib/blog";
 import { site } from "@/content/site";
 
 export function generateStaticParams() {
@@ -19,7 +23,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title: post.title,
         description: post.description,
         alternates: { canonical: `/blog/${slug}` },
-        openGraph: { title: post.title, description: post.description, type: "article", publishedTime: post.date, url: `${site.url}/blog/${slug}` }
+        openGraph: {
+          title: post.title,
+          description: post.description,
+          type: "article",
+          publishedTime: post.date,
+          ...(post.updated ? { modifiedTime: post.updated } : {}),
+          url: `${site.url}/blog/${slug}`,
+          ...(post.cover ? { images: [{ url: `${site.url}${post.cover}` }] } : {})
+        }
       }
     : {};
 }
@@ -29,6 +41,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const post = getPost(slug);
   if (!post) notFound();
   const related = getRelatedPosts(slug);
+  const toc = showToc(post) ? post.toc : [];
 
   const schema = {
     "@context": "https://schema.org",
@@ -36,21 +49,49 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    author: { "@type": "Organization", name: site.name },
-    publisher: { "@type": "Organization", name: site.name }
+    dateModified: post.updated ?? post.date,
+    wordCount: post.wordCount,
+    mainEntityOfPage: `${site.url}/blog/${slug}`,
+    ...(post.cover ? { image: `${site.url}${post.cover}` } : {}),
+    author: { "@type": "Organization", name: site.name, url: site.url },
+    publisher: {
+      "@type": "Organization",
+      name: site.name,
+      logo: { "@type": "ImageObject", url: `${site.url}/roble-media-lab-icon.svg` }
+    }
   };
 
   return (
     <>
-      <PageHero
-        eyebrow={`${post.pillarLabel} · ${post.readTime} · ${post.dateLabel}`}
-        title={post.title}
-        variant="article"
-      >
+      <ReadingProgress />
+      <PageHero eyebrow={post.pillarLabel} title={post.title} variant="article">
+        <p className="article-meta">
+          <span>By {site.name}</span>
+          <span>Published {post.dateLabel}</span>
+          {post.updatedLabel && <span>Updated {post.updatedLabel}</span>}
+          <span>{post.readTime}</span>
+        </p>
         <p>{post.description}</p>
       </PageHero>
       <article className="content-section">
-        <div className="shell narrow prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className="shell narrow prose">
+          <PostCover post={post} />
+          {toc.length > 0 && (
+            <nav className="toc" aria-label="Table of contents">
+              <span className="toc-label">In this article</span>
+              <ol>
+                {toc.map((entry) => (
+                  <li key={entry.id}>
+                    <a href={`#${entry.id}`}>{entry.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+          <ShareButtons url={`${site.url}/blog/${slug}`} title={post.title} />
+          <AuthorBox />
+        </div>
       </article>
 
       {related.length > 0 && (
