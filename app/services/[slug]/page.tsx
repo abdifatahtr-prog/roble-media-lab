@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArticleCard } from "@/components/article-card";
 import { CTA } from "@/components/cta";
-import { ArrowRight, CheckIcon } from "@/components/icons";
+import { CheckIcon } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { services, site } from "@/content/site";
 import { getAllPosts } from "@/lib/blog";
@@ -22,7 +22,7 @@ export default async function ServicePage({ params }: { params: Promise<{slug:st
   return <><PageHero eyebrow="Roble Media Lab service" title={service.title}><p>{service.intro}</p></PageHero>
     <section className="content-section"><div className="shell"><div className="split-heading section-heading"><div><span className="eyebrow">What this creates</span><h2>A useful outcome, not another unused tool.</h2></div><p>Scope depends on your workflow and needs. We define the work clearly before implementation begins.</p></div><div className="plain-grid">{service.outcomes.map((outcome)=><div className="plain-card" key={outcome}><CheckIcon style={{width:24,color:"var(--teal-dark)"}}/><h3>{outcome}</h3></div>)}</div></div></section>
     <section className="content-section soft-section"><div className="shell process-layout"><div className="process-intro"><span className="eyebrow">Approach</span><h2>How the work moves forward.</h2></div><div className="process-list">{service.process.map((step,index)=><div className="process-step" key={step}><span>{String(index+1).padStart(2,"0")}</span><div><h3>{step}</h3></div></div>)}</div></div></section>
-    {relatedPosts.length>0 && <section className="content-section"><div className="shell"><div className="split-heading section-heading"><div><span className="eyebrow">Related reading</span><h2>How we think about this work.</h2></div><p>Written before the pitch. Read these and judge the approach for yourself.</p></div><div className="plain-grid">{relatedPosts.map((post)=><article className="plain-card" key={post.slug}><span className="eyebrow">{post.pillarLabel} · {post.readTime}</span><h3><Link href={`/blog/${post.slug}`}>{post.title} <ArrowRight /></Link></h3><p>{post.description}</p></article>)}</div></div></section>}
+    {relatedPosts.length>0 && <section className="content-section"><div className="shell"><div className="split-heading section-heading"><div><span className="eyebrow">Related reading</span><h2>How we think about this work.</h2></div><p>Written before the pitch. Read these and judge the approach for yourself.</p></div><div className="plain-grid">{relatedPosts.map((post)=><ArticleCard key={post.slug} post={post}/>)}</div></div></section>}
     {/* Pass the service so the WhatsApp chat opens already on-topic. */}
     <CTA service={service.title}/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}}/></>;
 }

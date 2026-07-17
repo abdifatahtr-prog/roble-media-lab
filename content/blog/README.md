@@ -41,7 +41,8 @@ coverAlt: What the image shows  # pairs with cover
   the top of that file). Until a scene is registered, the post shows the plain
   branded panel, so publishing never blocks on artwork. Add `cover`/`coverAlt`
   frontmatter only when you have a real, topic-specific image — it then
-  replaces the illustration and becomes the social-share (OG) image.
+  replaces the illustration on the page. (The social-share image is always the
+  generated per-post card from `app/blog/[slug]/opengraph-image.tsx`.)
 - **Table of contents is automatic** on posts of ~1,200+ words with at least
   three `##` sections (see `showToc` in `lib/blog.ts`). Nothing to declare.
 

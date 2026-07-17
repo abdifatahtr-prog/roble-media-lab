@@ -52,7 +52,7 @@ export function Footer() {
         </div>
         <div>
           <h2>Explore</h2>
-          <Link href="/about">About</Link><Link href="/services">Services</Link><Link href="/pricing">Pricing</Link><Link href="/blog">Insights</Link><Link href="/resources">Resources</Link><Link href="/case-studies">Case studies</Link><Link href="/faq">FAQ</Link>
+          <Link href="/about">About</Link><Link href="/services">Services</Link><Link href="/pricing">Pricing</Link><Link href="/blog">Insights</Link><Link href="/resources">Resources</Link><Link href="/case-studies">Case studies</Link><Link href="/faq">FAQ</Link><Link href="/contact">Contact</Link>
         </div>
         <div>
           <h2>Services</h2>

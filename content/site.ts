@@ -38,18 +38,28 @@ export function whatsappHref(topic?: string): string {
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
-// Social profiles. Renders in the footer only for entries with a real `href`.
-// Fill in the profile URLs you actually have; leave the rest as "" and they won't show.
+// Social profiles. Renders in the footer only for entries with a real `href`,
+// and every filled entry is also emitted as `sameAs` in the Organization
+// schema (app/layout.tsx) — the signal Google uses to tie the website and the
+// social accounts together as ONE entity. Official profiles only: linking a
+// profile here asserts to search engines that it belongs to Roble Media Lab.
+// Each profile's bio should link back to https://roblemedialab.co.ke so the
+// claim is reciprocal.
 export type SocialId = "linkedin" | "instagram" | "x" | "facebook" | "youtube" | "tiktok";
 export type Social = { id: SocialId; label: string; href: string };
 export const socials: Social[] = [
+  // LinkedIn is deliberately empty: the existing profile is the founder's
+  // personal one, and org sameAs must only claim company-owned profiles.
   { id: "linkedin", label: "LinkedIn", href: "" },
-  { id: "instagram", label: "Instagram", href: "" },
-  { id: "x", label: "X (Twitter)", href: "" },
-  { id: "facebook", label: "Facebook", href: "" },
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/roblemedialab" },
+  { id: "x", label: "X (Twitter)", href: "https://x.com/roblemedialab" },
+  { id: "facebook", label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591682155057" },
   { id: "youtube", label: "YouTube", href: "" },
   { id: "tiktok", label: "TikTok", href: "" }
 ];
+
+/** Filled profiles only — the Organization schema's sameAs list. */
+export const officialProfiles = socials.map((s) => s.href).filter(Boolean);
 
 // Deliberately minimal: the company is the story, not the founder. /about names
 // the founder in one line inside the transparency section, nothing more.

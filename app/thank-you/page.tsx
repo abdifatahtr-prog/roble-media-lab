@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArticleCard } from "@/components/article-card";
 import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { getAllPosts } from "@/lib/blog";
@@ -97,12 +98,7 @@ export default async function ThankYouPage({ searchParams }: { searchParams: Pro
             </div>
             <div className="plain-grid">
               {posts.map((post) => (
-                <article className="plain-card" key={post.slug}>
-                  <span className="eyebrow">{post.pillarLabel} · {post.readTime}</span>
-                  <h2>{post.title}</h2>
-                  <p>{post.description}</p>
-                  <Link className="text-link" href={`/blog/${post.slug}`}>Read article <ArrowRight /></Link>
-                </article>
+                <ArticleCard key={post.slug} post={post} />
               ))}
             </div>
           </div>

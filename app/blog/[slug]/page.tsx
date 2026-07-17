@@ -21,14 +21,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title: post.title,
         description: post.description,
         alternates: { canonical: `/blog/${slug}` },
+        // No `images` here: the generated per-post card in ./opengraph-image.tsx
+        // is file-based metadata, which outranks anything set in this object.
         openGraph: {
           title: post.title,
           description: post.description,
           type: "article",
           publishedTime: post.date,
           ...(post.updated ? { modifiedTime: post.updated } : {}),
-          url: `${site.url}/blog/${slug}`,
-          ...(post.cover ? { images: [{ url: `${site.url}${post.cover}` }] } : {})
+          url: `${site.url}/blog/${slug}`
         }
       }
     : {};
@@ -41,6 +42,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const related = getRelatedPosts(slug);
   const toc = showToc(post) ? post.toc : [];
 
+  // author/publisher reference the Organization node in app/layout.tsx by @id,
+  // so every article is machine-readably "by the same Roble Media Lab" rather
+  // than by a fresh anonymous organisation each time.
   const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -50,13 +54,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     dateModified: post.updated ?? post.date,
     wordCount: post.wordCount,
     mainEntityOfPage: `${site.url}/blog/${slug}`,
-    ...(post.cover ? { image: `${site.url}${post.cover}` } : {}),
-    author: { "@type": "Organization", name: site.name, url: site.url },
-    publisher: {
-      "@type": "Organization",
-      name: site.name,
-      logo: { "@type": "ImageObject", url: `${site.url}/roble-media-lab-icon.svg` }
-    }
+    image: post.cover ? `${site.url}${post.cover}` : `${site.url}/blog/${slug}/opengraph-image`,
+    author: { "@id": `${site.url}/#organization` },
+    publisher: { "@id": `${site.url}/#organization` }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Insights", item: `${site.url}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title }
+    ]
   };
 
   return (
@@ -106,6 +116,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     </>
   );
 }

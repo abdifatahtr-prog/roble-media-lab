@@ -618,7 +618,17 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
 /* Compact cover for post cards: artwork only, centred — the card's own text
    carries the pillar and title. */
 .post-cover-mini { aspect-ratio: 16 / 9; margin: 0 0 20px; padding: 0; border-radius: 14px; }
-.post-cover-mini .post-cover-art { right: 50%; transform: translate(50%, -50%); height: 88%; }
+.post-cover-mini .post-cover-art { right: 50%; transform: translate(50%, -50%); height: 88%; transition: transform .35s ease; }
+
+/* The whole card is one <a> (see components/article-card.tsx). Hover/focus
+   states mirror .service-card's lift so cards feel consistent site-wide; the
+   art zoom and arrow nudge fire from anywhere on the card, and the arrow rule
+   out-specifies the generic .text-link:hover so both paths move it the same
+   way. Focus gets the same treatment plus the global outline. */
+.article-card { display: block; transition: transform .25s, box-shadow .25s, border-color .25s; }
+.article-card:hover, .article-card:focus-visible { transform: translateY(-4px); border-color: rgba(20,184,166,.55); box-shadow: 0 22px 50px rgba(11,16,32,.09); }
+.article-card:hover .post-cover-mini .post-cover-art, .article-card:focus-visible .post-cover-mini .post-cover-art { transform: translate(50%, -50%) scale(1.05); }
+.article-card:hover .text-link svg, .article-card:focus-visible .text-link svg { transform: translateX(3px); }
 
 /* Table of contents — rendered only on long posts (see showToc in lib/blog.ts). */
 .toc { margin: 0 0 44px; padding: 22px 26px; border: 1px solid var(--line); border-radius: 16px; background: white; }
