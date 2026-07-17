@@ -1,16 +1,17 @@
 import type { Post } from "@/lib/blog";
+import { CoverArt, hasCoverArt } from "@/components/cover-art";
 import { site } from "@/content/site";
 
 /**
  * Featured image slot at the top of every article.
  *
- * A post that declares `cover` frontmatter renders that image. Every other post
- * gets the branded auto-cover: the same ink gradient, grid lines, and ring motif
- * the site already uses (hero, CTA panel), labelled with the post's pillar. That
- * keeps the "every article has a professional cover" rule true for all future
- * posts with zero per-article work, and it stays honest — no stock photos
- * pretending to be our office. The auto-cover is aria-hidden: it repeats the
- * pillar label already announced in the header, so it is decoration to AT.
+ * A post that declares `cover` frontmatter renders that image. Every other
+ * post gets its scene from the illustration system (components/cover-art.tsx)
+ * drawn on the branded panel — same ink gradient and grid the hero and CTA
+ * panel use, labelled with the post's pillar. A post with no registered scene
+ * yet falls back to the plain panel, so publishing never blocks on artwork.
+ * aria-hidden: the artwork restates what the header already announces, so it
+ * is decoration to assistive tech.
  */
 export function PostCover({ post }: { post: Post }) {
   if (post.cover) {
@@ -20,8 +21,14 @@ export function PostCover({ post }: { post: Post }) {
       </figure>
     );
   }
+  const art = hasCoverArt(post.slug);
   return (
-    <div className="post-cover" aria-hidden="true">
+    <div className={`post-cover${art ? " has-art" : ""}`} aria-hidden="true">
+      {art && (
+        <div className="post-cover-art">
+          <CoverArt slug={post.slug} />
+        </div>
+      )}
       <span className="eyebrow eyebrow-light">{post.pillarLabel}</span>
       <b>{site.name} · Insights</b>
     </div>

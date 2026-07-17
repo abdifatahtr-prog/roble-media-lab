@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight } from "@/components/icons";
+import { ArticleCard } from "@/components/article-card";
 import { PageHero } from "@/components/page-hero";
 import { getAllPosts } from "@/lib/blog";
 
@@ -20,12 +19,7 @@ export default function BlogPage() {
       <section className="content-section">
         <div className="shell plain-grid">
           {posts.map((post) => (
-            <article className="plain-card" key={post.slug}>
-              <span className="eyebrow">{post.pillarLabel} · {post.readTime}</span>
-              <h2>{post.title}</h2>
-              <p>{post.description}</p>
-              <Link className="text-link" href={`/blog/${post.slug}`}>Read article <ArrowRight /></Link>
-            </article>
+            <ArticleCard key={post.slug} post={post} titleAs="h2" />
           ))}
         </div>
       </section>

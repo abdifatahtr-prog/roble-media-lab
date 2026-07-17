@@ -32,11 +32,16 @@ coverAlt: What the image shows  # pairs with cover
 - **draft: true** keeps a work-in-progress out of the listing, sitemap, and search.
 - **The article chrome is automatic.** Byline ("By Roble Media Lab"), published
   date, measured read time, featured cover, reading-progress bar, share buttons,
-  the author box, related articles, and the closing discovery-call CTA are all
-  part of the template — never add them to a post body.
-- **Featured image**: every post gets a branded cover automatically (ink
-  gradient + pillar label). Add `cover`/`coverAlt` only when you have a real,
-  topic-specific image — it then also becomes the social-share (OG) image.
+  related articles, and the closing discovery-call CTA are all part of the
+  template — never add them to a post body. (No author box: /about covers who
+  we are, so articles end at Share → Keep reading → CTA.)
+- **Featured image**: every post gets a branded cover automatically. Each post
+  should also get its own illustration — a small SVG scene registered by slug
+  in `components/cover-art.tsx` (drawing rules and palette are documented at
+  the top of that file). Until a scene is registered, the post shows the plain
+  branded panel, so publishing never blocks on artwork. Add `cover`/`coverAlt`
+  frontmatter only when you have a real, topic-specific image — it then
+  replaces the illustration and becomes the social-share (OG) image.
 - **Table of contents is automatic** on posts of ~1,200+ words with at least
   three `##` sections (see `showToc` in `lib/blog.ts`). Nothing to declare.
 

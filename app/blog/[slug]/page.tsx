@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AuthorBox } from "@/components/author-box";
+import { ArticleCard } from "@/components/article-card";
 import { CTA } from "@/components/cta";
-import { ArrowRight } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { PostCover } from "@/components/post-cover";
 import { ReadingProgress } from "@/components/reading-progress";
@@ -90,7 +88,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           )}
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
           <ShareButtons url={`${site.url}/blog/${slug}`} title={post.title} />
-          <AuthorBox />
         </div>
       </article>
 
@@ -100,14 +97,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <h2 className="related-posts-heading">Keep reading</h2>
             <div className="plain-grid">
               {related.map((item) => (
-                <article className="plain-card" key={item.slug}>
-                  <span className="eyebrow">{item.pillarLabel} · {item.readTime}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <Link className="text-link" href={`/blog/${item.slug}`}>
-                    Read article <ArrowRight />
-                  </Link>
-                </article>
+                <ArticleCard key={item.slug} post={item} />
               ))}
             </div>
           </div>
