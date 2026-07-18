@@ -67,10 +67,10 @@ export default function Home() {
           </Reveal>
           <div className="service-grid">
             {services.slice(0, 6).map((service, index) => (
-              <Reveal className="service-card" delay={(index % 3) * 0.05} key={service.slug}>
+              <Reveal className="service-card" delay={(index % 3) * 0.05} href={`/services/${service.slug}`} ariaLabel={`Learn about ${service.title}`} key={service.slug}>
                 <div className="service-number">{String(index + 1).padStart(2, "0")}</div>
                 <h3>{service.title}</h3><p>{service.short}</p>
-                <Link href={`/services/${service.slug}`} aria-label={`Learn about ${service.title}`}>Learn more <ArrowRight /></Link>
+                <span className="service-cue">Learn more <ArrowRight /></span>
               </Reveal>
             ))}
           </div>

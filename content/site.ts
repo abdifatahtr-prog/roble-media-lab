@@ -154,6 +154,8 @@ export type WebsitePackage = {
   name: string;
   from: number;
   who: string;
+  /** Honest delivery range, shown as a quiet line under the price. */
+  timeline: string;
   includes: string[];
   excludes?: string[];
   featured?: boolean;
@@ -165,6 +167,7 @@ export const websitePackages: WebsitePackage[] = [
   {
     name: "Starter",
     from: 60_000,
+    timeline: "2 to 3 weeks",
     who: "A site that makes people trust you and makes it easy to get in touch. Nothing you do not need.",
     includes: [
       "Up to 5 pages",
@@ -180,6 +183,7 @@ export const websitePackages: WebsitePackage[] = [
   {
     name: "Growth",
     from: 95_000,
+    timeline: "3 to 5 weeks",
     who: "The site most growing businesses actually need. This website is the Growth package: look around.",
     featured: true,
     includes: [
@@ -198,6 +202,7 @@ export const websitePackages: WebsitePackage[] = [
   {
     name: "Scale",
     from: 185_000,
+    timeline: "4 to 8 weeks",
     who: "For when the website is a system rather than a brochure, and it has to sell or book while you sleep.",
     includes: [
       "Everything in Growth",
@@ -232,8 +237,8 @@ function serviceTitle(slug: string): string {
 export const servicePricing: ServicePrice[] = [
   {
     slug: "ai-business-automation",
-    from: `From KES ${ksh(135_000)}`,
-    note: "Most first builds land between KES 135,000 and 300,000, depending on how many systems have to talk to each other. Not sure it is worth it? Start with an audit at KES 25,000, and we take that off the build if you go ahead."
+    from: `Build from KES ${ksh(135_000)}, optional management from KES ${ksh(20_000)}/month`,
+    note: "Most first builds land between KES 135,000 and 300,000, depending on how many systems have to talk to each other. Optional monthly management keeps it running: monitoring, prompt improvements, workflow updates, maintenance, and support. Not sure it is worth it? Start with an audit at KES 25,000, and we take that off the build if you go ahead."
   },
   {
     slug: "whatsapp-automation",
@@ -246,6 +251,20 @@ export const servicePricing: ServicePrice[] = [
     note: "Fewer, better pieces rather than ten posts a month nobody reads. This work takes months to show up, not weeks, and we would rather tell you that now than sell you a single month of it."
   }
 ].map((entry) => ({ ...entry, title: serviceTitle(entry.slug) }));
+
+/** Optional monthly plan that keeps a finished website healthy. Shown on
+ *  /pricing directly under the website packages: the natural next question
+ *  after "what does a site cost?" is "who looks after it once it is live?". */
+export const websiteCarePlan = {
+  from: 8_000,
+  benefits: [
+    "Security updates",
+    "Performance monitoring",
+    "Regular backups",
+    "Minor content edits",
+    "Priority support"
+  ]
+};
 
 /** Honest answer to "why is it not one number?", shown on /pricing. */
 export const priceFactors = [

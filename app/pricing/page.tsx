@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CTA } from "@/components/cta";
 import { ArrowRight, CheckIcon, WhatsAppIcon } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
-import { ksh, priceFactors, servicePricing, site, websitePackages, whatsappHref } from "@/content/site";
+import { ksh, priceFactors, servicePricing, site, websiteCarePlan, websitePackages, whatsappHref } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -17,30 +17,15 @@ export default function PricingPage() {
     <>
       <PageHero eyebrow="Pricing" title="What this costs.">
         <p>
-          Most agencies here will not tell you until you are on a call with them. We would rather you
-          knew now, so you can decide whether we are worth your time before you spend any of it.
+          Most agencies here keep their prices behind a sales call. We publish ours, so you can decide
+          whether we are worth your time before you spend any of it. Every number below is a real
+          starting point, not a teaser.
         </p>
       </PageHero>
 
-      <section className="content-section section-compact">
-        <div className="shell">
-          <div className="price-intro narrow">
-            <h2>Why we publish our prices</h2>
-            <p>
-              You cannot judge whether we are worth it if you cannot see the number. Every price here is
-              a real starting point, not a teaser to get you on a call. What you actually pay depends on
-              what you actually need, and we will tell you what moves it before you commit to anything.
-            </p>
-            <p className="price-who">
-              <strong>These are built for small and growing businesses.</strong> A two-person shop, a
-              team of twenty. If you are a corporation with a procurement process and a six-month
-              discovery phase, we are honestly not the right fit, and we would rather say so now.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Websites: the one service productised into tiers. */}
+      {/* Websites: the one service productised into tiers. A short fit note sits
+          in the section intro rather than a full section of its own, so mobile
+          readers reach the first card with far less scrolling. */}
       <section className="content-section section-compact">
         <div className="shell">
           <div className="section-heading split-heading">
@@ -50,7 +35,7 @@ export default function PricingPage() {
             </div>
             <p>
               Scope here is predictable enough to promise, so these are packages rather than guesses.
-              Most businesses want Growth.
+              Built for small and growing businesses; most want Growth.
             </p>
           </div>
 
@@ -59,11 +44,12 @@ export default function PricingPage() {
               <article className={`price-card${pkg.featured ? " is-featured" : ""}`} key={pkg.name}>
                 <div className="price-card-head">
                   <h3>{pkg.name}</h3>
-                  {pkg.featured && <span className="price-tag">Most chosen</span>}
+                  {pkg.featured && <span className="price-tag">Recommended</span>}
                 </div>
                 <p className="price-amount">
                   <span className="price-from">From</span> KES {ksh(pkg.from)}
                 </p>
+                <p className="price-timeline">Typically live in {pkg.timeline}</p>
                 <p className="price-who-line">{pkg.who}</p>
                 <ul className="price-list">
                   {pkg.includes.map((item) => (
@@ -103,6 +89,45 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* Care plan: the natural next question after "what does a site cost?" is
+          "who keeps it healthy once it is live?". One card, same visual language
+          as the packages above, so it reads as part of the same offer. */}
+      <section className="content-section section-compact">
+        <div className="shell">
+          <div className="care-plan">
+            <div className="care-plan-lead">
+              <span className="eyebrow"><i /> After launch</span>
+              <h2>Website Care Plan</h2>
+              <p className="price-amount">
+                <span className="price-from">From</span> KES {ksh(websiteCarePlan.from)}
+                <span className="care-plan-per">/month</span>
+              </p>
+              <p className="care-plan-note">
+                A live website is not finished, it is running. This keeps yours secure, fast, and
+                backed up, with a person to call when something needs changing.
+              </p>
+              <a
+                className="button button-quiet"
+                href={whatsappHref("the Website Care Plan (from KES 8,000/month)")}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-service="Website Care Plan"
+              >
+                <WhatsAppIcon width={16} height={16} /> Ask about the Care Plan
+              </a>
+            </div>
+            <ul className="price-list care-plan-list">
+              {websiteCarePlan.benefits.map((benefit) => (
+                <li key={benefit}>
+                  <CheckIcon />
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Everything else: quoted, not packaged. */}
       <section className="content-section section-compact">
         <div className="shell">
@@ -119,16 +144,16 @@ export default function PricingPage() {
 
           <div className="price-rows">
             {servicePricing.map((service) => (
-              <article className="price-row" key={service.slug}>
+              <Link className="price-row" href={`/services/${service.slug}`} aria-label={`What ${service.title} involves`} key={service.slug}>
                 <div className="price-row-head">
                   <h3>{service.title}</h3>
                   <p className="price-row-from">{service.from}</p>
                 </div>
                 <p className="price-row-note">{service.note}</p>
-                <Link className="text-link" href={`/services/${service.slug}`}>
+                <span className="text-link">
                   What this involves <ArrowRight />
-                </Link>
-              </article>
+                </span>
+              </Link>
             ))}
           </div>
         </div>
@@ -149,7 +174,8 @@ export default function PricingPage() {
             <p>
               We will not quote you a number we cannot hit, and we will not promise you a 5x return.
               Nobody can honestly predict that, and anyone who puts a figure like that on a website is
-              guessing. We would rather tell you what we are going to build and let it earn its keep.
+              guessing. We would rather promise exactly what we will build than promise results nobody
+              can honestly guarantee.
             </p>
             <h3>If the number does not fit, say so</h3>
             <p>

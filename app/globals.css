@@ -55,8 +55,8 @@ button { color: inherit; }
 .icon-link svg { width: 20px; height: 20px; }
 .button { min-height: 50px; padding: 0 21px; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); color: var(--white); display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; font-size: 14px; white-space: nowrap; transition: transform .2s, box-shadow .2s, background .2s; }
 .button:hover { transform: translateY(-2px); background: #1d263b; box-shadow: 0 12px 26px rgba(11,16,32,.16); }
-.button svg, .text-link svg, .service-card a svg, .all-services-link svg, .footer-cta svg { width: 17px; height: 17px; transition: transform .2s; }
-.button:hover svg, .text-link:hover svg, .service-card a:hover svg, .all-services-link:hover svg, .footer-cta:hover svg { transform: translate(2px,-2px); }
+.button svg, .text-link svg, .service-card .service-cue svg, .all-services-link svg, .footer-cta svg { width: 17px; height: 17px; transition: transform .2s; }
+.button:hover svg, .text-link:hover svg, .all-services-link:hover svg, .footer-cta:hover svg { transform: translate(2px,-2px); }
 .button-small { min-height: 44px; padding: 0 18px; }
 .button-light { color: var(--ink); background: var(--white); border-color: var(--white); }
 /* Secondary action on a dark panel: the light button keeps the primary slot. */
@@ -121,12 +121,17 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .section-heading h2, .process-intro h2, .faq-layout h2, .page-hero h1 { margin: 16px 0 0; font-size: clamp(39px,5vw,64px); line-height: 1.08; }
 .section-heading p, .process-intro > p, .faq-layout > div > p { color: var(--slate); line-height: 1.7; font-size: 17px; margin: 0; }
 .service-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+/* The whole card is one <a> (see app/page.tsx and app/services/page.tsx): the
+   "Learn more" line is a .service-cue span, a visual affordance only. Hover and
+   keyboard focus both lift the card and nudge the arrow, so the click target is
+   the entire card and focus-visible draws the global outline around all of it. */
 .service-card { min-height: 300px; display: flex; flex-direction: column; padding: 28px; background: white; border: 1px solid var(--line); border-radius: var(--radius); transition: transform .25s, box-shadow .25s, border-color .25s; }
-.service-card:hover { transform: translateY(-5px); border-color: rgba(20,184,166,.55); box-shadow: 0 22px 50px rgba(11,16,32,.07); }
+.service-card:hover, .service-card:focus-visible { transform: translateY(-5px); border-color: rgba(20,184,166,.55); box-shadow: 0 22px 50px rgba(11,16,32,.07); }
+.service-card:hover .service-cue svg, .service-card:focus-visible .service-cue svg { transform: translate(2px,-2px); }
 .service-number { color: var(--teal-dark); font: 750 12px var(--font-sora); }
 .service-card h3 { margin: auto 0 12px; font-size: 23px; }
 .service-card p { margin: 0 0 25px; color: var(--slate); line-height: 1.6; }
-.service-card a, .all-services-link { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 750; }
+.service-card .service-cue, .all-services-link { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 750; }
 .all-services-link { width: fit-content; margin: 32px 0 0 auto; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
 .dark-section { background: var(--ink); color: white; }
 .eyebrow-light { color: var(--teal-light); }
@@ -481,10 +486,6 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
 }
 
 /* Pricing */
-.price-intro h2 { font-size: clamp(26px,3vw,34px); margin: 0 0 16px; }
-.price-intro p { color: var(--slate); line-height: 1.75; font-size: 17px; margin: 0 0 14px; }
-.price-who { padding: 16px 18px; border-left: 3px solid var(--teal); background: var(--mist); border-radius: 0 12px 12px 0; }
-.price-who strong { color: var(--ink); }
 
 /* stretch, not start: equal-height cards let margin-top:auto line the CTAs up. */
 .price-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: stretch; }
@@ -498,6 +499,10 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
 .price-card.is-featured .price-amount { color: var(--teal-light); }
 .price-from { font-family: var(--font-inter); font-size: 13px; font-weight: 650; letter-spacing: 0; color: var(--slate); }
 .price-card.is-featured .price-from { color: #a9b5c5; }
+/* Quiet delivery estimate: sits under the price as a fact, not a feature, so it
+   informs without competing with the number above it. */
+.price-timeline { margin: 8px 0 0; font-size: 13px; font-weight: 600; color: var(--slate-soft); }
+.price-card.is-featured .price-timeline { color: #a9b5c5; }
 .price-who-line { margin: 10px 0 22px; color: var(--slate); font-size: 14px; line-height: 1.6; min-height: 66px; }
 .price-card.is-featured .price-who-line { color: #bdc8d5; }
 .price-list { list-style: none; margin: 0 0 26px; padding: 0; display: grid; gap: 10px; }
@@ -523,8 +528,23 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
 .button-quiet { background: transparent; color: var(--ink); border-color: var(--line); }
 .button-quiet:hover { background: var(--mist); border-color: #b9c6cc; box-shadow: none; }
 
+/* Care plan: one card, same border/radius/white ground as the packages so it
+   reads as part of the same family. Two columns on desktop (pitch left, the
+   benefit list right), stacking on narrow screens. */
+.care-plan { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px 48px; align-items: center; padding: 34px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+.care-plan-lead h2 { margin: 12px 0 0; font-size: clamp(22px,2.4vw,27px); }
+.care-plan-lead .price-amount { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+.care-plan-per { font-family: var(--font-inter); font-size: 14px; font-weight: 650; letter-spacing: 0; color: var(--slate); }
+.care-plan-note { margin: 12px 0 22px; color: var(--slate); line-height: 1.65; font-size: 15px; max-width: 46ch; }
+.care-plan-lead .button { width: fit-content; }
+.care-plan-list { margin: 0; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+
 .price-rows { display: grid; gap: 16px; }
-.price-row { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+/* Each row is one <a> to its service page (see app/pricing/page.tsx); the
+   "What this involves" .text-link is a visual cue. Whole-card hover/focus. */
+.price-row { display: block; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: white; transition: transform .25s, box-shadow .25s, border-color .25s; }
+.price-row:hover, .price-row:focus-visible { transform: translateY(-4px); border-color: rgba(20,184,166,.55); box-shadow: 0 22px 50px rgba(11,16,32,.07); }
+.price-row:hover .text-link svg, .price-row:focus-visible .text-link svg { transform: translate(2px,-2px); }
 .price-row-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; }
 .price-row h3 { margin: 0; font-size: 22px; }
 .price-row-from { margin: 0; font-family: var(--font-sora); font-size: 19px; font-weight: 700; letter-spacing: -.03em; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
@@ -544,10 +564,13 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
   .price-grid { grid-template-columns: 1fr; }
   .price-who-line { min-height: 0; }
   .price-honest { grid-template-columns: 1fr; gap: 40px; }
+  .care-plan { grid-template-columns: 1fr; gap: 24px; align-items: start; }
 }
 @media (max-width: 620px) {
   .price-card, .price-row { padding: 24px 20px; }
   .price-row-head { gap: 4px; }
+  .care-plan { padding: 24px 20px; }
+  .care-plan-list { grid-template-columns: 1fr; }
 }
 
 /* Touch devices: raise tap targets to the 44x44 minimum.
@@ -558,9 +581,9 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
    Links sitting inline inside a sentence are deliberately left alone, since
    WCAG 2.5.8 exempts them and padding them out would break the text flow. */
 @media (pointer: coarse) {
-  .wordmark, .text-link, .all-services-link, .service-card a,
+  .wordmark, .text-link, .all-services-link,
   .footer-cta, .footer-brand > a, .footer-bottom a { position: relative; }
-  .wordmark::after, .text-link::after, .all-services-link::after, .service-card a::after,
+  .wordmark::after, .text-link::after, .all-services-link::after,
   .footer-cta::after, .footer-brand > a::after, .footer-bottom a::after {
     content: ""; position: absolute; top: 50%; left: 0; right: 0;
     min-width: 44px; height: 44px; transform: translateY(-50%);
