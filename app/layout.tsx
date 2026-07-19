@@ -97,7 +97,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <Header />
-        <main id="main-content">{children}</main>
+        {/* tabIndex={-1} lets the skip link move keyboard focus into the content,
+            not just scroll to it, so the next Tab resumes inside main (2.4.1). */}
+        <main id="main-content" tabIndex={-1}>{children}</main>
         <Footer />
         <WhatsAppButton />
         <Analytics />

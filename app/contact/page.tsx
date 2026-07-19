@@ -58,7 +58,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <div className="shell or-divider" role="separator" aria-label="or"><span>OR</span></div>
+      <div className="shell or-divider"><span>OR</span></div>
 
       <section className="content-section contact-body">
         <div className="shell contact-grid">

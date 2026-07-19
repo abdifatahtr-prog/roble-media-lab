@@ -94,9 +94,14 @@ function enhance(html) {
           `<p>${body.trim()}</p></div>`
       )
       // A wide table has to scroll inside its own box; otherwise it drags the
-      // whole page sideways on a phone.
-      .replace(/<table>/g, '<div class="table-scroll"><table>')
+      // whole page sideways on a phone. tabindex="0" + role="region" + a label
+      // make that scroll box reachable and operable by keyboard, not just mouse
+      // (WCAG 2.1.1); the global :focus-visible outline shows when it's focused.
+      .replace(/<table>/g, '<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally to see more"><table>')
       .replace(/<\/table>/g, "</table></div>")
+      // GFM only emits column headers, so scope="col" is always correct and lets
+      // screen readers associate each cell with its heading (accessible tables).
+      .replace(/<th>/g, '<th scope="col">')
   );
 }
 
@@ -145,6 +150,13 @@ function build() {
       const cover = data.cover ? String(data.cover) : null;
       if (cover && !cover.startsWith("/")) {
         throw new Error(`Post "${slug}" has a "cover" that is not a root-relative path (expected e.g. /blog/${slug}.png).`);
+      }
+      // A real cover image must ship an explicit text alternative so an
+      // informative image never silently falls back to alt="" (WCAG 1.1.1).
+      // Set coverAlt to a description, or to "" on purpose if the cover is
+      // decorative — but the decision has to be made, not defaulted.
+      if (cover && data.coverAlt === undefined) {
+        throw new Error(`Post "${slug}" sets a "cover" but no "coverAlt". Add coverAlt: "describe the image" (or coverAlt: "" if it is purely decorative).`);
       }
 
       const words = countWords(content);

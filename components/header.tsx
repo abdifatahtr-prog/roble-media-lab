@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { ArrowUpRight, CloseIcon, MenuIcon, SearchIcon } from "./icons";
 
@@ -20,6 +20,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 12);
@@ -30,6 +31,24 @@ export function Header() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // Escape closes the open mobile menu and returns focus to the toggle, so a
+  // keyboard user is never stranded with focus inside a menu they can't dismiss.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  // True when the current path matches a nav destination, so we can flag it with
+  // aria-current for assistive tech (the underline alone is only a visual cue).
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
   return (
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
       <nav className="shell nav" aria-label="Main navigation">
@@ -39,12 +58,12 @@ export function Header() {
         </Link>
         <div className="desktop-nav">
           {links.map(([href, label]) => (
-            <Link className={pathname.startsWith(href) ? "active" : ""} href={href} key={href}>{label}</Link>
+            <Link className={isActive(href) ? "active" : ""} aria-current={isActive(href) ? "page" : undefined} href={href} key={href}>{label}</Link>
           ))}
           <Link href="/search" className="icon-link" aria-label="Search"><SearchIcon /></Link>
           <Link className="button button-small" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
         </div>
-        <button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "Close menu" : "Open menu"}>
+        <button ref={menuButtonRef} className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "Close menu" : "Open menu"}>
           {open ? <CloseIcon /> : <MenuIcon />}
         </button>
       </nav>
@@ -56,7 +75,7 @@ export function Header() {
           touching the open/close animation. */}
       <div className={`mobile-nav ${open ? "is-open" : ""}`} id="mobile-navigation" inert={!open}>
         <div className="shell">
-          {links.map(([href, label]) => <Link href={href} key={href}>{label}</Link>)}
+          {links.map(([href, label]) => <Link aria-current={isActive(href) ? "page" : undefined} href={href} key={href}>{label}</Link>)}
           <Link className="button" href={site.bookingPath}>Book a Free Discovery Call <ArrowUpRight /></Link>
         </div>
       </div>
