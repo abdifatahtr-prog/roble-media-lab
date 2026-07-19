@@ -9,16 +9,19 @@ import type { PropsWithChildren } from "react";
 // the click target cover the entire card (see .service-card in globals.css),
 // matching the article-card pattern. framer-motion wraps Next's Link so the
 // scroll-in animation is preserved on the link form too.
+//
+// No aria-label prop on purpose: the link's accessible name comes from its
+// visible children (heading + copy + cue), which keeps the accessible name a
+// superset of the visible text — WCAG 2.5.3 Label in Name.
 const MotionLink = motion.create(Link);
 
 type RevealProps = PropsWithChildren<{
   className?: string;
   delay?: number;
   href?: string;
-  ariaLabel?: string;
 }>;
 
-export function Reveal({ children, className = "", delay = 0, href, ariaLabel }: RevealProps) {
+export function Reveal({ children, className = "", delay = 0, href }: RevealProps) {
   const reduce = useReducedMotion();
   const motionProps = {
     className,
@@ -30,7 +33,7 @@ export function Reveal({ children, className = "", delay = 0, href, ariaLabel }:
 
   if (href) {
     return (
-      <MotionLink href={href} aria-label={ariaLabel} {...motionProps}>
+      <MotionLink href={href} {...motionProps}>
         {children}
       </MotionLink>
     );
