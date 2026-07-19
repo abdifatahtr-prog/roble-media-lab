@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Compiles content/blog-data.json from the Markdown sources. Runs here so a
+      # missing coverAlt or bad frontmatter fails CI, and so typecheck sees fresh data.
+      - name: Generate blog data
+        run: npm run blog:generate
+
+      # eslint-plugin-jsx-a11y (strict) + next/core-web-vitals. Fails on any a11y error.
+      - name: Lint (includes jsx-a11y accessibility rules)
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
