@@ -100,7 +100,7 @@ export const services: Service[] = [
     slug: "ai-business-automation",
     title: "AI & Business Automation",
     short: "Find the workflows worth automating, then build ones your team will actually use.",
-    intro: "We look at how work happens today, agree which workflows are worth automating, and build the ones that earn their place. Testing, documentation, and team training are part of the work rather than an afterthought.",
+    intro: "We look at how work happens today, agree which workflows are worth automating, and build the ones that earn their place. Testing, documentation, and team training are part of the work rather than an afterthought. Once it is live, you can run it yourself or add optional monthly management that keeps it monitored, maintained, and improving.",
     outcomes: ["A prioritised opportunity map", "Working automations, not demos", "Documented workflows and safeguards", "A team confident enough to run it"],
     process: ["Understand the business and its constraints", "Map workflows and rank opportunities", "Build and test against real inputs", "Train the team, document, and improve"],
     pillars: ["ai", "automation", "operations"]
@@ -109,18 +109,23 @@ export const services: Service[] = [
     slug: "business-websites",
     title: "Business Websites",
     short: "A fast, findable website that makes it easy to get in touch.",
-    intro: "We design and build business websites that load quickly, read clearly, and turn interest into an enquiry. Search structure, analytics, and a contact process that actually reaches you are built in from the start.",
-    outcomes: ["A site that loads fast on real connections", "Clear routes to an enquiry", "Search-ready structure and content", "Analytics that show what visitors do"],
+    intro: "We design and build business websites that load quickly, read clearly, meet WCAG 2.2 AA accessibility, and turn interest into an enquiry. Search structure, analytics, and a contact process that actually reaches you are built in from the start, and we can keep the site looked after once it is live.",
+    outcomes: ["A site that loads fast on real connections", "Clear routes to an enquiry", "Search-ready structure and content", "Accessible to WCAG 2.2 AA, so everyone can use it", "Booking, payments, or a CRM connected when you need them", "Analytics that show what visitors do"],
     process: ["Clarify the audience and the offer", "Plan the structure and the content", "Design, build, and test the site", "Measure real use and improve on evidence"],
     pillars: ["websites", "seo-content"]
   },
   {
+    // Slug stays `seo-content-strategy` for URL and inbound-link stability (the
+    // blog deep-links to it); the display title is the hybrid "SEO & Content
+    // Systems" — "SEO" keeps the keyword clients actually search for in the h1,
+    // title tag, footer, contact dropdown, and schema, while "Systems" signals
+    // the consultancy positioning over generic-agency "Strategy".
     slug: "seo-content-strategy",
-    title: "SEO & Content Strategy",
-    short: "Useful content built around what your audience is searching for, at a rhythm you can sustain.",
-    intro: "We connect search intent, your own expertise, and a realistic publishing plan, then hand over the templates and workflow that keep it going. No promises of guaranteed rankings.",
-    outcomes: ["Search-informed priorities", "A useful topic architecture", "Reusable templates and a clear workflow", "A measurable editorial plan"],
-    process: ["Research the audience and search landscape", "Map topics to services", "Build the templates and publishing workflow", "Measure and refine"],
+    title: "SEO & Content Systems",
+    short: "A repeatable system for creating, scheduling, and repurposing useful content, built around what people are searching for and run at a rhythm you can sustain.",
+    intro: "Consistent content comes from a system, not a spreadsheet. We connect what your audience is searching for with your own expertise, then build the pillars, calendar, and templates that keep it going: AI-assisted drafting that still sounds like you, scheduling and repurposing across your blog and social channels, and reporting on what actually works. Run it yourself once it is set up, or add an optional monthly retainer where we manage it with you.",
+    outcomes: ["Content pillars built around real search intent", "AI-assisted drafts that still sound like you", "A calendar and scheduling rhythm across blog and social", "One idea repurposed into many formats", "Reporting that shows what is actually working", "Templates and a workflow your team owns"],
+    process: ["Research the audience, search intent, and your best material", "Map content pillars and repeatable formats", "Set up the calendar, drafting, and scheduling workflow", "Publish, repurpose, measure, and refine"],
     pillars: ["seo-content", "websites"]
   },
   {
@@ -193,7 +198,7 @@ export const websitePackages: WebsitePackage[] = [
       "A blog you can publish to yourself",
       "Lead capture with an automatic reply",
       "Full search structure: schema, sitemap, canonicals",
-      "Readable for everyone (WCAG AA)",
+      "Readable for everyone (WCAG 2.2 AA)",
       "Conversion tracking",
       "3 rounds of revisions",
       "Handover training and 30 days of support"
@@ -248,7 +253,7 @@ export const servicePricing: ServicePrice[] = [
   {
     slug: "seo-content-strategy",
     from: `From KES ${ksh(45_000)}/month`,
-    note: "Fewer, better pieces rather than ten posts a month nobody reads. This work takes months to show up, not weeks, and we would rather tell you that now than sell you a single month of it."
+    note: "This is a monthly content system, not a burst of posts: a sustainable calendar, AI-assisted drafts that still sound like you, scheduling and repurposing across your channels, and a simple report on what is working. Fewer, better pieces rather than ten posts a month nobody reads. It takes months to compound, not weeks, and we would rather tell you that now than sell you a single month of it."
   }
 ].map((entry) => ({ ...entry, title: serviceTitle(entry.slug) }));
 
@@ -287,6 +292,7 @@ export const faqs = [
   ["Do we need to know which AI tools we want?", "No. We begin with the business problem and workflow, then recommend tools only where they are genuinely useful."],
   ["Can you automate our entire business?", "Usually, trying to automate everything at once creates more risk than value. We start with focused, repeatable workflows and expand based on evidence."],
   ["Do you guarantee SEO rankings or business results?", "No. Search rankings and commercial outcomes depend on factors no responsible provider can fully control. We commit to sound strategy, careful execution, and transparent measurement."],
+  ["Do you write content or manage our social media?", "That is what our SEO & Content Systems service is for. We build the pillars, calendar, and templates, help create content with AI assistance that still sounds like you, and can schedule and repurpose it across your blog and social channels. Once it is set up you can run it yourself, or add an optional monthly retainer where we manage and report on it with you. We are not a post-ten-times-a-day social agency; we build a system that keeps useful content going."],
   ["What is the best first step?", "A 30-minute discovery call is a useful place to start. We will discuss the problem, current workflow, and whether there is a sensible way to help."],
   ["Do you offer team training?", "Yes. Training is part of how we hand over automation work rather than a separate product, because a system nobody understands does not survive contact with a busy week. It can also be run on its own, covering practical AI use, prompting, workflow design, and responsible usage."],
   ["Do you build websites, or only automate things?", "We build them. A business website is one of the four things we do, and this site is our own example of the work: fast to load, structured for search, with a contact process that actually reaches a person."]

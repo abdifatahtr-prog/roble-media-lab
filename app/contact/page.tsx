@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { ArrowUpRight, CheckIcon, WhatsAppIcon } from "@/components/icons";
 import { site, whatsappHref } from "@/content/site";
 
-export const metadata: Metadata = { title: "Contact", description: "Talk to Roble Media Lab about AI and business automation, a new website, SEO and content, or WhatsApp. Book a free discovery call or send us a message.", alternates: { canonical: "/contact" } };
+export const metadata: Metadata = { title: "Contact", description: "Talk to Roble Media Lab about AI and business automation, a new website, a content system, or WhatsApp. Book a free discovery call or send us a message.", alternates: { canonical: "/contact" } };
 
 const trustBadges = [
   "30-minute video call",
