@@ -347,6 +347,9 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .contact-form label { font-size: 14px; font-weight: 650; color: var(--ink); }
 .contact-form .optional { color: var(--slate-soft); font-weight: 500; }
+/* Required-field marker. #c81e1e is the same red as field errors (5.74:1 on white). */
+.contact-form .req { color: #c81e1e; font-weight: 700; }
+.form-legend { margin: 0 0 4px; color: var(--slate); font-size: 13px; }
 /* Border is #7d8b98 (3.42:1 on the #fbfdfd field), not --line: the input's
    boundary is a UI-component boundary that must clear 3:1 — WCAG 1.4.11
    Non-text Contrast. --line (1.27:1) is fine for decorative card edges but not

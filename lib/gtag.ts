@@ -37,3 +37,25 @@ export function trackCtaClick(
 ): void {
   trackEvent(name, params);
 }
+
+/**
+ * TEMPORARY diagnostic: reports the Turnstile widget lifecycle so we can see, from
+ * a real first-time device, the exact error code and how long the widget takes to
+ * produce a token. First-time visitors report a red "Verification failed" that
+ * self-heals after ~8s; returning devices never see it. The console is unreadable
+ * on a phone, so the signal goes to GA4 instead (see DebugView / the turnstile_diag
+ * event). Remove this and the onDiag wiring once the root cause is confirmed.
+ *
+ * `ts_event`: verified | error | expired | timeout. `ts_code`: Cloudflare error
+ * code (error only). `ts_ms`: ms from widget render to this event.
+ */
+export function trackTurnstile(
+  event: "verified" | "error" | "expired" | "timeout",
+  data: { code?: string; ms?: number } = {}
+): void {
+  trackEvent("turnstile_diag", {
+    ts_event: event,
+    ...(data.code ? { ts_code: data.code } : {}),
+    ...(typeof data.ms === "number" ? { ts_ms: data.ms } : {})
+  });
+}

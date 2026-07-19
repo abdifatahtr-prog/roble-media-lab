@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState, type FormEvent } from "react";
 import { ArrowRight } from "./icons";
 import { Turnstile, type TurnstileHandle } from "./turnstile";
-import { trackGenerateLead } from "@/lib/gtag";
+import { trackGenerateLead, trackTurnstile } from "@/lib/gtag";
 import { getUtms } from "@/lib/utm";
 import { services } from "@/content/site";
 
@@ -99,8 +99,11 @@ export function ContactForm() {
 
   return (
     <form className="contact-form" onSubmit={onSubmit} noValidate>
+      {/* Visual key for sighted users. Screen readers already announce each field's
+          required state from the input's `required` attribute, so this is aria-hidden. */}
+      <p className="form-legend" aria-hidden="true"><span className="req">*</span> Required</p>
       <div className="field">
-        <label htmlFor="cf-name">Name</label>
+        <label htmlFor="cf-name">Name <span className="req" aria-hidden="true">*</span></label>
         <input
           id="cf-name"
           name="name"
@@ -116,7 +119,7 @@ export function ContactForm() {
 
       <div className="field-row">
         <div className="field">
-          <label htmlFor="cf-email">Email</label>
+          <label htmlFor="cf-email">Email <span className="req" aria-hidden="true">*</span></label>
           <input
             id="cf-email"
             name="email"
@@ -145,7 +148,7 @@ export function ContactForm() {
       </div>
 
       <div className="field">
-        <label htmlFor="cf-message">What would you like to improve?</label>
+        <label htmlFor="cf-message">What would you like to improve? <span className="req" aria-hidden="true">*</span></label>
         <textarea
           id="cf-message"
           name="message"
@@ -172,6 +175,7 @@ export function ContactForm() {
           onVerify={onVerify}
           onExpire={onExpire}
           onError={onTurnstileError}
+          onDiag={trackTurnstile}
         />
       )}
 

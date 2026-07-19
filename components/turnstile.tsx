@@ -15,7 +15,8 @@ interface TurnstileApi {
       sitekey: string;
       callback: (token: string) => void;
       "expired-callback"?: () => void;
-      "error-callback"?: () => void;
+      // Cloudflare passes the error code as the first argument.
+      "error-callback"?: (code?: string) => void;
       "timeout-callback"?: () => void;
       theme?: "auto" | "light" | "dark";
       action?: string;
@@ -24,6 +25,12 @@ interface TurnstileApi {
   reset: (widgetId?: string) => void;
   remove: (widgetId?: string) => void;
 }
+
+// TEMPORARY diagnostic surface: reports the widget lifecycle (with Cloudflare's
+// error code and the elapsed time since render) so a real first-time device can
+// reveal why the challenge briefly fails before self-healing. Remove with the
+// onDiag wiring once the root cause is confirmed.
+export type TurnstileDiagEvent = "verified" | "error" | "expired" | "timeout";
 
 declare global {
   interface Window {
@@ -65,16 +72,20 @@ interface TurnstileProps {
   onVerify: (token: string) => void;
   onExpire?: () => void;
   onError?: () => void;
+  // TEMPORARY: lifecycle telemetry, see TurnstileDiagEvent above.
+  onDiag?: (event: TurnstileDiagEvent, data: { code?: string; ms?: number }) => void;
 }
 
 export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(function Turnstile(
-  { siteKey, onVerify, onExpire, onError },
+  { siteKey, onVerify, onExpire, onError, onDiag },
   ref
 ) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
-  const callbacks = useRef({ onVerify, onExpire, onError });
-  callbacks.current = { onVerify, onExpire, onError };
+  // Set when render() is called, so each callback can report ms-since-render.
+  const renderedAtRef = useRef<number>(0);
+  const callbacks = useRef({ onVerify, onExpire, onError, onDiag });
+  callbacks.current = { onVerify, onExpire, onError, onDiag };
 
   useImperativeHandle(ref, () => ({
     reset() {
@@ -90,14 +101,28 @@ export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(function Tu
     loadScript()
       .then(() => {
         if (cancelled || !containerRef.current || !window.turnstile || widgetIdRef.current) return;
+        renderedAtRef.current = performance.now();
+        const elapsed = () => Math.round(performance.now() - renderedAtRef.current);
         widgetIdRef.current = window.turnstile.render(containerRef.current, {
           sitekey: siteKey,
           action: "contact",
           theme: "auto",
-          callback: (token) => callbacks.current.onVerify(token),
-          "expired-callback": () => callbacks.current.onExpire?.(),
-          "timeout-callback": () => callbacks.current.onExpire?.(),
-          "error-callback": () => callbacks.current.onError?.()
+          callback: (token) => {
+            callbacks.current.onVerify(token);
+            callbacks.current.onDiag?.("verified", { ms: elapsed() });
+          },
+          "expired-callback": () => {
+            callbacks.current.onExpire?.();
+            callbacks.current.onDiag?.("expired", { ms: elapsed() });
+          },
+          "timeout-callback": () => {
+            callbacks.current.onExpire?.();
+            callbacks.current.onDiag?.("timeout", { ms: elapsed() });
+          },
+          "error-callback": (code) => {
+            callbacks.current.onError?.();
+            callbacks.current.onDiag?.("error", { code: code ? String(code) : undefined, ms: elapsed() });
+          }
         });
       })
       .catch(() => {
