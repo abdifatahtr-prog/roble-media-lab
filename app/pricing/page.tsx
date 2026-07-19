@@ -144,7 +144,7 @@ export default function PricingPage() {
 
           <div className="price-rows">
             {servicePricing.map((service) => (
-              <Link className="price-row" href={`/services/${service.slug}`} aria-label={`What ${service.title} involves`} key={service.slug}>
+              <Link className="price-row" href={`/services/${service.slug}`} key={service.slug}>
                 <div className="price-row-head">
                   <h3>{service.title}</h3>
                   <p className="price-row-from">{service.from}</p>

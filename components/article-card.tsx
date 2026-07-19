@@ -23,7 +23,7 @@ import { ArrowRight } from "@/components/icons";
 export function ArticleCard({ post, titleAs: Title = "h3" }: { post: PostMeta; titleAs?: "h2" | "h3" }) {
   const art = hasCoverArt(post.slug);
   return (
-    <Link className="plain-card article-card" href={`/blog/${post.slug}`} aria-label={post.title}>
+    <Link className="plain-card article-card" href={`/blog/${post.slug}`}>
       <span className={`post-cover post-cover-mini${art ? " has-art" : ""}`} aria-hidden="true">
         {art && (
           <span className="post-cover-art">

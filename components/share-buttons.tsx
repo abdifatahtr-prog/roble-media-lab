@@ -60,9 +60,12 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
           <Icon />
         </a>
       ))}
-      <button className="share-button share-button-copy" type="button" onClick={copyLink} aria-live="polite">
+      <button className="share-button share-button-copy" type="button" onClick={copyLink}>
         {copied ? <CheckIcon /> : <LinkIcon />} {copied ? "Copied" : "Copy link"}
       </button>
+      {/* Dedicated live region: announces the copy result without the button's
+          own label change fighting the announcement. */}
+      <span className="sr-only" role="status" aria-live="polite">{copied ? "Link copied to clipboard" : ""}</span>
     </div>
   );
 }

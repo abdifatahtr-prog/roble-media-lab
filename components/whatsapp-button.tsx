@@ -51,13 +51,17 @@ export function WhatsAppButton() {
   }, [href]);
 
   if (!href) return null;
+  // aria-label leads with the visible "Chat on WhatsApp" text so the accessible
+  // name is a superset of it (WCAG 2.5.3 Label in Name). The label can't be
+  // dropped in favour of the text alone: the <span> is display:none on mobile,
+  // where the label becomes the only accessible name.
   return (
     <a
       className={`whatsapp-fab${tucked ? " is-tucked" : ""}`}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with Roble Media Lab on WhatsApp"
+      aria-label="Chat on WhatsApp with Roble Media Lab"
     >
       <WhatsAppIcon width={26} height={26} />
       <span>Chat on WhatsApp</span>
