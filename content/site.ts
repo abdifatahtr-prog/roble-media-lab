@@ -85,6 +85,10 @@ export const clients: Client[] = [];
 export type Service = {
   slug: string;
   title: string;
+  // A one-word classification of the kind of work (the mono "system label" on
+  // service cards). Not an index — order isn't information, so cards are tagged,
+  // not numbered. Shown on the home page and the services listing.
+  category: string;
   short: string;
   intro: string;
   outcomes: string[];
@@ -99,6 +103,7 @@ export const services: Service[] = [
   {
     slug: "ai-business-automation",
     title: "AI & Business Automation",
+    category: "automation",
     short: "Find the workflows worth automating, then build ones your team will actually use.",
     intro: "We look at how work happens today, agree which workflows are worth automating, and build the ones that earn their place. Testing, documentation, and team training are part of the work rather than an afterthought. Once it is live, you can run it yourself or add optional monthly management that keeps it monitored, maintained, and improving.",
     outcomes: ["A prioritised opportunity map", "Working automations, not demos", "Documented workflows and safeguards", "A team confident enough to run it"],
@@ -108,6 +113,7 @@ export const services: Service[] = [
   {
     slug: "business-websites",
     title: "Business Websites",
+    category: "websites",
     short: "A fast, findable website that makes it easy to get in touch.",
     intro: "We design and build business websites that load quickly, read clearly, meet WCAG 2.2 AA accessibility, and turn interest into an enquiry. Search structure, analytics, and a contact process that actually reaches you are built in from the start, and we can keep the site looked after once it is live.",
     outcomes: ["A site that loads fast on real connections", "Clear routes to an enquiry", "Search-ready structure and content", "Accessible to WCAG 2.2 AA, so everyone can use it", "Booking, payments, or a CRM connected when you need them", "Analytics that show what visitors do"],
@@ -122,6 +128,7 @@ export const services: Service[] = [
     // the consultancy positioning over generic-agency "Strategy".
     slug: "seo-content-strategy",
     title: "SEO & Content Systems",
+    category: "content",
     short: "A repeatable system for creating, scheduling, and repurposing useful content, built around what people are searching for and run at a rhythm you can sustain.",
     intro: "Consistent content comes from a system, not a spreadsheet. We connect what your audience is searching for with your own expertise, then build the pillars, calendar, and templates that keep it going: AI-assisted drafting that still sounds like you, scheduling and repurposing across your blog and social channels, and reporting on what actually works. Run it yourself once it is set up, or add an optional monthly retainer where we manage it with you.",
     outcomes: ["Content pillars built around real search intent", "AI-assisted drafts that still sound like you", "A calendar and scheduling rhythm across blog and social", "One idea repurposed into many formats", "Reporting that shows what is actually working", "Templates and a workflow your team owns"],
@@ -131,6 +138,7 @@ export const services: Service[] = [
   {
     slug: "whatsapp-automation",
     title: "WhatsApp Automation",
+    category: "messaging",
     short: "Create faster, more consistent customer conversations.",
     intro: "We help service businesses structure enquiries, qualification, updates, and follow-up through practical WhatsApp workflows.",
     outcomes: ["Faster first responses", "Consistent lead qualification", "Clearer follow-up", "Better routing to a person"],

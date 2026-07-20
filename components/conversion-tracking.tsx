@@ -23,7 +23,7 @@ export function ConversionTracking() {
       if (el.classList.contains("whatsapp-fab") || el.closest(".whatsapp-fab")) return "floating";
       if (el.closest(".site-header")) return "header";
       if (el.closest(".footer")) return "footer";
-      if (el.closest(".cta-panel")) return "cta_panel";
+      if (el.closest(".site-cta")) return "cta_panel";
       if (el.closest(".price-card")) return "pricing_card";
       if (el.closest(".page-hero, .home-hero")) return "hero";
       return "body";

@@ -23,6 +23,9 @@
   --white: #fff;
   --radius: 22px;
   --shadow: 0 24px 80px rgba(11,16,32,.10);
+  /* The utility/label face (loaded in app/layout.tsx). The "language of systems":
+     mono kickers, node tags, and data labels across the site. */
+  --mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -88,8 +91,13 @@ button { color: inherit; }
 .hero-orb-one { width: 420px; height: 420px; right: -130px; top: 80px; background: radial-gradient(circle,rgba(20,184,166,.23),transparent 68%); }
 .hero-orb-two { width: 360px; height: 360px; left: -180px; bottom: 50px; background: radial-gradient(circle,rgba(37,99,235,.13),transparent 68%); }
 .home-hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: 84px; align-items: center; }
-.eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--teal-dark); text-transform: uppercase; font-weight: 800; font-size: 13px; letter-spacing: .12em; }
-.eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 5px rgba(20,184,166,.1); }
+/* The site-wide "system label": a mono kicker led by a short hairline rule — the
+   signature motif of the "Working System" language, shared by page-hero eyebrows,
+   section kickers, and card tags. A leading dash replaces the old signal dot, so
+   any decorative <i> dot in existing markup is hidden to avoid a double marker. */
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--teal-dark); text-transform: uppercase; font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .05em; }
+.eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--teal); flex: 0 0 auto; }
+.eyebrow i { display: none; }
 h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 /* Cap 100px, not 104: the column is 575px on wide screens and "Make better"
    at 104px is 584px, which wrapped the headline onto three lines. */
@@ -136,19 +144,26 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .service-card { min-height: 300px; display: flex; flex-direction: column; padding: 28px; background: white; border: 1px solid var(--line); border-radius: var(--radius); transition: transform .25s, box-shadow .25s, border-color .25s; }
 .service-card:hover, .service-card:focus-visible { transform: translateY(-5px); border-color: rgba(20,184,166,.55); box-shadow: 0 22px 50px rgba(11,16,32,.07); }
 .service-card:hover .service-cue svg, .service-card:focus-visible .service-cue svg { transform: translate(2px,-2px); }
-.service-number { color: var(--teal-dark); font: 750 12px var(--font-sora); }
-.service-card h3 { margin: auto 0 12px; font-size: 23px; }
+.service-number { color: var(--teal-dark); font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .04em; }
+/* Classifies a service card by the kind of work, not a decorative index — a real
+   category tag, matching the home page. Order isn't information here, so no number. */
+.service-cat { color: var(--teal-dark); font-family: var(--mono); font-weight: 500; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; }
+.service-card h2, .service-card h3 { margin: 14px 0 10px; font-size: 23px; line-height: 1.15; }
 .service-card p { margin: 0 0 25px; color: var(--slate); line-height: 1.6; }
+/* Pin the cue to the card foot so the "Explore service" line-up is consistent
+   across a row regardless of copy length — the same rhythm as the home page. */
+.service-card .service-cue { margin-top: auto; }
 .service-card .service-cue, .all-services-link { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 750; }
 .all-services-link { width: fit-content; margin: 32px 0 0 auto; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
 .dark-section { background: var(--ink); color: white; }
 .eyebrow-light { color: var(--teal-light); }
+.eyebrow-light::before { background: var(--teal-light); }
 .dark-section .section-heading p { color: #a9b5c5; }
 .principle-grid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid #303749; }
 .principle { padding: 36px 28px 8px 0; border-right: 1px solid #303749; }
 .principle:not(:first-child) { padding-left: 28px; }
 .principle:last-child { border: 0; }
-.principle span { color: var(--teal-light); font: 700 11px var(--font-sora); }
+.principle span { color: var(--teal-light); font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
 .principle h3 { margin: 55px 0 12px; font-size: 20px; }
 .principle p { margin: 0; color: #a9b5c5; line-height: 1.65; font-size: 15px; }
 .process-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 120px; }
@@ -174,16 +189,46 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .faq-answer > div { overflow: hidden; }
 .faq-answer p { color: var(--slate); line-height: 1.65; margin: 0; padding: 0 45px 25px 0; }
 .faq-item.is-open .faq-answer { grid-template-rows: 1fr; }
-.cta-panel { position: relative; overflow: hidden; padding: 70px; background: linear-gradient(135deg,#12203a,var(--ink) 58%,#123e42); color: white; border-radius: 30px; }
-.cta-panel::after { content: ""; position: absolute; width: 350px; height: 350px; right: -130px; top: -160px; border: 1px solid rgba(255,255,255,.15); border-radius: 50%; box-shadow: 0 0 0 55px rgba(255,255,255,.03),0 0 0 110px rgba(255,255,255,.02); }
-.cta-panel h2 { position: relative; margin: 16px 0; max-width: 780px; font-size: clamp(40px,5.5vw,70px); line-height: 1.05; }
-.cta-panel p { position: relative; max-width: 660px; color: #bdc8d5; line-height: 1.7; font-size: 17px; }
-.cta-panel .button-row { position: relative; z-index: 1; }
-.text-link-light { color: white; border-color: #566174; }
-.cta-actions { position: relative; z-index: 1; margin-top: 34px; display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; }
-.cta-alt { margin: 0; color: #aab6c6; font-size: 14px; font-weight: 600; }
-.cta-alt a { color: var(--teal-light); font-weight: 750; border-bottom: 1px solid rgba(83,216,200,.35); padding-bottom: 2px; transition: border-color .2s, color .2s; }
-.cta-alt a:hover { color: #7ee6d9; border-color: #7ee6d9; }
+/* ---- Closing CTA — "centered statement" (site-wide) ----------------------
+   Full-bleed ink with a single focal point: a positioning signal-line (AI ·
+   Automation · Websites, with a live pulse) above a large centered headline, one
+   prominent primary action, a subordinate ghost secondary, then honest trust
+   facts. A soft teal radial + fine grid give depth without a new colour. Rendered
+   by components/cta.tsx on every page, and by the home page too — one definition. */
+.site-cta { position: relative; overflow: hidden; padding: 118px 0; background: var(--ink); color: #fff; }
+.site-cta-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(58% 52% at 50% 20%, rgba(20,184,166,.16), transparent 62%); }
+.site-cta-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.032) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(76% 58% at 50% 10%, #000, transparent 72%);
+  -webkit-mask-image: radial-gradient(76% 58% at 50% 10%, #000, transparent 72%);
+}
+.site-cta-inner { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+/* Positioning signal-line: the three domains as nodes joined by a live rail. */
+.site-cta-line { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 30px; }
+.site-cta-line span { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-light); }
+.site-cta-line i { position: relative; width: 34px; height: 1px; background: rgba(83,216,200,.28); }
+.site-cta-line i::after {
+  content: ""; position: absolute; top: -2px; left: 0; width: 6px; height: 5px; border-radius: 3px;
+  background: var(--lime); animation: site-cta-run 3.2s cubic-bezier(.45,0,.55,1) infinite;
+}
+.site-cta-line i:nth-of-type(2)::after { animation-delay: .5s; }
+@keyframes site-cta-run { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+.site-cta h2 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; margin: 18px 0 0; font-size: clamp(42px,5.6vw,72px); line-height: 1; max-width: 15ch; }
+.site-cta-inner > p { margin: 24px 0 0; max-width: 56ch; color: #c2ccd8; font-size: 17px; line-height: 1.65; }
+.site-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 36px; }
+.site-cta-actions .button { min-height: 54px; padding: 0 26px; }
+.site-cta-alt { margin: 20px 0 0; color: #aab6c6; font-size: 14px; }
+.site-cta-alt a { color: var(--teal-light); font-weight: 600; border-bottom: 1px solid rgba(83,216,200,.4); padding-bottom: 1px; }
+.site-cta-alt a:hover { color: #7ee6d9; border-color: #7ee6d9; }
+/* Honest trust facts only (free 30-min call, founder-led, public pricing) — never
+   fabricated proof. */
+.site-cta-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 20px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid #222a3b; list-style: none; width: 100%; max-width: 600px; }
+.site-cta-facts li { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: #aeb9c9; }
+.site-cta-facts li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--teal-light); flex: 0 0 auto; }
 .footer { background: #080c16; color: white; padding: 80px 0 28px; }
 .footer-grid { display: grid; grid-template-columns: 1.45fr .7fr 1fr 1.05fr; gap: 60px; }
 .wordmark-light b { color: var(--teal-light); }
@@ -201,8 +246,19 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .footer-cta { display: inline-flex; gap: 8px; align-items: center; margin-top: 9px; color: var(--teal-light); font-size: 13px; font-weight: 750; }
 .footer-bottom { display: flex; justify-content: space-between; margin-top: 65px; padding-top: 25px; border-top: 1px solid #232a39; color: #778397; font-size: 12px; }
 .footer-bottom div { display: flex; gap: 25px; }
-.page-hero { padding: 190px 0 100px; background: linear-gradient(145deg,#f8fafc,#eef7f6); border-bottom: 1px solid var(--line); }
-.page-hero-inner { max-width: 920px; margin-left: max(24px,calc((100vw - 1180px)/2)); }
+.page-hero { position: relative; overflow: hidden; padding: 190px 0 100px; background: linear-gradient(145deg,#f8fafc,#eef7f6); border-bottom: 1px solid var(--line); }
+/* Fine technical grid, pooled top-right and faded well before the copy — the same
+   near-subliminal texture as the home hero, tying every page header to it. */
+.page-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(11,16,32,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11,16,32,.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(85% 78% at 92% -6%, #000 4%, transparent 58%);
+  -webkit-mask-image: radial-gradient(85% 78% at 92% -6%, #000 4%, transparent 58%);
+}
+.page-hero-inner { position: relative; z-index: 1; max-width: 920px; margin-left: max(24px,calc((100vw - 1180px)/2)); }
 .page-hero h1 { font-size: clamp(50px,7vw,88px); }
 .page-lead { max-width: 720px; margin-top: 28px; color: var(--slate); font-size: 20px; line-height: 1.65; }
 /* Article headers are editorial, not marketing. Blog posts share PageHero with
@@ -476,11 +532,11 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
   .principle, .principle:not(:first-child) { padding: 30px 0; border-right: 0; }
   .principle h3 { margin-top: 25px; }
   .faq-layout { gap: 45px; }
-  .cta-panel { padding: 42px 24px; border-radius: 22px; }
-  .cta-panel h2 { font-size: 39px; }
-  .cta-actions { flex-direction: column; align-items: stretch; gap: 16px; }
-  .cta-actions .button { width: 100%; }
-  .cta-alt { text-align: center; }
+  .site-cta { padding: 84px 0; }
+  .site-cta-line { gap: 9px; }
+  .site-cta-line i { width: 20px; }
+  .site-cta-actions { flex-direction: column; align-items: stretch; width: 100%; }
+  .site-cta-actions .button { width: 100%; }
   .contact-hero-cta .button { width: 100%; }
   .contact-form-card { padding: 20px; }
   .next-steps-card { padding: 28px 22px; }

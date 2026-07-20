@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Sora, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@/components/analytics";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Footer } from "@/components/footer";
@@ -12,6 +12,10 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
+// The utility/label face — the "language of systems". Used with restraint for
+// mono kickers, node tags, and data labels (see `--mono` in globals.css). Loaded
+// site-wide now that the "Working System" language runs across every page.
+const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -93,7 +97,7 @@ const webSiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable}`}>
+    <html lang="en" className={`${inter.variable} ${sora.variable} ${mono.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <Header />

@@ -1,0 +1,542 @@
+/* ===========================================================================
+   HOMEPAGE REDESIGN — "Working System"  (scoped, review-only)
+
+   Every rule in this file is namespaced under `.home-v2`, the wrapper around the
+   homepage in app/page.tsx. That is deliberate: it lets this redesign restyle
+   even shared components (the CTA panel, the FAQ list) WITHOUT touching any other
+   page. `.home-v2 .cta-panel` (0,2,0) simply out-specifies the global `.cta-panel`
+   (0,1,0), and only ever matches inside the homepage subtree. Nothing here leaks.
+
+   Direction: an operational schematic, not glassy hype. The brand's thesis is
+   "friction -> flow": messy, repeated work becoming a clear running system. So
+   the page is drawn like a labelled system — mono labels, hairline structure, a
+   thin "signal line" threading the sections, and one live pulse in the hero.
+
+   Type roles: Sora (display, brand), Inter (body, brand), IBM Plex Mono (labels,
+   node tags, indices — the "language of systems", used with restraint only).
+   =========================================================================== */
+
+.home-v2 {
+  --hv-ink: #0b1020;
+  --hv-ink-soft: #161c2d;
+  --hv-canvas-top: #f4f7f6;
+  --hv-canvas-bottom: #e8eeed;
+  --hv-paper: #ffffff;
+  --hv-teal: #14b8a6;
+  --hv-teal-dark: #0d7c71;   /* AA on light surfaces */
+  --hv-teal-light: #53d8c8;  /* on dark surfaces */
+  --hv-signal: #a3e635;      /* the LIVE pulse only — never a fill */
+  --hv-line: #d6dedd;
+  --hv-line-strong: #b7c3c1;
+  --hv-slate: #536171;
+  --hv-slate-soft: #637080;
+  --hv-grid-line: rgba(11, 16, 32, .02);
+  --hv-radius: 16px;
+  --hv-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* A mono "system label": the recurring textual motif of the whole page. */
+.home-v2 .hv-mono-label {
+  font-family: var(--hv-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--hv-slate-soft);
+}
+
+/* ----------------------------------------------------------------- HERO ---- */
+.home-v2 .hv-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 168px 0 0;
+  background: linear-gradient(180deg, var(--hv-canvas-top), var(--hv-canvas-bottom));
+}
+/* Fine technical grid, kept as a near-subliminal texture rather than a pattern:
+   very low-contrast lines (~2% ink), wide 48px spacing, and a mask that pools the
+   grid into the top-right corner behind the schematic and fades it out well before
+   it reaches the headline, so the copy always reads first. */
+.home-v2 .hv-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--hv-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hv-grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: .8;
+  mask-image: radial-gradient(90% 75% at 88% -8%, #000 4%, transparent 58%);
+  -webkit-mask-image: radial-gradient(90% 75% at 88% -8%, #000 4%, transparent 58%);
+  pointer-events: none;
+}
+.home-v2 .hv-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  /* Copy column widened and the schematic column narrowed so the card reads as
+     the hero's support, ~8% smaller in footprint, with more air between them. */
+  grid-template-columns: 1.14fr .86fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.home-v2 .hv-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--hv-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--hv-teal-dark);
+}
+/* The live dot — the smallest instance of the "signal" idea, echoed by the
+   schematic's pulse. A soft ring gives it presence without a glow. */
+.home-v2 .hv-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hv-signal);
+  box-shadow: 0 0 0 4px rgba(163, 230, 53, .16);
+}
+
+.home-v2 h1 {
+  font-family: var(--font-sora), sans-serif;
+  /* Tighter tracking + leading locks the two lines into one deliberate block;
+     size is unchanged. max-width sits just past the word width so the ragged
+     right edge stays intentional rather than accidental. */
+  letter-spacing: -.05em;
+  margin: 20px 0 26px;
+  font-size: clamp(58px, 7.7vw, 104px);
+  line-height: .9;
+  max-width: 640px;
+}
+/* The teal payoff word gets its own line and a hair more negative tracking so it
+   reads as the anchor of the composition. */
+.home-v2 h1 em { display: block; font-style: normal; letter-spacing: -.055em; color: var(--hv-teal-dark); }
+
+.home-v2 .hv-lead {
+  color: var(--hv-slate);
+  font-size: clamp(18px, 1.7vw, 21px);
+  line-height: 1.65;
+  max-width: 560px;
+  margin: 0;
+}
+
+/* Hero CTA group: the two buttons pair tightly (16px), and the tertiary
+   "Explore" link wraps to its own line with a slightly larger row gap so the
+   trio reads as one deliberate action area with a clear primary -> tertiary
+   rhythm rather than three loose controls. Left edges align. */
+.home-v2 .hv-hero-copy .button-row { gap: 22px 16px; margin-top: 36px; }
+.home-v2 .hv-hero-copy .button-row .text-link {
+  border-bottom-color: var(--hv-line-strong);
+  color: var(--hv-slate);
+}
+.home-v2 .hv-hero-copy .button-row .text-link:hover { color: var(--hv-ink); }
+
+/* ---- Hero schematic: the signature -------------------------------------- */
+/* INPUT (friction) -> method nodes on a signal rail -> OUTPUT (running system).
+   Flat and precise, not glassy. Real, honest labels — a method, never invented
+   metrics. Reads top-to-bottom, which is itself the "work flow". */
+.home-v2 .hv-sch {
+  border: 1px solid var(--hv-line);
+  border-radius: var(--hv-radius);
+  /* Toned a shade off pure white and grounded with a softer, lower-contrast
+     shadow so the card supports the headline instead of floating over it. */
+  background: #fafcfb;
+  box-shadow: 0 14px 38px rgba(11, 16, 32, .05);
+  overflow: hidden;
+}
+.home-v2 .hv-sch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--hv-line);
+  background: #fbfdfc;
+}
+.home-v2 .hv-sch-bar .hv-mono-label { color: var(--hv-slate); }
+.home-v2 .hv-sch-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--hv-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--hv-teal-dark);
+}
+.home-v2 .hv-sch-status i {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--hv-signal);
+  box-shadow: 0 0 0 3px rgba(163, 230, 53, .18);
+}
+.home-v2 .hv-sch-body { padding: 20px 20px 22px; }
+
+.home-v2 .hv-sch-io { display: grid; gap: 8px; }
+.home-v2 .hv-sch-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 6px 0 0; padding: 0; list-style: none; }
+.home-v2 .hv-sch-chips li {
+  font-family: var(--hv-mono);
+  font-size: 11.5px;
+  letter-spacing: .01em;
+  color: var(--hv-slate);
+  padding: 5px 10px;
+  border: 1px solid var(--hv-line);
+  border-radius: 999px;
+  background: #f7faf9;
+}
+.home-v2 .hv-sch-chips.is-out li {
+  color: var(--hv-teal-dark);
+  border-color: rgba(20, 184, 166, .32);
+  background: rgba(20, 184, 166, .06);
+}
+
+/* The rail + nodes. A single vertical line carries a travelling lime pulse. */
+.home-v2 .hv-sch-flow {
+  position: relative;
+  margin: 18px 0;
+  padding-left: 30px;
+}
+.home-v2 .hv-sch-rail {
+  position: absolute;
+  left: 7px; top: 6px; bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(var(--hv-line-strong), var(--hv-line));
+  overflow: hidden;
+}
+.home-v2 .hv-sch-pulse {
+  position: absolute;
+  left: -2px;
+  width: 6px; height: 46px;
+  border-radius: 6px;
+  background: linear-gradient(var(--hv-signal), rgba(163, 230, 53, 0));
+  animation: hv-travel 3s cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes hv-travel {
+  0%   { top: -48px; opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.home-v2 .hv-sch-node { position: relative; padding: 11px 0; }
+.home-v2 .hv-sch-node + .hv-sch-node { border-top: 1px dashed var(--hv-line); }
+/* The node marker sits on the rail. The active stage gets a filled teal marker
+   so the diagram still reads its "current step" with motion disabled. */
+.home-v2 .hv-sch-node::before {
+  content: "";
+  position: absolute;
+  left: -30px; top: 15px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--hv-paper);
+  border: 2px solid var(--hv-line-strong);
+}
+.home-v2 .hv-sch-node.is-active::before {
+  border-color: var(--hv-teal);
+  background: var(--hv-teal);
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, .14);
+}
+.home-v2 .hv-sch-node b {
+  display: block;
+  font-family: var(--font-sora), sans-serif;
+  font-size: 15px;
+  letter-spacing: -.02em;
+  color: var(--hv-ink);
+}
+.home-v2 .hv-sch-node small {
+  font-family: var(--hv-mono);
+  font-size: 11px;
+  color: var(--hv-slate-soft);
+}
+.home-v2 .hv-sch-node.is-active b { color: var(--hv-teal-dark); }
+
+/* ---- Signal line + trust strip ------------------------------------------ */
+/* One horizontal hairline with a node at the left: the section-threading motif
+   introduced. Carries the honest "who this is for" list in mono. */
+.home-v2 .hv-trust {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  margin-top: 84px;
+  padding: 22px 0 0;
+  border-top: 1px solid rgba(11, 16, 32, .1);
+}
+.home-v2 .hv-trust .hv-trust-label {
+  font-family: var(--hv-mono);
+  font-size: 12px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--hv-teal-dark);
+}
+.home-v2 .hv-trust span:not(.hv-trust-label) {
+  font-family: var(--hv-mono);
+  font-size: 13px;
+  color: #5c6773;
+}
+.home-v2 .hv-trust span + span:not(.hv-trust-label)::before {
+  content: "·";
+  margin-right: 22px;
+  color: var(--hv-line-strong);
+}
+
+/* ------------------------------------------------------------- SECTIONS ---- */
+.home-v2 .hv-section { padding: 120px 0; }
+.home-v2 .hv-section-dark { background: var(--hv-ink); color: #fff; }
+
+/* Section head: a mono kicker + a large Sora statement, left-aligned like a
+   spec sheet rather than a centred marketing block. */
+.home-v2 .hv-head { margin-bottom: 54px; max-width: 760px; }
+.home-v2 .hv-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--hv-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--hv-teal-dark);
+}
+.home-v2 .hv-kicker::before {
+  content: "";
+  width: 22px; height: 1px;
+  background: var(--hv-teal);
+}
+.home-v2 .hv-section-dark .hv-kicker { color: var(--hv-teal-light); }
+.home-v2 .hv-section-dark .hv-kicker::before { background: var(--hv-teal-light); }
+.home-v2 .hv-head h2 {
+  font-family: var(--font-sora), sans-serif;
+  letter-spacing: -.045em;
+  margin: 18px 0 0;
+  font-size: clamp(38px, 4.8vw, 60px);
+  line-height: 1.06;
+}
+.home-v2 .hv-head p {
+  margin: 22px 0 0;
+  max-width: 620px;
+  color: var(--hv-slate);
+  font-size: 17px;
+  line-height: 1.7;
+}
+.home-v2 .hv-section-dark .hv-head p { color: #a9b5c5; }
+
+/* ---- Services ------------------------------------------------------------ */
+.home-v2 .hv-svc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+/* The whole card is one <a> (Reveal href). Hover + focus lift together, so the
+   click target is the entire card and the global focus outline frames all of it.
+   No decorative index number — the mono category tag classifies instead. */
+.home-v2 .hv-svc-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  padding: 26px 26px 24px;
+  background: var(--hv-paper);
+  border: 1px solid var(--hv-line);
+  border-radius: var(--hv-radius);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.home-v2 .hv-svc-card:hover,
+.home-v2 .hv-svc-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(20, 184, 166, .55);
+  box-shadow: 0 20px 46px rgba(11, 16, 32, .08);
+}
+.home-v2 .hv-svc-cat {
+  font-family: var(--hv-mono);
+  font-size: 11.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--hv-teal-dark);
+}
+.home-v2 .hv-svc-card h3 {
+  font-family: var(--font-sora), sans-serif;
+  letter-spacing: -.03em;
+  margin: 14px 0 10px;
+  font-size: 23px;
+  line-height: 1.15;
+}
+.home-v2 .hv-svc-card p {
+  margin: 0 0 22px;
+  color: var(--hv-slate);
+  line-height: 1.6;
+  font-size: 15px;
+}
+.home-v2 .hv-svc-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  font-family: var(--hv-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  color: var(--hv-ink);
+}
+.home-v2 .hv-svc-cue svg { width: 15px; height: 15px; transition: transform .2s; }
+.home-v2 .hv-svc-card:hover .hv-svc-cue svg,
+.home-v2 .hv-svc-card:focus-visible .hv-svc-cue svg { transform: translateX(3px); }
+
+.home-v2 .hv-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  font-family: var(--hv-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--hv-ink);
+  border-bottom: 1px solid var(--hv-line-strong);
+  padding-bottom: 5px;
+}
+.home-v2 .hv-more svg { width: 15px; height: 15px; transition: transform .2s; }
+.home-v2 .hv-more:hover svg { transform: translateX(3px); }
+
+/* ---- Why / principles (dark) --------------------------------------------- */
+.home-v2 .hv-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin-top: 6px;
+  background: #2a3040;                 /* the 1px gaps become hairline dividers */
+  border: 1px solid #2a3040;
+  border-radius: var(--hv-radius);
+  overflow: hidden;
+}
+.home-v2 .hv-principle {
+  padding: 34px 30px 30px;
+  background: var(--hv-ink);
+}
+.home-v2 .hv-principle .hv-mono-label { color: var(--hv-teal-light); }
+.home-v2 .hv-principle h3 {
+  font-family: var(--font-sora), sans-serif;
+  letter-spacing: -.02em;
+  margin: 20px 0 10px;
+  font-size: 21px;
+  color: #fff;
+}
+.home-v2 .hv-principle p {
+  margin: 0;
+  color: #a9b5c5;
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+/* ---- Process (a real sequence: numbering earned, on the signal rail) ------ */
+.home-v2 .hv-process { display: grid; grid-template-columns: .82fr 1.18fr; gap: 96px; }
+.home-v2 .hv-process-intro { position: sticky; top: 128px; align-self: start; }
+.home-v2 .hv-process-intro h2 {
+  font-family: var(--font-sora), sans-serif;
+  letter-spacing: -.04em;
+  margin: 18px 0 0;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.08;
+}
+.home-v2 .hv-process-intro > p { margin: 22px 0 0; color: var(--hv-slate); line-height: 1.7; font-size: 17px; }
+.home-v2 .hv-steps { position: relative; }
+/* The connective rail runs the full height, linking every step — the same motif
+   as the hero schematic, here carrying the ordered method. */
+.home-v2 .hv-steps::before {
+  content: "";
+  position: absolute;
+  left: 17px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(var(--hv-teal), var(--hv-line));
+}
+.home-v2 .hv-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 22px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--hv-line);
+}
+.home-v2 .hv-step:last-child { border-bottom: 0; }
+.home-v2 .hv-step-num {
+  position: relative;
+  z-index: 1;
+  width: 36px; height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--hv-paper);
+  border: 2px solid var(--hv-teal);
+  font-family: var(--hv-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hv-teal-dark);
+}
+.home-v2 .hv-step h3 {
+  font-family: var(--font-sora), sans-serif;
+  letter-spacing: -.02em;
+  margin: 4px 0 9px;
+  font-size: 24px;
+}
+.home-v2 .hv-step p { margin: 0; color: var(--hv-slate); line-height: 1.65; }
+
+/* ---- FAQ (soft) — restyle of the shared FAQList, homepage only ----------- */
+.home-v2 .hv-section-soft { background: #eef2f1; }
+.home-v2 .hv-faq { display: grid; grid-template-columns: .72fr 1.28fr; gap: 92px; }
+.home-v2 .hv-faq-intro h2 {
+  font-family: var(--font-sora), sans-serif;
+  letter-spacing: -.04em;
+  margin: 18px 0 0;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.08;
+}
+.home-v2 .hv-faq-intro p { margin: 22px 0; color: var(--hv-slate); line-height: 1.7; font-size: 17px; }
+.home-v2 .hv-faq-cue {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--hv-mono); font-size: 13px; font-weight: 500;
+  color: var(--hv-ink); border-bottom: 1px solid var(--hv-line-strong); padding-bottom: 5px;
+}
+.home-v2 .hv-faq-cue svg { width: 15px; height: 15px; transition: transform .2s; }
+.home-v2 .hv-faq-cue:hover svg { transform: translateX(3px); }
+/* Override the shared .faq-list look within the homepage only. */
+.home-v2 .faq-list { border-top: 1px solid var(--hv-line-strong); }
+.home-v2 .faq-item { border-bottom: 1px solid var(--hv-line-strong); }
+.home-v2 .faq-item button {
+  padding: 24px 0;
+  font-family: var(--font-sora), sans-serif;
+  font-size: 18px;
+  letter-spacing: -.02em;
+  font-weight: 600;
+}
+.home-v2 .faq-item.is-open button { color: var(--hv-teal-dark); }
+.home-v2 .faq-answer p { color: var(--hv-slate); }
+
+/* The closing CTA (the "centered statement") was promoted from here into the
+   global design system — see `.site-cta*` in app/globals.css and components/cta.tsx.
+   The home page renders the shared <CTA/> like every other page. */
+
+/* ---------------------------------------------------------- RESPONSIVE ----- */
+@media (max-width: 960px) {
+  .home-v2 .hv-hero-grid,
+  .home-v2 .hv-process,
+  .home-v2 .hv-faq { grid-template-columns: 1fr; gap: 52px; }
+  .home-v2 .hv-hero { padding-top: 132px; }
+  .home-v2 .hv-sch { max-width: 560px; }
+  .home-v2 .hv-process-intro { position: static; }
+  .home-v2 .hv-section { padding: 92px 0; }
+}
+@media (max-width: 620px) {
+  .home-v2 .hv-hero { padding-top: 118px; }
+  .home-v2 h1 { font-size: 50px; }
+  .home-v2 .hv-lead { font-size: 17px; }
+  .home-v2 .hv-svc-grid,
+  .home-v2 .hv-why-grid { grid-template-columns: 1fr; }
+  .home-v2 .hv-trust { margin-top: 58px; }
+  .home-v2 .hv-section { padding: 74px 0; }
+  .home-v2 .hv-head { margin-bottom: 38px; }
+  .home-v2 .hv-head h2 { font-size: 38px; }
+  .home-v2 .hv-step { grid-template-columns: 46px 1fr; gap: 16px; }
+}
