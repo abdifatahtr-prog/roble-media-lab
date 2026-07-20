@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState, type FormEvent } from "react";
 import { ArrowRight } from "./icons";
-import { Turnstile, type TurnstileHandle } from "./turnstile";
+import { Turnstile, type TurnstileHandle, type TurnstileDiagEvent } from "./turnstile";
 import { trackGenerateLead, trackTurnstile } from "@/lib/gtag";
 import { getUtms } from "@/lib/utm";
 import { services } from "@/content/site";
@@ -39,6 +39,19 @@ export function ContactForm() {
   const onVerify = useCallback((value: string) => setToken(value), []);
   const onExpire = useCallback(() => setToken(""), []);
   const onTurnstileError = useCallback(() => setToken(""), []);
+
+  // TEMPORARY diagnostic: report each Turnstile lifecycle event to GA4 (for the
+  // team's dashboards) and beacon it to D1 (so the exact first-load error code is
+  // readable via wrangler). Fire-and-forget; never blocks or surfaces to the user.
+  const onDiag = useCallback((event: TurnstileDiagEvent, data: { code?: string; ms?: number }) => {
+    trackTurnstile(event, data);
+    try {
+      const payload = JSON.stringify({ event, code: data.code, ms: data.ms });
+      navigator.sendBeacon?.("/api/turnstile-diag", new Blob([payload], { type: "application/json" }));
+    } catch {
+      // diagnostics must never break the form
+    }
+  }, []);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -175,7 +188,7 @@ export function ContactForm() {
           onVerify={onVerify}
           onExpire={onExpire}
           onError={onTurnstileError}
-          onDiag={trackTurnstile}
+          onDiag={onDiag}
         />
       )}
 

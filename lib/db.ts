@@ -114,3 +114,44 @@ export async function saveEnquiry(record: EnquiryRecord): Promise<boolean> {
     return false;
   }
 }
+
+// --- TEMPORARY: Turnstile widget diagnostics --------------------------------
+// Records each Turnstile lifecycle event so the real first-load error code can
+// be read straight from D1 (wrangler d1 execute). Remove with the turnstile_diag
+// table/route once the root cause is confirmed. Never throws.
+
+export interface TurnstileDiagInput {
+  event: string; // verified | error | expired | timeout
+  code: string | null;
+  ms: number | null;
+  userAgent: string | null;
+  country: string | null;
+  referrer: string | null;
+}
+
+export async function saveTurnstileDiag(input: TurnstileDiagInput): Promise<boolean> {
+  const db = getDb();
+  if (!db) return false;
+  try {
+    const result = await db
+      .prepare(
+        `INSERT INTO turnstile_diag (id, created_at, event, code, ms, user_agent, country, referrer)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      )
+      .bind(
+        crypto.randomUUID(),
+        new Date().toISOString(),
+        input.event,
+        input.code,
+        input.ms,
+        input.userAgent,
+        input.country,
+        input.referrer
+      )
+      .run();
+    return result.success !== false;
+  } catch (error) {
+    log.error("turnstile_diag_save_failed", { reason: (error as Error)?.message });
+    return false;
+  }
+}
