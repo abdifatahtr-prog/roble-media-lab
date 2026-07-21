@@ -32,3 +32,13 @@ cloudflare-env.d.ts
 
 # TypeScript build info
 *.tsbuildinfo
+
+# design-sync (claude.ai/design)
+# The sync INPUTS under .design-sync/ are committed on purpose — config, notes,
+# conventions, authored previews, the lib fork and the self-hosted fonts. Only
+# generated output and staged tooling are ignored.
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules

@@ -1,0 +1,24 @@
+{
+  "_comment": [
+    "Read ONLY by design-sync's tsconfig-paths esbuild plugin (cfg.tsconfig).",
+    "",
+    "DELIBERATELY CONTAINS NO WILDCARD PATTERNS. That plugin strips block comments",
+    "with a naive regex before JSON.parse, and the two-character sequence that opens",
+    "a block comment also occurs inside a normal alias like the Next default one.",
+    "The stripper eats from there to the next comment terminator, the parse throws,",
+    "the plugin silently returns null, and every shim below is ignored -- which shows",
+    "up much later as components rendering blank against the real next/navigation.",
+    "",
+    "So: exact-match keys only here. The repo-root tsconfig.json still supplies the",
+    "@/ alias, which esbuild picks up on its own by walking up from each source file.",
+    "tsconfig.dts.json is not read by that plugin and can use wildcards freely."
+  ],
+  "compilerOptions": {
+    "paths": {
+      "next/link": ["./shims/next-link.tsx"],
+      "next/image": ["./shims/next-image.tsx"],
+      "next/script": ["./shims/next-script.tsx"],
+      "next/navigation": ["./shims/next-navigation.ts"]
+    }
+  }
+}

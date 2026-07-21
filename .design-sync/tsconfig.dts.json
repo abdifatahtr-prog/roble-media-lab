@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true,
+    "rootDir": "..",
+    "outDir": ".cache/types",
+    "paths": {
+      "@/*": ["../*"],
+      "next/link": ["./shims/next-link.tsx"],
+      "next/image": ["./shims/next-image.tsx"],
+      "next/script": ["./shims/next-script.tsx"],
+      "next/navigation": ["./shims/next-navigation.ts"]
+    }
+  },
+  "include": ["./ds-entry.tsx", "./shims/**/*", "../components/**/*", "../content/site.ts", "../lib/**/*"],
+  "exclude": ["../node_modules", "../.next", "../.open-next"]
+}
