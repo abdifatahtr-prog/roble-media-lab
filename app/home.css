@@ -23,7 +23,7 @@
   --hv-canvas-bottom: #e8eeed;
   --hv-paper: #ffffff;
   --hv-teal: #14b8a6;
-  --hv-teal-dark: #0d7c71;   /* AA on light surfaces */
+  --hv-teal-dark: #0b6f65;   /* AA on light surfaces; kept in step with --teal-dark in globals.css */
   --hv-teal-light: #53d8c8;  /* on dark surfaces */
   --hv-signal: #a3e635;      /* the LIVE pulse only — never a fill */
   --hv-line: #d6dedd;
@@ -35,11 +35,16 @@
   --hv-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-/* A mono "system label": the recurring textual motif of the whole page. */
+/* A mono "system label": the recurring textual motif of the whole page.
+   House standard for this family is mono / uppercase / 12px / 600. 600 is the
+   ceiling on purpose: layout.tsx loads IBM Plex Mono at 400, 500 and 600 only,
+   so anything heavier would be synthesised by the browser as fake bold, which
+   smears the letterforms at this size. Raise the weight in layout.tsx first if
+   a heavier label is ever wanted. */
 .home-v2 .hv-mono-label {
   font-family: var(--hv-mono);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .04em;
   text-transform: uppercase;
   color: var(--hv-slate-soft);
@@ -79,13 +84,15 @@
   align-items: center;
 }
 
+/* Stays 13px rather than the family's 12px: it is the hero's label and is meant
+   to sit one step above the rest. Weight matches the family. */
 .home-v2 .hv-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   font-family: var(--hv-mono);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--hv-teal-dark);
@@ -163,7 +170,7 @@
   gap: 8px;
   font-family: var(--hv-mono);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--hv-teal-dark);
 }
 .home-v2 .hv-sch-status i {
@@ -271,21 +278,20 @@
 }
 /* The mono-dash eyebrow used site-wide (cf. .hv-kicker), so the label reads as
    a heading for the row instead of a sixth item in it.
-   Colour is NOT --hv-teal-dark here. The hero background is a gradient, and that
-   token is tuned for the light end of it: it measures 4.71:1 against the top
-   (#f4f7f6) where .hv-eyebrow sits, but only 4.32:1 against the bottom (#e8eeed)
-   where this strip sits, which fails AA for 12px text. This shade is the same
-   hue taken two steps darker and measures 5.15:1 on that surface. */
+   This used to carry a hard-coded darker teal, because the old --hv-teal-dark
+   dropped to 4.32:1 against the foot of the hero gradient. That value is now the
+   token itself, so the override is gone and this is back on the design system;
+   it measures 5.15:1 here. */
 .home-v2 .hv-trust .hv-trust-label {
   display: inline-flex;
   align-items: center;
   gap: 9px;
   font-family: var(--hv-mono);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .05em;
   text-transform: uppercase;
-  color: #0b6f65;
+  color: var(--hv-teal-dark);
 }
 .home-v2 .hv-trust .hv-trust-label::before {
   content: "";
@@ -331,7 +337,7 @@
   gap: 9px;
   font-family: var(--hv-mono);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .05em;
   text-transform: uppercase;
   color: var(--hv-teal-dark);
@@ -385,9 +391,12 @@
   border-color: rgba(20, 184, 166, .55);
   box-shadow: 0 20px 46px rgba(11, 16, 32, .08);
 }
+/* This one had no font-weight at all, so it inherited 400 while every sibling
+   label was 500, which is why it read lighter than the rest of the family. */
 .home-v2 .hv-svc-cat {
   font-family: var(--hv-mono);
-  font-size: 11.5px;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--hv-teal-dark);

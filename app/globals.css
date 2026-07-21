@@ -6,10 +6,16 @@
   --ink: #0b1020;
   --ink-soft: #161c2d;
   --teal: #14b8a6;
-  /* Accent for text/icons on LIGHT surfaces. Meets WCAG AA (4.5:1) down to the
-     darkest light background we use (--mist). Do not use it on dark surfaces,
-     where it fails; reach for --teal-light instead. */
-  --teal-dark: #0d7c71;
+  /* Accent for text/icons on LIGHT surfaces. Do not use it on dark surfaces,
+     where it fails; reach for --teal-light instead.
+     Was #0d7c71, which measured 5.07:1 on pure white. Since every real surface
+     here is slightly darker than white, that left every one of its ~35 uses
+     sitting between 4.32 and 5.07, and two of them below AA: the homepage FAQ
+     tint (#eef2f1, 4.50) and the wordmark over a dark section (3.60). This
+     value clears AA on every surface the site actually paints, with roughly a
+     full point of headroom: 6.04 on white, 5.77 on --cloud, 5.40 on --mist,
+     5.35 on the FAQ tint, 5.15 at the foot of the homepage hero gradient. */
+  --teal-dark: #0b6f65;
   /* Accent for text/icons on DARK surfaces (--ink, footer, gradient panels). */
   --teal-light: #53d8c8;
   --blue: #2563eb;
@@ -49,7 +55,14 @@ button { color: inherit; }
 #main-content:focus { outline: none; }
 .shell { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
 .site-header { position: fixed; z-index: 50; inset: 0 0 auto; border-bottom: 1px solid transparent; transition: .25s ease; }
-.site-header.is-scrolled { background: rgba(248,250,252,.86); border-color: rgba(219,227,231,.8); backdrop-filter: blur(18px); }
+/* .92, not .86. The bar is translucent, so its effective backdrop is whatever
+   scrolls under it. At .86 over a dark section (--ink) the composite fell to
+   rgb(215,217,221), and the teal half of the wordmark measured 3.60:1 against
+   it, under AA. The wordmark is 18px/900, which just misses the 18.66px bold
+   large-text exemption, so it needs the full 4.5. At .92 the composite is
+   rgb(229,231,235) and it measures 4.89:1, while the glass effect is
+   essentially unchanged. */
+.site-header.is-scrolled { background: rgba(248,250,252,.92); border-color: rgba(219,227,231,.8); backdrop-filter: blur(18px); }
 .nav { height: 82px; display: flex; align-items: center; justify-content: space-between; transition: height .25s; }
 .is-scrolled .nav { height: 68px; }
 .wordmark { display: inline-flex; align-items: center; gap: 11px; font-family: var(--font-sora); font-size: 18px; font-weight: 650; letter-spacing: -.03em; }
@@ -95,7 +108,10 @@ button { color: inherit; }
    signature motif of the "Working System" language, shared by page-hero eyebrows,
    section kickers, and card tags. A leading dash replaces the old signal dot, so
    any decorative <i> dot in existing markup is hidden to avoid a double marker. */
-.eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--teal-dark); text-transform: uppercase; font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .05em; }
+/* Mono system labels. House standard: uppercase / 12px / 600. 600 is the ceiling
+   because layout.tsx loads IBM Plex Mono at 400, 500 and 600 only; anything
+   heavier gets synthesised into fake bold, which smears at this size. */
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--teal-dark); text-transform: uppercase; font-family: var(--mono); font-weight: 600; font-size: 12px; letter-spacing: .05em; }
 .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--teal); flex: 0 0 auto; }
 .eyebrow i { display: none; }
 h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
@@ -144,10 +160,10 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .service-card { min-height: 300px; display: flex; flex-direction: column; padding: 28px; background: white; border: 1px solid var(--line); border-radius: var(--radius); transition: transform .25s, box-shadow .25s, border-color .25s; }
 .service-card:hover, .service-card:focus-visible { transform: translateY(-5px); border-color: rgba(20,184,166,.55); box-shadow: 0 22px 50px rgba(11,16,32,.07); }
 .service-card:hover .service-cue svg, .service-card:focus-visible .service-cue svg { transform: translate(2px,-2px); }
-.service-number { color: var(--teal-dark); font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .04em; }
+.service-number { color: var(--teal-dark); font-family: var(--mono); font-weight: 600; font-size: 12px; letter-spacing: .04em; }
 /* Classifies a service card by the kind of work, not a decorative index — a real
    category tag, matching the home page. Order isn't information here, so no number. */
-.service-cat { color: var(--teal-dark); font-family: var(--mono); font-weight: 500; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; }
+.service-cat { color: var(--teal-dark); font-family: var(--mono); font-weight: 600; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
 .service-card h2, .service-card h3 { margin: 14px 0 10px; font-size: 23px; line-height: 1.15; }
 .service-card p { margin: 0 0 25px; color: var(--slate); line-height: 1.6; }
 /* Pin the cue to the card foot so the "Explore service" line-up is consistent
@@ -163,7 +179,7 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .principle { padding: 36px 28px 8px 0; border-right: 1px solid #303749; }
 .principle:not(:first-child) { padding-left: 28px; }
 .principle:last-child { border: 0; }
-.principle span { color: var(--teal-light); font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+.principle span { color: var(--teal-light); font-family: var(--mono); font-weight: 600; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
 .principle h3 { margin: 55px 0 12px; font-size: 20px; }
 .principle p { margin: 0; color: #a9b5c5; line-height: 1.65; font-size: 15px; }
 .process-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 120px; }
@@ -209,7 +225,7 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 .site-cta-inner { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
 /* Positioning signal-line: the three domains as nodes joined by a live rail. */
 .site-cta-line { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 30px; }
-.site-cta-line span { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-light); }
+.site-cta-line span { font-family: var(--mono); font-weight: 600; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-light); }
 .site-cta-line i { position: relative; width: 34px; height: 1px; background: rgba(83,216,200,.28); }
 .site-cta-line i::after {
   content: ""; position: absolute; top: -2px; left: 0; width: 6px; height: 5px; border-radius: 3px;
@@ -417,7 +433,7 @@ h1,h2,h3 { font-family: var(--font-sora), sans-serif; letter-spacing: -.045em; }
 /* Focus: teal-dark border (5.07:1 on white) + a solid-enough ring so the
    indicator itself clears 3:1. The old faint 14% ring on a 2.49:1 teal border
    was a weak focus signal once the global outline was suppressed. */
-.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: none; border-color: var(--teal-dark); background: #fff; box-shadow: 0 0 0 3px rgba(13,124,113,.35); }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: none; border-color: var(--teal-dark); background: #fff; box-shadow: 0 0 0 3px rgba(11,111,101,.35); }
 /* Site-wide, not just the contact form: Tailwind preflight defaults placeholders
    to #9ca3af (~2.5:1 on white), which the search input would otherwise inherit. */
 input::placeholder, textarea::placeholder { color: var(--slate-soft); }
