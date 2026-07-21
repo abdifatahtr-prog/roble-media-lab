@@ -58,6 +58,13 @@ Everything below exists because of that.
   pale line work on white; the ink panel it is drawn against comes from the wrapper.
 - **Viewport/`cardMode` edits require a full `package-build.mjs`**, not
   `preview-rebuild.mjs` — the targeted loop rejects them with `[CONFIG_STALE]`.
+- **`.design-sync/` is excluded from eslint** (`eslint.config.mjs` ignores).
+  CI runs `eslint .` with strict jsx-a11y, and it failed on the `next/image`
+  shim: `jsx-a11y/alt-text` can't see an `alt` arriving through `...rest`, and
+  `@next/next/no-img-element` fires on a shim whose entire job is to render a
+  plain `<img>`. Keep this scaffolding out of the app lint pass — but note the
+  shim now forwards `alt` explicitly (defaulting to `""`), so preview cards
+  still carry real alt text. Don't "simplify" that back into the rest spread.
 
 ## Known render warns (expected — not new)
 

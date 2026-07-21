@@ -24,6 +24,7 @@ type ImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "width" | "h
 
 export default function Image({
   src,
+  alt = "",
   width,
   height,
   priority,
@@ -43,6 +44,7 @@ export default function Image({
   return (
     <img
       src={resolved}
+      alt={alt}
       width={fill ? undefined : width}
       height={fill ? undefined : height}
       style={{ ...fillStyle, ...style }}

@@ -54,7 +54,15 @@ const config = [
       ".wrangler/**",
       "node_modules/**",
       "next-env.d.ts",
-      "content/blog-data.json"
+      "content/blog-data.json",
+      // design-sync tooling (see .design-sync/NOTES.md) — build scripts and
+      // deliberate stand-ins for next/link, next/image and friends, not app
+      // code. Linting it here is circular: a next/image shim exists precisely
+      // to render a plain <img>, so no-img-element would flag it forever. The
+      // shim still forwards `alt`, so preview cards keep real alt text.
+      ".design-sync/**",
+      "ds-bundle/**",
+      ".ds-sync/**"
     ]
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
