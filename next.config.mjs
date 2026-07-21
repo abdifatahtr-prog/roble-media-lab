@@ -40,7 +40,7 @@ const nextConfig = {
       // in people's wallets. The UTMs live here, not on the card, for the same reason.
       {
         source: "/card",
-        destination: "/book?utm_source=card&utm_medium=print&utm_campaign=business_card",
+        destination: "/services?utm_source=card&utm_medium=print&utm_campaign=business_card",
         statusCode: 302
       }
     ];
