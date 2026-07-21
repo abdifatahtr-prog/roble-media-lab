@@ -1,0 +1,84 @@
+{
+  "projectId": "09bc1e11-c91f-4dc0-b6b2-c925f038f33c",
+  "shape": "package",
+  "pkg": "roble-media-lab-v2",
+  "globalName": "RML",
+  "buildCmd": "node .design-sync/build-ds.mjs",
+  "srcDir": "components",
+  "tsconfig": ".design-sync/tsconfig.ds.json",
+  "cssEntry": ".design-sync/.cache/ds-styles.css",
+  "extraFonts": [
+    ".design-sync/fonts/fonts.css"
+  ],
+  "docsDir": ".design-sync/docs",
+  "dtsPropsFor": {
+    "PageHero": "eyebrow: string; title: string; variant?: \"page\" | \"article\"; children: React.ReactNode;",
+    "CTA": "/** Opens the WhatsApp chat already on-topic for a service page. */ service?: string;",
+    "ArticleCard": "/** Post metadata. `cover: null` falls back to the branded generated CoverArt. */ post: { slug: string; title: string; description: string; date: string; dateLabel: string; updated: string | null; updatedLabel: string | null; readTime: string; wordCount: number; pillar: \"ai\" | \"automation\" | \"websites\" | \"seo-content\" | \"operations\" | \"case-studies\"; pillarLabel: string; cover: string | null; coverAlt: string | null }; /** Heading level for the card title — h2 in a listing, h3 in a rail. */ titleAs?: \"h2\" | \"h3\";",
+    "CoverArt": "/** Post slug — selects the deterministic generated artwork. */ slug: string;",
+    "PostCover": "/** A full post: the ArticleCard metadata plus rendered body and table of contents. */ post: { slug: string; title: string; description: string; date: string; dateLabel: string; updated: string | null; updatedLabel: string | null; readTime: string; wordCount: number; pillar: \"ai\" | \"automation\" | \"websites\" | \"seo-content\" | \"operations\" | \"case-studies\"; pillarLabel: string; cover: string | null; coverAlt: string | null; html: string; toc: { id: string; text: string }[] };",
+    "FAQList": "/** [question, answer] pairs, rendered as a disclosure list. */ items: readonly (readonly [string, string])[]; headingLevel?: 2 | 3;",
+    "ShareButtons": "/** Absolute URL of the page being shared. */ url: string; title: string;",
+    "Header": "",
+    "Footer": "",
+    "ArrowUpRight": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "ArrowRight": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "MenuIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "CloseIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "SearchIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "LinkIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "CheckIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "LinkedInIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "InstagramIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "XIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "FacebookIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "YouTubeIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "TikTokIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";",
+    "WhatsAppIcon": "/** Renders a 24x24 currentColor SVG; accepts any SVG attribute. */ width?: number | string; height?: number | string; className?: string; style?: React.CSSProperties; color?: string; strokeWidth?: number | string; \"aria-hidden\"?: boolean | \"true\" | \"false\"; \"aria-label\"?: string; focusable?: \"true\" | \"false\";"
+  },
+  "overrides": {
+    "CoverArt": {
+      "cardMode": "column"
+    },
+    "Header": {
+      "cardMode": "single",
+      "primaryStory": "Default",
+      "viewport": "1280x240"
+    },
+    "Footer": {
+      "cardMode": "single",
+      "primaryStory": "Default",
+      "viewport": "1280x620"
+    }
+  },
+  "libOverrides": {
+    "dts.mjs": "CTA is a real component; the stock all-caps heuristic drops it, so cfg.componentSrcMap pins win"
+  },
+  "componentSrcMap": {
+    "PageHero": "components/page-hero.tsx",
+    "CTA": "components/cta.tsx",
+    "ArticleCard": "components/article-card.tsx",
+    "CoverArt": "components/cover-art.tsx",
+    "PostCover": "components/post-cover.tsx",
+    "FAQList": "components/faq-list.tsx",
+    "Header": "components/header.tsx",
+    "Footer": "components/footer.tsx",
+    "ShareButtons": "components/share-buttons.tsx",
+    "Reveal": "components/reveal.tsx",
+    "ArrowUpRight": "components/icons.tsx",
+    "ArrowRight": "components/icons.tsx",
+    "MenuIcon": "components/icons.tsx",
+    "CloseIcon": "components/icons.tsx",
+    "SearchIcon": "components/icons.tsx",
+    "LinkIcon": "components/icons.tsx",
+    "CheckIcon": "components/icons.tsx",
+    "LinkedInIcon": "components/icons.tsx",
+    "InstagramIcon": "components/icons.tsx",
+    "XIcon": "components/icons.tsx",
+    "FacebookIcon": "components/icons.tsx",
+    "YouTubeIcon": "components/icons.tsx",
+    "TikTokIcon": "components/icons.tsx",
+    "WhatsAppIcon": "components/icons.tsx"
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}
