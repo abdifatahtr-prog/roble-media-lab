@@ -78,9 +78,16 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Who we serve, drawn as a labelled spec bar rather than a run of
+            dot-separated text. A real <ul> pointed at its own label by
+            aria-labelledby, so the audience list is announced as a list with a
+            name instead of five loose spans. The dividers are cell borders, not
+            content, which is what keeps the row intact when it wraps on mobile. */}
         <div className="shell hv-trust">
-          <span className="hv-trust-label">built_for</span>
-          <span>SMEs</span><span>Startups</span><span>Agencies</span><span>Consultants</span><span>Growing teams</span>
+          <span className="hv-trust-label" id="built-for-label">built_for</span>
+          <ul className="hv-trust-list" aria-labelledby="built-for-label">
+            <li>Growing businesses</li><li>SMEs</li><li>Startups</li><li>Agencies</li><li>Consultants</li>
+          </ul>
         </div>
       </section>
 

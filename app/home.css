@@ -252,35 +252,70 @@
 .home-v2 .hv-sch-node.is-active b { color: var(--hv-teal-dark); }
 
 /* ---- Signal line + trust strip ------------------------------------------ */
-/* One horizontal hairline with a node at the left: the section-threading motif
-   introduced. Carries the honest "who this is for" list in mono. */
+/* Who the work is for, drawn as a labelled spec bar: a mono label in its own
+   cell, then the audiences as equal columns divided by hairlines. Same grammar
+   as the schematic above it (mono label + hairline structure), which is why it
+   reads as part of the hero rather than a caption stuck underneath it.
+   The bottom padding is load-bearing: without it the strip sits exactly on the
+   hero/services boundary (the hero has no padding-bottom) and reads as a seam. */
 .home-v2 .hv-trust {
   position: relative;
   z-index: 1;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 12px 22px;
-  margin-top: 84px;
-  padding: 22px 0 0;
-  border-top: 1px solid rgba(11, 16, 32, .1);
+  gap: 34px;
+  margin-top: 76px;
+  padding: 26px 0 40px;
+  border-top: 1px solid var(--hv-line-strong);
 }
+/* The mono-dash eyebrow used site-wide (cf. .hv-kicker), so the label reads as
+   a heading for the row instead of a sixth item in it.
+   Colour is NOT --hv-teal-dark here. The hero background is a gradient, and that
+   token is tuned for the light end of it: it measures 4.71:1 against the top
+   (#f4f7f6) where .hv-eyebrow sits, but only 4.32:1 against the bottom (#e8eeed)
+   where this strip sits, which fails AA for 12px text. This shade is the same
+   hue taken two steps darker and measures 5.15:1 on that surface. */
 .home-v2 .hv-trust .hv-trust-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   font-family: var(--hv-mono);
   font-size: 12px;
+  font-weight: 500;
   letter-spacing: .05em;
   text-transform: uppercase;
-  color: var(--hv-teal-dark);
+  color: #0b6f65;
 }
-.home-v2 .hv-trust span:not(.hv-trust-label) {
-  font-family: var(--hv-mono);
-  font-size: 13px;
-  color: #5c6773;
+.home-v2 .hv-trust .hv-trust-label::before {
+  content: "";
+  flex: 0 0 22px;
+  height: 1px;
+  background: var(--hv-teal);
 }
-.home-v2 .hv-trust span + span:not(.hv-trust-label)::before {
-  content: "·";
-  margin-right: 22px;
-  color: var(--hv-line-strong);
+/* minmax(max-content, 1fr), not plain 1fr. Equal columns are the intent, and
+   that is what you get on a wide screen. But "Growing businesses" is 151px where
+   the shortest item is 40px, so equal columns only fit above ~1320px; below that
+   a plain 1fr would quietly break the longest label onto two lines. The
+   max-content floor lets columns give up equality before they give up a single
+   line, so the row degrades to proportional spacing instead of wrapping. */
+.home-v2 .hv-trust-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(max-content, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Sora rather than mono: these are audiences a visitor should read at a glance,
+   not system labels. The divider is a cell border, so nothing can orphan the way
+   the old `span + span::before` bullet did once the row wrapped. */
+.home-v2 .hv-trust-list li {
+  padding: 6px 12px 6px 22px;
+  border-left: 1px solid var(--hv-line);
+  font-family: var(--font-sora), sans-serif;
+  font-size: 15px;
+  letter-spacing: -.01em;
+  color: var(--hv-ink);
 }
 
 /* ------------------------------------------------------------- SECTIONS ---- */
@@ -528,13 +563,47 @@
   .home-v2 .hv-process-intro { position: static; }
   .home-v2 .hv-section { padding: 92px 0; }
 }
+/* The spec bar flips before the other sections do. With the max-content floor
+   above, the single-row layout survives down to ~770px (the five items measure
+   587px of text plus padding, and the label another 135px). It is switched out
+   well before that, at 1024px, because by then the columns have gone visibly
+   uneven and a two-up table reads better than a cramped row. Below here the
+   label is promoted above the list and the dividers become a full cell grid,
+   which is what makes the wrapped block read as one object rather than a ragged
+   list. Re-measure if an audience is added or renamed longer than
+   "Growing businesses" (151px in Sora 15px). */
+@media (max-width: 1024px) {
+  .home-v2 .hv-trust {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 18px;
+    margin-top: 58px;
+    padding: 24px 0 34px;
+  }
+  .home-v2 .hv-trust-list {
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--hv-line);
+  }
+  .home-v2 .hv-trust-list li {
+    padding: 12px 10px;
+    border-left: 0;
+    border-bottom: 1px solid var(--hv-line);
+  }
+  /* The lead item takes the full width. Two reasons, and they agree: it is the
+     audience we most want read first, and it is the only one too long to sit in
+     a half-width cell (151px of text against ~152px of usable cell, so it would
+     wrap on a 375px screen and break outright on a 360px one). That leaves the
+     remaining four as a clean 2x2, so the vertical divider falls on the
+     even-numbered cells, which are the left-hand ones. */
+  .home-v2 .hv-trust-list li:first-child { grid-column: 1 / -1; }
+  .home-v2 .hv-trust-list li:nth-child(even) { border-right: 1px solid var(--hv-line); }
+}
 @media (max-width: 620px) {
   .home-v2 .hv-hero { padding-top: 118px; }
   .home-v2 h1 { font-size: 50px; }
   .home-v2 .hv-lead { font-size: 17px; }
   .home-v2 .hv-svc-grid,
   .home-v2 .hv-why-grid { grid-template-columns: 1fr; }
-  .home-v2 .hv-trust { margin-top: 58px; }
   .home-v2 .hv-section { padding: 74px 0; }
   .home-v2 .hv-head { margin-bottom: 38px; }
   .home-v2 .hv-head h2 { font-size: 38px; }
