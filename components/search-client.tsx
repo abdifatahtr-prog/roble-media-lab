@@ -2,8 +2,9 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { PageHero } from "@/components/page-hero";
+import type { SearchItem } from "@/lib/search-index";
 
-export type SearchItem = { title: string; description: string; href: string; type: string };
+export type { SearchItem };
 
 export function SearchClient({ index }: { index: SearchItem[] }) {
   const [query, setQuery] = useState("");

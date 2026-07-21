@@ -8,6 +8,7 @@ import { UtmCapture } from "@/components/utm-capture";
 import { ConversionTracking } from "@/components/conversion-tracking";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { founder, officialProfiles, services, site } from "@/content/site";
+import { buildSearchIndex } from "@/lib/search-index";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -100,7 +101,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${inter.variable} ${sora.variable} ${mono.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
-        <Header />
+        <Header searchIndex={buildSearchIndex()} />
         {/* tabIndex={-1} lets the skip link move keyboard focus into the content,
             not just scroll to it, so the next Tab resumes inside main (2.4.1). */}
         <main id="main-content" tabIndex={-1}>{children}</main>

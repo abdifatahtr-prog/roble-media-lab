@@ -769,3 +769,52 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
   .post-cover-figure { margin-bottom: 34px; }
   .toc { margin-bottom: 34px; padding: 18px 20px; }
 }
+
+/* ---------------------------------------------------------------------------
+   Search palette (components/search-dialog.tsx)
+
+   A native <dialog>, so the browser gives us the focus trap, Escape handling,
+   inert background and ::backdrop for free. Everything here is presentation.
+   --------------------------------------------------------------------------- */
+
+/* Pinned near the top like GitHub's and Cloudflare's palettes rather than
+   centred: the field lands close to the icon that opened it, and the results
+   grow downward into empty space instead of shoving the field around. */
+.search-dialog { width: min(640px, calc(100vw - 32px)); max-height: min(70vh, 640px); margin: 12vh auto auto; padding: 0; border: 0; border-radius: 18px; background: transparent; overflow: visible; }
+.search-dialog::backdrop { background: rgba(11,16,32,.45); backdrop-filter: blur(2px); }
+.search-dialog[open] { animation: search-pop .16s cubic-bezier(.22,1,.36,1) both; }
+@keyframes search-pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+.search-dialog-panel { display: flex; flex-direction: column; max-height: min(70vh, 640px); border: 1px solid var(--line); border-radius: 18px; background: var(--white); box-shadow: var(--shadow); overflow: hidden; }
+
+.search-dialog-field { display: flex; align-items: center; gap: 12px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+.search-dialog-field svg { width: 20px; height: 20px; flex: 0 0 auto; color: var(--slate-soft); }
+/* 16px minimum: anything smaller and iOS Safari zooms the page on focus. */
+.search-dialog-field input { flex: 1; min-height: 58px; border: 0; outline: 0; background: transparent; color: var(--ink); font-family: inherit; font-size: 17px; }
+.search-dialog-field input::placeholder { color: var(--slate-soft); }
+.search-dialog-esc { flex: 0 0 auto; padding: 3px 8px; border: 1px solid var(--line); border-radius: 6px; color: var(--slate-soft); font-family: var(--mono); font-size: 11px; }
+
+.search-dialog-results { margin: 0; padding: 6px; overflow-y: auto; }
+.search-dialog-results:empty { display: none; }
+/* Row target is 44px+ so it clears the touch-target minimum on phones. */
+.search-dialog-results > a { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; padding: 10px 12px; border-radius: 12px; cursor: pointer; }
+.search-dialog-results > a.is-active { background: var(--mist); }
+.search-dialog-type { grid-row: 1; align-self: start; margin-top: 2px; padding: 2px 8px; border-radius: 999px; background: var(--mist); color: var(--teal-dark); font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.search-dialog-results > a.is-active .search-dialog-type { background: var(--white); }
+.search-dialog-title { grid-row: 1; align-self: start; color: var(--ink); font-weight: 700; font-size: 15px; }
+.search-dialog-desc { grid-row: 2; grid-column: 2; color: var(--slate); font-size: 13px; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.search-dialog-empty { margin: 0; padding: 22px 18px; color: var(--slate); font-size: 15px; }
+
+.search-dialog-hints { display: flex; gap: 18px; padding: 10px 16px; border-top: 1px solid var(--line); background: var(--cloud); color: var(--slate-soft); font-size: 12px; }
+.search-dialog-hints span { display: inline-flex; align-items: center; gap: 6px; }
+.search-dialog-hints kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 5px; background: var(--white); font-family: var(--mono); font-size: 11px; }
+
+@media (max-width: 640px) {
+  .search-dialog { margin-top: 6vh; max-height: 80vh; }
+  .search-dialog-panel { max-height: 80vh; }
+  /* The keyboard eats most of a phone screen; the hint row is the first thing
+     worth losing, and it is aria-hidden decoration anyway. */
+  .search-dialog-hints { display: none; }
+  .search-dialog-esc { display: none; }
+}
