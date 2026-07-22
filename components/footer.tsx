@@ -66,7 +66,7 @@ export function Footer() {
       </div>
       <div className="shell footer-bottom">
         <span>© {new Date().getFullYear()} Roble Media Lab.</span>
-        <div><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div>
+        <div><Link href="/privacy">Privacy</Link><Link href="/cookies">Cookies</Link><Link href="/terms">Terms</Link></div>
       </div>
     </footer>
   );

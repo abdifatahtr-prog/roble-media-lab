@@ -22,7 +22,11 @@ export const site = {
   whatsappMessage: "Hi Roble Media Lab! I'd like to improve my business with AI and automation.",
   // Cloudflare Web Analytics beacon token. Get it from the Cloudflare dashboard
   // (Analytics & Logs → Web Analytics). Empty = analytics disabled.
-  cfBeaconToken: process.env.NEXT_PUBLIC_CF_BEACON_TOKEN ?? ""
+  cfBeaconToken: process.env.NEXT_PUBLIC_CF_BEACON_TOKEN ?? "",
+  // GA4 measurement ID. Loaded only after the visitor accepts analytics cookies
+  // (see components/analytics.tsx), so this being set does not by itself mean
+  // anything is measured.
+  gaId: "G-DVFVKQNP4P"
 } as const;
 
 /**

@@ -480,6 +480,67 @@ input::placeholder, textarea::placeholder { color: var(--slate-soft); }
    the IntersectionObserver in components/whatsapp-button.tsx. */
 .whatsapp-fab.is-tucked { opacity: 0; visibility: hidden; transform: translateY(16px) scale(.94); pointer-events: none; }
 
+/* Cookie consent notice.
+
+   A bar across the bottom of the viewport, deliberately NOT a modal: no backdrop,
+   no scroll lock, no focus trap, so the site stays fully usable behind it and a
+   visitor who never answers is never stopped. z-index 70 clears the WhatsApp
+   button's 60 and the header's 50; the button itself steps aside while the bar is
+   up (same visibility treatment as .is-tucked, so it leaves the tab order too).
+
+   max-height + overflow guard the one case that would break the promise above: a
+   short landscape phone with the preferences panel open, where an un-capped bar
+   would cover the whole screen and become the modal this is not. */
+.consent { position: fixed; z-index: 70; inset: auto 0 0; max-height: 85vh; overflow-y: auto; padding: 18px 0 20px; border-top: 1px solid var(--line); background: var(--white); box-shadow: 0 -18px 50px rgba(11,16,32,.10); animation: consent-in .3s ease both; }
+.consent-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.consent-copy { max-width: 720px; }
+.consent h2 { margin: 0 0 8px; font-size: 19px; line-height: 1.3; }
+.consent p { margin: 0 0 4px; color: var(--slate); font-size: 14px; line-height: 1.6; }
+.consent p:last-child { margin-bottom: 0; }
+.consent a { color: var(--teal-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.consent-controls { flex: 0 0 auto; width: 320px; }
+.consent-actions { display: flex; gap: 10px; }
+/* `flex: 1 1 0` and not `1 1 auto`: with `auto` the flex basis is the label width,
+   so "Accept All" would come out wider than "Reject All" and the pair would read
+   as a recommendation rather than a choice. A zero basis makes the two exactly
+   equal at any width. No wrapping, for the same reason: stacked, one is on top. */
+.consent .consent-actions .button { flex: 1 1 0; min-width: 0; padding: 0 12px; }
+/* Quiet, but a real button at full tap size and centred under the pair, so it
+   reads as the third option rather than fine print. */
+.consent-manage { display: block; width: 100%; min-height: 44px; margin-top: 4px; background: none; border: 0; color: var(--slate); font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.consent-manage:hover { color: var(--ink); }
+body[data-consent="open"] .whatsapp-fab { opacity: 0; visibility: hidden; pointer-events: none; }
+@keyframes consent-in { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: none; } }
+
+/* The expanded per-category panel. */
+.consent-prefs { margin-top: 18px; padding-top: 6px; border-top: 1px solid var(--line); }
+.consent-pref { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px 0; }
+.consent-pref + .consent-pref { border-top: 1px solid var(--line); }
+.consent-pref-name { display: block; color: var(--ink); font-size: 14px; font-weight: 700; }
+.consent-pref-desc { display: block; margin-top: 2px; color: var(--slate); font-size: 13px; line-height: 1.45; }
+.consent-pref-fixed { flex: 0 0 auto; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--slate); }
+/* A native checkbox painted as a switch, so it keeps its own keyboard behaviour,
+   focus ring and announced state instead of us reimplementing all three. */
+.consent-switch { flex: 0 0 auto; appearance: none; position: relative; width: 44px; height: 26px; border-radius: 999px; background: #cdd7dd; cursor: pointer; transition: background .2s; }
+.consent-switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--white); box-shadow: 0 1px 3px rgba(11,16,32,.3); transition: transform .2s; }
+.consent-switch:checked { background: var(--teal-dark); }
+.consent-switch:checked::after { transform: translateX(18px); }
+/* Pushed to the right edge so it lands under the Reject/Accept column rather than
+   floating alone on the left, away from every other control in the bar. */
+.consent-save { display: block; margin: 14px 0 0 auto; }
+
+@media (max-width: 860px) {
+  .consent-inner { flex-direction: column; align-items: stretch; gap: 16px; }
+  .consent-controls { width: auto; }
+}
+
+/* The same choice, restated on /cookies so it can be withdrawn as easily as it
+   was given. Sits inside .prose, hence the explicit resets. */
+.consent-settings { margin: 0 0 28px; padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--mist); }
+.consent-settings .consent-settings-state { margin: 12px 0 0; color: var(--ink); font-weight: 600; }
+.consent-settings .consent-settings-note { margin: 20px 0 0; color: var(--slate); font-size: 14px; }
+.consent-settings .button[disabled] { opacity: .45; pointer-events: none; }
+
 /* Testimonials & client strip */
 .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
 .testimonial-card { display: flex; flex-direction: column; gap: 20px; padding: 30px; background: white; border: 1px solid var(--line); border-radius: var(--radius); }

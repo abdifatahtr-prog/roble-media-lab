@@ -1,4 +1,5 @@
 import { sendGAEvent } from "@next/third-parties/google";
+import { readConsent } from "@/lib/consent";
 
 // GA4 events via the official @next/third-parties helper. sendGAEvent pushes to the
 // dataLayer initialised by the <GoogleAnalytics /> component in the root layout, so
@@ -8,6 +9,11 @@ type GaParams = Record<string, unknown>;
 
 export function trackEvent(name: string, params: GaParams = {}): void {
   if (typeof window === "undefined") return;
+  // Without consent there is no GA script and no dataLayer, so sendGAEvent would
+  // only log its "GA has not been initialized" warning into the console of every
+  // visitor who declined. Checking here also means every current and future call
+  // site inherits the gate for free rather than having to remember it.
+  if (readConsent() !== "granted") return;
   sendGAEvent("event", name, params);
 }
 

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora, IBM_Plex_Mono } from "next/font/google";
-import { Analytics } from "@/components/analytics";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics, GoogleAnalyticsGated } from "@/components/analytics";
+import { ConsentBanner } from "@/components/consent-banner";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { UtmCapture } from "@/components/utm-capture";
@@ -101,6 +101,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${inter.variable} ${sora.variable} ${mono.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
+        {/* Before the header so the first Tab reaches the cookie choice rather than
+            burying it behind the whole page. Fixed-positioned, so this costs nothing
+            visually. */}
+        <ConsentBanner />
         <Header searchIndex={buildSearchIndex()} />
         {/* tabIndex={-1} lets the skip link move keyboard focus into the content,
             not just scroll to it, so the next Tab resumes inside main (2.4.1). */}
@@ -108,7 +112,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Footer />
         <WhatsAppButton />
         <Analytics />
-        <GoogleAnalytics gaId="G-DVFVKQNP4P" />
+        <GoogleAnalyticsGated />
         <ConversionTracking />
         <UtmCapture />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
