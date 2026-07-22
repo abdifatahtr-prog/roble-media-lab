@@ -27,18 +27,42 @@ export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [formError, setFormError] = useState("");
   const [token, setToken] = useState("");
+  const [retryCount, setRetryCount] = useState(0);
+  const MAX_RETRIES = 3;
   const turnstileRef = useRef<TurnstileHandle>(null);
 
   const busy = status === "submitting" || status === "success";
 
   const resetTurnstile = useCallback(() => {
     setToken("");
+    setRetryCount(0);
     turnstileRef.current?.reset();
   }, []);
 
-  const onVerify = useCallback((value: string) => setToken(value), []);
+  const onRetryCheck = useCallback(() => {
+    setFormError("");
+    setRetryCount((n) => n + 1);
+    turnstileRef.current?.reset();
+  }, []);
+
+  const onVerify = useCallback((value: string) => {
+    setToken(value);
+    setRetryCount(0);
+  }, []);
   const onExpire = useCallback(() => setToken(""), []);
-  const onTurnstileError = useCallback(() => setToken(""), []);
+  const onTurnstileError = useCallback(() => {
+    setToken("");
+    setRetryCount((n) => {
+      const next = n + 1;
+      // Auto-retry up to MAX_RETRIES times, then give up and show the error.
+      if (next <= MAX_RETRIES) {
+        // Reset immediately to let Cloudflare try again. The widget will show
+        // "Verifying" while this happens (we hide the error during retries).
+        setTimeout(() => turnstileRef.current?.reset(), 100);
+      }
+      return next;
+    });
+  }, []);
 
   // TEMPORARY diagnostic: report each Turnstile lifecycle event to GA4 (for the
   // team's dashboards) and beacon it to D1 (so the exact first-load error code is
@@ -63,7 +87,15 @@ export function ContactForm() {
     ) as Record<string, string>;
 
     if (turnstileSiteKey && !token) {
-      setFormError("Please complete the verification below, then send your message.");
+      if (retryCount > 0 && retryCount <= MAX_RETRIES) {
+        setFormError("Still verifying your security check. Please wait a moment.");
+      } else if (retryCount > MAX_RETRIES) {
+        setFormError(
+          "The security check isn't responding. Please refresh the page and try again, or contact us directly."
+        );
+      } else {
+        setFormError("Please complete the verification below, then send your message.");
+      }
       return;
     }
 
@@ -190,6 +222,23 @@ export function ContactForm() {
           onError={onTurnstileError}
           onDiag={onDiag}
         />
+      )}
+
+      {/* During auto-retries (retryCount > 0 but <= MAX_RETRIES), show "Verifying"
+          to set expectations. Only show the "Try again" button if retries are exhausted. */}
+      {retryCount > 0 && retryCount <= MAX_RETRIES && !busy && (
+        <p className="turnstile-verifying" role="status" aria-live="polite">
+          Verifying your security check…
+        </p>
+      )}
+      {retryCount > MAX_RETRIES && !busy && (
+        <p className="turnstile-retry" role="status" aria-live="polite">
+          The security check is taking longer than usual. Try refreshing the page, or{" "}
+          <button type="button" className="link-button" onClick={onRetryCheck}>
+            try again
+          </button>
+          .
+        </p>
       )}
 
       {formError && <p className="form-error" role="alert">{formError}</p>}
