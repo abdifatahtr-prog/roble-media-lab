@@ -5,7 +5,7 @@ import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Insights",
-  description: "Practical notes on AI, business automation, websites, and SEO for growing businesses in Kenya and East Africa.",
+  description: "Practical notes on AI, business automation, websites, and SEO for growing businesses in Kenya, East Africa, and beyond.",
   // types repeated: page-level alternates replaces the layout's object wholesale.
   alternates: { canonical: "/blog", types: { "application/rss+xml": "/feed.xml" } }
 };

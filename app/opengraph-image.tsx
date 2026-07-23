@@ -53,7 +53,7 @@ export default function OpengraphImage() {
             &amp; business websites.
           </div>
           <div style={{ marginTop: 28, fontSize: 30, color: "#bdc8d5", maxWidth: 900 }}>
-            Clear systems people can actually use, for growing businesses in Kenya &amp; East Africa.
+            Clear systems people can actually use, for growing businesses in Kenya, East Africa &amp; beyond.
           </div>
         </div>
 

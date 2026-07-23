@@ -8,7 +8,7 @@ import { ksh, priceFactors, servicePricing, site, websiteCarePlan, websitePackag
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "What our work costs, published up front. Website packages from KES 60,000, automation from KES 135,000, SEO from KES 45,000 a month. Built for small and growing businesses in Kenya.",
+    "What our work costs, published up front. Website packages from KES 60,000, automation from KES 135,000, SEO from KES 45,000 a month. Built for small and growing businesses in Kenya and beyond.",
   alternates: { canonical: "/pricing" }
 };
 
@@ -86,6 +86,15 @@ export default function PricingPage() {
               </article>
             ))}
           </div>
+
+          {/* Currency note: prices are set in KES for our primary market, but the
+              site should read as welcoming to international clients too. Kept as a
+              quiet line under the packages so it informs without competing with
+              the prices themselves. */}
+          <p className="price-currency-note">
+            Prices are shown in Kenyan Shillings (KES). International clients are welcome, and quotes
+            can also be provided in USD or EUR on request.
+          </p>
         </div>
       </section>
 
