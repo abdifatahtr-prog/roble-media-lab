@@ -169,25 +169,39 @@ export function renderConfirmationEmail(record: EnquiryRecord): RenderedEmail {
   const subject = "We've received your enquiry";
   const firstName = record.name.split(/\s+/)[0] || record.name;
 
+  // Subtle checklist under the reference. Table-based with a fixed-width tick cell so
+  // Outlook keeps the hanging indent instead of collapsing it to a single line.
+  const nextStep = (copy: string): string =>
+    `<tr>
+        <td style="padding:6px 10px 0 0;color:${BRAND.teal};font-size:14px;line-height:1.6;vertical-align:top;width:18px;">&#10003;</td>
+        <td style="padding:6px 0 0;color:${BRAND.slate};font-size:14px;line-height:1.6;vertical-align:top;">${copy}</td>
+      </tr>`;
+
   const inner = `
     <p style="margin:0 0 4px;color:${BRAND.teal};font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;">Enquiry received</p>
-    <h1 style="margin:0 0 18px;font-size:24px;line-height:1.25;color:${BRAND.ink};">Thanks, ${escapeHtml(firstName)} — we've got it.</h1>
+    <h1 style="margin:0 0 18px;font-size:24px;line-height:1.25;color:${BRAND.ink};">Thank you, ${escapeHtml(firstName)}.</h1>
     <p style="margin:0 0 16px;color:${BRAND.slate};font-size:15px;line-height:1.7;">
-      Thank you for reaching out to Roble Media Lab. Your enquiry has landed with us and a real person will read it properly.
+      Your enquiry has been received and a member of our team will review it personally.
     </p>
     <p style="margin:0 0 16px;color:${BRAND.slate};font-size:15px;line-height:1.7;">
-      We'll reply <strong style="color:${BRAND.ink};">within one business day</strong>. If it looks like we're a good fit, we'll invite you to a free 30-minute discovery call to talk through the next practical step for your business.
+      We'll be in touch <strong style="color:${BRAND.ink};">within one business day</strong>. If we believe we can genuinely help, we'll invite you to a free 30-minute discovery call to discuss the best next step for your business.
     </p>
     <p style="margin:0 0 20px;color:${BRAND.slate};font-size:15px;line-height:1.7;">
-      There's nothing more you need to do right now.
+      There's nothing more you need to do right now. If your enquiry is urgent, simply reply to this email and we'll do our best to get back to you sooner.
     </p>
     <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px;">
       <tr><td style="background:${BRAND.cloud};border:1px solid ${BRAND.line};border-radius:12px;padding:12px 18px;color:${BRAND.slate};font-size:13px;">
         Your reference: <strong style="color:${BRAND.ink};letter-spacing:.02em;">${escapeHtml(record.reference)}</strong>
       </td></tr>
     </table>
+    <p style="margin:0 0 2px;color:${BRAND.ink};font-size:13px;font-weight:700;letter-spacing:.02em;">What happens next</p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 26px;border-collapse:collapse;">
+      ${nextStep("We review your enquiry.")}
+      ${nextStep("We'll reply within one business day.")}
+      ${nextStep("If we're a good fit, we'll invite you to a free discovery call.")}
+    </table>
     <p style="margin:0 0 8px;">
-      <a href="${site.url}" style="display:inline-block;background:${BRAND.ink};color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:12px 24px;border-radius:999px;">Visit our website</a>
+      <a href="${site.url}/services" style="display:inline-block;background:${BRAND.ink};color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:12px 24px;border-radius:999px;">Explore our services</a>
     </p>
     <p style="margin:26px 0 0;color:${BRAND.slate};font-size:14px;line-height:1.7;">
       Warm regards,<br>The Roble Media Lab team
@@ -195,17 +209,22 @@ export function renderConfirmationEmail(record: EnquiryRecord): RenderedEmail {
   `;
 
   const text = [
-    `Thanks, ${firstName} — we've got it.`,
+    `Thank you, ${firstName}.`,
     ``,
-    `Thank you for reaching out to Roble Media Lab. Your enquiry has landed with us and a real person will read it properly.`,
+    `Your enquiry has been received and a member of our team will review it personally.`,
     ``,
-    `We'll reply within one business day. If it looks like we're a good fit, we'll invite you to a free 30-minute discovery call to talk through the next practical step for your business.`,
+    `We'll be in touch within one business day. If we believe we can genuinely help, we'll invite you to a free 30-minute discovery call to discuss the best next step for your business.`,
     ``,
-    `There's nothing more you need to do right now.`,
+    `There's nothing more you need to do right now. If your enquiry is urgent, simply reply to this email and we'll do our best to get back to you sooner.`,
     ``,
     `Your reference: ${record.reference}`,
     ``,
-    `Visit our website: ${site.url}`,
+    `What happens next`,
+    `- We review your enquiry.`,
+    `- We'll reply within one business day.`,
+    `- If we're a good fit, we'll invite you to a free discovery call.`,
+    ``,
+    `Explore our services: ${site.url}/services`,
     ``,
     `Warm regards,`,
     `The Roble Media Lab team`
