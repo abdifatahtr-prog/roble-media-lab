@@ -34,8 +34,8 @@ export default function AboutPage() {
             Roble Media Lab exists to close that gap. We turn the friction that slows a business
             down into clear, dependable systems, built with the lightest combination of process and
             technology that will genuinely hold. Our work is designed for SMEs, startups, agencies,
-            consultants, and service businesses, with Kenya as our primary market and East Africa as
-            our wider focus.
+            consultants, and service businesses, with Kenya as our primary market, East Africa as our
+            wider focus, and clients further afield always welcome.
           </p>
 
           <h2>The challenges businesses face today</h2>
@@ -89,8 +89,8 @@ export default function AboutPage() {
 
           <h2>Where we are going</h2>
           <p>
-            Our long-term aim is to be the partner growing businesses in Kenya and East Africa
-            trust with how their work runs: the website that wins the enquiry, the systems that
+            Our long-term aim is to be the partner growing businesses across Kenya, East Africa, and
+            beyond trust with how their work runs: the website that wins the enquiry, the systems that
             answer it quickly, and the content that keeps earning attention in between. We are
             building openly toward that, publishing what we learn along the way in our{" "}
             <Link href="/blog">insights library</Link> so you can judge our thinking before you

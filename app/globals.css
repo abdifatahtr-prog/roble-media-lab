@@ -718,6 +718,9 @@ body[data-consent="open"] .whatsapp-fab { opacity: 0; visibility: hidden; pointe
 .price-factors li::before { content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
 .price-terms { margin-top: 22px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--cloud); font-size: 14px; }
 .price-terms strong { color: var(--ink); }
+/* Currency note under the website packages: a quiet, centred line that reassures
+   international visitors without pulling focus from the KES prices above it. */
+.price-currency-note { margin: 30px auto 0; max-width: 62ch; text-align: center; font-size: 14px; line-height: 1.7; color: var(--slate); }
 
 @media (max-width: 960px) {
   .price-grid { grid-template-columns: 1fr; }
