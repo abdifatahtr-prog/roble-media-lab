@@ -33,7 +33,7 @@ const content = {
     steps: [
       ["Check your inbox", "Your confirmation and calendar invite should arrive shortly. Add it to your calendar."],
       ["Have a quick think", "Jot down the workflow, content challenge, or AI idea you'd like to talk through."],
-      ["We keep it useful", "Thirty focused minutes, no jargon, no pressure, just an honest look at what could help."]
+      ["We keep it useful", "30 focused minutes, no jargon, no pressure, just an honest look at what could help."]
     ]
   }
 } as const;
