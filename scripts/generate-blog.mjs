@@ -78,6 +78,26 @@ function addHeadingAnchors(html) {
   return { html: out, toc };
 }
 
+// If a post has an "## FAQ" or "## Frequently asked questions" section, pull
+// its h3/answer pairs out as structured data for FAQPage schema. The section
+// still renders normally in the article body; this just gives search engines
+// a machine-readable copy alongside it. No match = no schema, not an error.
+function extractFaqs(html, toc) {
+  const heading = toc.find((t) => /^(frequently asked questions|faqs?)$/i.test(t.text.trim()));
+  if (!heading) return [];
+  const sectionMatch = html.match(new RegExp(`<h2 id="${heading.id}">[\\s\\S]*?</h2>([\\s\\S]*?)(?=<h2[ >]|$)`));
+  if (!sectionMatch) return [];
+  const faqs = [];
+  const entryRegex = /<h3>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3>|$)/g;
+  let m;
+  while ((m = entryRegex.exec(sectionMatch[1]))) {
+    const question = decodeEntities(m[1].replace(/<[^>]+>/g, "")).trim();
+    const answerText = decodeEntities(m[2].replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+    if (question && answerText) faqs.push({ question, answerText });
+  }
+  return faqs;
+}
+
 const CALLOUT_LABELS = { NOTE: "Note", TIP: "Tip", WARNING: "Warning" };
 
 // Post-processing that Markdown itself cannot express.
@@ -161,6 +181,7 @@ function build() {
 
       const words = countWords(content);
       const { html, toc } = addHeadingAnchors(enhance(marked.parse(content)));
+      const faqs = extractFaqs(html, toc);
       return {
         slug,
         draft: data.draft === true,
@@ -177,6 +198,7 @@ function build() {
         cover,
         coverAlt: cover && data.coverAlt ? String(data.coverAlt) : null,
         toc,
+        faqs,
         html
       };
     })

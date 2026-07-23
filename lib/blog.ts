@@ -37,7 +37,9 @@ export type PostMeta = {
 
 export type TocEntry = { id: string; text: string };
 
-export type Post = PostMeta & { html: string; toc: TocEntry[] };
+export type Faq = { question: string; answerText: string };
+
+export type Post = PostMeta & { html: string; toc: TocEntry[]; faqs: Faq[] };
 
 /**
  * A table of contents earns its place on long pieces only: on a short post it

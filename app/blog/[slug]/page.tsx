@@ -69,6 +69,21 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     ]
   };
 
+  // Only present when the post has an "## FAQ" / "## Frequently asked
+  // questions" section (extracted at build time in scripts/generate-blog.mjs).
+  const faqSchema =
+    post.faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: { "@type": "Answer", text: faq.answerText }
+          }))
+        }
+      : null;
+
   return (
     <>
       <ReadingProgress />
@@ -117,6 +132,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
     </>
   );
 }
