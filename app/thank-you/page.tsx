@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArticleCard } from "@/components/article-card";
-import { ArrowRight, ArrowUpRight, CheckIcon } from "@/components/icons";
+import { ArrowUpRight, CheckIcon } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { getAllPosts } from "@/lib/blog";
 import { site } from "@/content/site";
@@ -18,11 +18,11 @@ const content = {
   enquiry: {
     eyebrow: "Enquiry received",
     title: "Thank You!",
-    lead: "We've received your enquiry and will respond within one business day.",
+    lead: "Your enquiry has been received and a member of our team will review it personally.",
     steps: [
-      ["We read it properly", "A real person reviews what you sent, not an autoresponder pretending to be one."],
+      ["We review your enquiry", "A member of our team reads what you sent and looks properly at what you need."],
       ["We reply within one business day", "You'll get a straight answer about whether there's a sensible way to help."],
-      ["We find a time to talk", "If it looks like a fit, we'll invite you to a free, no-pressure discovery call."],
+      ["We find a time to talk", "If we can genuinely help, we'll invite you to a free 30-minute discovery call."],
       ["You get a clear proposal", "A simple plan for the next practical step, with no obligation."]
     ]
   },
@@ -66,12 +66,11 @@ export default async function ThankYouPage({ searchParams }: { searchParams: Pro
           </div>
 
           <p className="ty-reassure">
-            <CheckIcon /> <span>No further action is needed from you right now. We&apos;ll be in touch.</span>
+            <CheckIcon /> <span>Nothing is needed from you in the meantime. We&apos;ll be in touch.</span>
           </p>
 
           <div className="button-row ty-actions">
             <Link className="button" href="/">Back to homepage <ArrowUpRight /></Link>
-            <Link className="text-link" href="/services">Explore our services <ArrowRight /></Link>
             {site.whatsapp && (
               <a
                 className="text-link"

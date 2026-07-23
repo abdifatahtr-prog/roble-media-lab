@@ -17,7 +17,7 @@ const trustBadges = [
 const nextSteps = [
   "We review your enquiry.",
   "We’ll reply within one business day.",
-  "If we believe we can genuinely help, we’ll invite you to a free discovery call.",
+  "If we can genuinely help, we’ll invite you to a free 30-minute discovery call.",
   "You’ll receive a clear proposal with no pressure."
 ];
 
