@@ -28,7 +28,19 @@ export const metadata: Metadata = {
   // homepage and told Google not to index them. Each page declares its own.
   // `types` is safe to cascade: it only advertises the RSS feed.
   alternates: { types: { "application/rss+xml": "/feed.xml" } },
-  icons: { icon: "/roble-media-lab-icon.svg", apple: "/roble-media-lab-icon.svg" },
+  // SVG first (sharp at any size, what modern browsers pick), then raster
+  // fallbacks. The .ico exists for older crawlers and scrapers that request
+  // /favicon.ico blindly and will not accept an SVG. Apple gets its own PNG
+  // because iOS paints transparent corners black instead of masking them.
+  icons: {
+    icon: [
+      { url: "/roble-media-lab-icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
+  },
   openGraph: {
     title: "Roble Media Lab",
     description: site.description,
