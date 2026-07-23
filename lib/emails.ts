@@ -180,14 +180,8 @@ export function renderConfirmationEmail(record: EnquiryRecord): RenderedEmail {
   const inner = `
     <p style="margin:0 0 4px;color:${BRAND.teal};font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;">Enquiry received</p>
     <h1 style="margin:0 0 18px;font-size:24px;line-height:1.25;color:${BRAND.ink};">Thank you, ${escapeHtml(firstName)}.</h1>
-    <p style="margin:0 0 16px;color:${BRAND.slate};font-size:15px;line-height:1.7;">
-      Your enquiry has been received and a member of our team will review it personally.
-    </p>
-    <p style="margin:0 0 16px;color:${BRAND.slate};font-size:15px;line-height:1.7;">
-      We'll be in touch <strong style="color:${BRAND.ink};">within one business day</strong>. If we believe we can genuinely help, we'll invite you to a free 30-minute discovery call to discuss the best next step for your business.
-    </p>
     <p style="margin:0 0 20px;color:${BRAND.slate};font-size:15px;line-height:1.7;">
-      There's nothing more you need to do right now. If your enquiry is urgent, simply reply to this email and we'll do our best to get back to you sooner.
+      Your enquiry has been received and a member of our team will review it personally.
     </p>
     <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px;">
       <tr><td style="background:${BRAND.cloud};border:1px solid ${BRAND.line};border-radius:12px;padding:12px 18px;color:${BRAND.slate};font-size:13px;">
@@ -195,15 +189,15 @@ export function renderConfirmationEmail(record: EnquiryRecord): RenderedEmail {
       </td></tr>
     </table>
     <p style="margin:0 0 2px;color:${BRAND.ink};font-size:13px;font-weight:700;letter-spacing:.02em;">What happens next</p>
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 26px;border-collapse:collapse;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 22px;border-collapse:collapse;">
       ${nextStep("We review your enquiry.")}
-      ${nextStep("We'll reply within one business day.")}
-      ${nextStep("If we're a good fit, we'll invite you to a free discovery call.")}
+      ${nextStep(`We'll reply <strong style="color:${BRAND.ink};">within one business day</strong>.`)}
+      ${nextStep("If we can genuinely help, we'll invite you to a free 30-minute discovery call.")}
     </table>
-    <p style="margin:0 0 8px;">
-      <a href="${site.url}/services" style="display:inline-block;background:${BRAND.ink};color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:12px 24px;border-radius:999px;">Explore our services</a>
+    <p style="margin:0 0 22px;color:${BRAND.slate};font-size:15px;line-height:1.7;">
+      Nothing is needed from you in the meantime. If your enquiry is urgent, just reply to this email.
     </p>
-    <p style="margin:26px 0 0;color:${BRAND.slate};font-size:14px;line-height:1.7;">
+    <p style="margin:0;color:${BRAND.slate};font-size:14px;line-height:1.7;">
       Warm regards,<br>The Roble Media Lab team
     </p>
   `;
@@ -213,18 +207,14 @@ export function renderConfirmationEmail(record: EnquiryRecord): RenderedEmail {
     ``,
     `Your enquiry has been received and a member of our team will review it personally.`,
     ``,
-    `We'll be in touch within one business day. If we believe we can genuinely help, we'll invite you to a free 30-minute discovery call to discuss the best next step for your business.`,
-    ``,
-    `There's nothing more you need to do right now. If your enquiry is urgent, simply reply to this email and we'll do our best to get back to you sooner.`,
-    ``,
     `Your reference: ${record.reference}`,
     ``,
     `What happens next`,
     `- We review your enquiry.`,
     `- We'll reply within one business day.`,
-    `- If we're a good fit, we'll invite you to a free discovery call.`,
+    `- If we can genuinely help, we'll invite you to a free 30-minute discovery call.`,
     ``,
-    `Explore our services: ${site.url}/services`,
+    `Nothing is needed from you in the meantime. If your enquiry is urgent, just reply to this email.`,
     ``,
     `Warm regards,`,
     `The Roble Media Lab team`
