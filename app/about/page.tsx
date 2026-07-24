@@ -89,9 +89,10 @@ export default function AboutPage() {
 
           <h2>Where we are going</h2>
           <p>
-            Our long-term aim is to be the partner growing businesses across Kenya, East Africa, and
-            beyond trust with how their work runs: the website that wins the enquiry, the systems that
-            answer it quickly, and the content that keeps earning attention in between. We are
+            Our long-term aim is to be the partner growing businesses trust with how their work runs —
+            rooted in Kenya, working across East Africa, and increasingly with clients around the world:
+            the website that wins the enquiry, the systems that answer it quickly, and the content that
+            keeps earning attention in between. We are
             building openly toward that, publishing what we learn along the way in our{" "}
             <Link href="/blog">insights library</Link> so you can judge our thinking before you
             ever pay for it.

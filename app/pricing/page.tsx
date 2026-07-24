@@ -8,7 +8,7 @@ import { ksh, priceFactors, servicePricing, site, websiteCarePlan, websitePackag
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "What our work costs, published up front. Website packages from KES 60,000, automation from KES 135,000, SEO from KES 45,000 a month. Built for small and growing businesses in Kenya and beyond.",
+    "What our work costs, published up front. Website packages from KES 60,000, automation from KES 135,000, SEO from KES 45,000 a month. Built for small and growing businesses in Kenya, and for international clients billed in USD or EUR on request.",
   alternates: { canonical: "/pricing" }
 };
 

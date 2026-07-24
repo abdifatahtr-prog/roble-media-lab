@@ -31,7 +31,7 @@ export function GET() {
     <title>${esc(site.name)} · Insights</title>
     <link>${site.url}/blog</link>
     <atom:link href="${site.url}/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>${esc("Practical notes on AI, business automation, websites, and SEO for growing businesses in Kenya, East Africa, and beyond.")}</description>
+    <description>${esc("Practical notes on AI, business automation, websites, and SEO — written in Kenya, useful anywhere you're growing a business.")}</description>
     <language>en</language>
 ${items}
   </channel>

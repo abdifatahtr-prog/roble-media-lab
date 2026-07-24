@@ -5,7 +5,7 @@ import { ArrowRight } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { services } from "@/content/site";
 
-export const metadata: Metadata = { title: "Services", description: "AI and business automation, business websites, SEO and content systems (creation, scheduling, and repurposing), and WhatsApp automation for growing businesses in Kenya, East Africa, and beyond.", alternates: { canonical: "/services" } };
+export const metadata: Metadata = { title: "Services", description: "AI and business automation, business websites, SEO and content systems (creation, scheduling, and repurposing), and WhatsApp automation — based in Kenya, working with clients internationally.", alternates: { canonical: "/services" } };
 
 export default function ServicesPage() {
   return <><PageHero eyebrow="Services" title="Solve the right problem, then build the right system."><p>Four focused ways we help: automating the work that repeats, building a website that earns its keep, turning content into a system that keeps earning attention, and turning WhatsApp into a dependable front door. Shaped around your business rather than a predetermined stack of tools.</p></PageHero>

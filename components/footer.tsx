@@ -33,7 +33,7 @@ export function Footer() {
             <Image src="/icon-light.svg" width={40} height={40} alt="" />
             <span>Roble <b>Media Lab</b></span>
           </Link>
-          <p>Practical AI, automation, and websites for growing businesses in Kenya, East Africa, and beyond.</p>
+          <p>Practical AI, automation, and websites — based in Kenya, working with growing businesses worldwide.</p>
           <a href={`mailto:${site.email}`}>{site.email}</a>
           {activeSocials.length > 0 && (
             <ul className="footer-social" aria-label="Roble Media Lab on social media">
